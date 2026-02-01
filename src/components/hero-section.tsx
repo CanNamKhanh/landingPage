@@ -57,6 +57,11 @@ export function HeroSection() {
             VIEW GAMES
           </Button>
           <Button
+            onClick={() => {
+              document.querySelector(".ts-book-form")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
             variant="outline"
             size="lg"
             className="border-2 cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent"
