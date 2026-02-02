@@ -32,7 +32,7 @@ function Header() {
           >
             Book Now
           </span>
-          <span className="cursor-pointer hover:text-[#FF1A8C]">About</span>
+          <span className="cursor-pointer hover:text-[#FF1A8C">About</span>
         </div>
         <div>
           <Button

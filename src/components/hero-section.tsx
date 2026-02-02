@@ -1,27 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Mouse } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614]">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 bg-[url('/bg.png')] bg-no-repeat bg-cover bg-[center_top_90px] opacity-40 blur-[10px]" />
+
       {/* Center glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,26,140,0.25)_0%,rgba(88,28,135,0.25)_35%,rgba(11,6,20,1)_70%)]" />
 
-      {/* Side glows */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,26,140,0.15),transparent_40%),radial-gradient(circle_at_80%_50%,rgba(168,85,247,0.15),transparent_40%)]" />
+      {/* Bottom dark shadow */}
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t via-black/40 to-transparent" />
 
-      {/* Glow background effect */}
+      {/* Overlay dark */}
       <div className="absolute inset-0 bg-linear-to-b from-pink-950/20 via-background to-background opacity-60" />
 
       <div className="relative z-10 text-center">
-        {/* Logo */}
-        <div className="mb-8 flex justify-center">
-          <div className="animate-float w-55 drop-shadow-[0_0_20px_#FF1A8Caa] h-55 bg-linear-to-br from-pink-500 via-pink-600 to-purple-600 rounded-lg flex items-center justify-center shadow-2xl shadow-pink-500/50">
-            <img src="/logo-DGwPK51i.png" alt="" />
-          </div>
-        </div>
-
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-text-pretty leading-tight">
           <span className="text-white">YOUR </span>
@@ -64,11 +61,15 @@ export function HeroSection() {
             }}
             variant="outline"
             size="lg"
-            className="border-2 cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent"
+            className="border-2 cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent hover:border-pink-500"
           >
             BOOK NOW
           </Button>
         </div>
+        <Mouse
+          strokeWidth={0.75}
+          className="scale-200 text-pink-500 animate-bounce font-thin left-1/2 right-1/2 absolute top-125"
+        />
       </div>
     </section>
   );
