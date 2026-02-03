@@ -66,11 +66,11 @@ export function HeroSection() {
             BOOK NOW
           </Button>
         </div>
-        <Mouse
-          strokeWidth={0.75}
-          className="scale-200 text-pink-500 animate-bounce font-thin left-1/2 right-1/2 absolute top-125"
-        />
       </div>
+      <Mouse
+        strokeWidth={0.75}
+        className="scale-200 text-pink-500 animate-bounce mt-10 -mb-15"
+      />
     </section>
   );
 }

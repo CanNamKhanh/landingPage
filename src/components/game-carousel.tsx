@@ -101,7 +101,7 @@ export function GameCarousel() {
           <div
             ref={scrollContainerRef}
             onScroll={checkScroll}
-            className="flex gap-7 overflow-x-scroll scrollbar-hide pt-10 pb-10"
+            className="flex gap-7 px-5 overflow-x-scroll scrollbar-hide pt-10 pb-10"
             style={{ scrollBehavior: "smooth" }}
           >
             {games.map((game) => (
