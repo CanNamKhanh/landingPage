@@ -79,7 +79,7 @@ export function GameCarousel() {
   };
 
   return (
-    <section className="ts-games bg-background py-20 px-4">
+    <section className="ts-games reveal bg-background py-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

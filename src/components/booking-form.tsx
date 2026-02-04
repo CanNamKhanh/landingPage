@@ -26,6 +26,7 @@ import { Spinner } from "./ui/spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooking } from "@/middlewares/bookingMiddleware";
 import type { AppDispatch, RootState } from "@/stores/store";
+import { toast } from "sonner";
 
 const schema = z.object({
   name: z.string().min(1, { message: "Name can not be blank!" }),
@@ -60,17 +61,20 @@ export function BookingForm() {
   });
 
   const onSubmit = async (data: FormData) => {
-    // console.log(data);
-
-    setTimeout(() => {
-      setOpen(true);
-    }, 1500);
-
-    dispatch(fetchBooking(data));
+    try {
+      await dispatch(fetchBooking(data)).unwrap();
+      setTimeout(() => {
+        setOpen(true);
+      }, 1500);
+      toast.success("Booking success!");
+    } catch (error) {
+      console.error("Booking failed", error);
+      toast.error("Booking failed. Please try again later!");
+    }
   };
 
   return (
-    <section className="ts-book-form bg-background py-20 px-4">
+    <section className="ts-book-form reveal bg-background py-20 px-4">
       <div className="max-w-3xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

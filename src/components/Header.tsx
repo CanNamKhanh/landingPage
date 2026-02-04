@@ -1,4 +1,12 @@
+import { Menu } from "lucide-react";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Header() {
   return (
@@ -6,12 +14,13 @@ function Header() {
       <div className="ts-1st-line flex items-center justify-between h-21 border-y border-gray-800 px-20">
         <div className="flex items-center gap-3 cursor-pointer">
           <img src="/logo-DGwPK51i.png" alt="" className="w-13" />
-          <div className="flex items-center text-xl">
+          <div className="hidden items-center text-xl sm:flex">
             <span className="font-bold text-white">Rosie</span>
             <span className="font-bold text-[#FF1A8C]">Boost</span>
           </div>
         </div>
-        <div className="text-gray-400 flex items-center gap-10">
+
+        <div className="text-gray-400 hidden items-center gap-10 md:flex">
           <span
             onClick={() => {
               document.querySelector(".ts-games")?.scrollIntoView({
@@ -32,9 +41,47 @@ function Header() {
           >
             Book Now
           </span>
-          <span className="cursor-pointer hover:text-[#FF1A8C">About</span>
+          <span className="cursor-pointer hover:text-[#FF1A8C]">About</span>
         </div>
-        <div>
+        <div className="flex gap-3 items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="block md:hidden">
+              <Button variant="outline" className="rounded-xl">
+                <Menu />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <span
+                    onClick={() => {
+                      document.querySelector(".ts-games")?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }}
+                    className="cursor-pointer"
+                  >
+                    Games
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span
+                    onClick={() => {
+                      document.querySelector(".ts-book-form")?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }}
+                    className="cursor-pointer"
+                  >
+                    Book Now
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span className="cursor-pointer">About</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             onClick={() => {
               document.querySelector(".ts-book-form")?.scrollIntoView({

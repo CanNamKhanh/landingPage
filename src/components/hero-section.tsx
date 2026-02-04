@@ -5,7 +5,7 @@ import { Mouse } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
+    <section className="relative reveal min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 bg-[url('/bg.png')] bg-no-repeat bg-cover bg-[center_top_90px] opacity-40 blur-[10px]" />
 
@@ -20,7 +20,7 @@ export function HeroSection() {
 
       <div className="relative z-10 text-center">
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-text-pretty leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-text-pretty leading-tight animate-slide-down delay-100">
           <span className="text-white">YOUR </span>
           <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
             LIGHT
@@ -30,7 +30,7 @@ export function HeroSection() {
         </h1>
 
         {/* Description */}
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto flex flex-col">
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto flex flex-col animate-slide-down delay-200">
           <span>
             Professional game boosting service. We carry your rank while you
             relax.
@@ -41,7 +41,7 @@ export function HeroSection() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-slide-down delay-300">
           <Button
             onClick={() => {
               document.querySelector(".ts-games")?.scrollIntoView({

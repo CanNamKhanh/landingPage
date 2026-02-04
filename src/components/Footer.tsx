@@ -4,12 +4,12 @@ function Footer() {
       <div className="ts-1st-line flex items-center justify-between h-30 border-y border-gray-800 px-20">
         <div className="flex items-center gap-3 cursor-pointer">
           <img src="/logo-DGwPK51i.png" alt="" className="w-10" />
-          <div className="flex items-center text-xl">
+          <div className="hidden items-center text-xl sm:flex">
             <span className="font-bold text-white">Rosie</span>
             <span className="font-bold text-[#FF1A8C]">Boost</span>
           </div>
         </div>
-        <div className="text-gray-400">
+        <div className="text-gray-400 md:block hidden">
           Your trusted partner in game boosting. Fast, safe, and reliable
           service.
         </div>
