@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://rosie-boost-back-end.vercel.app/";
+const baseURL = "https://rosie-boost-back-end.vercel.app";
 
 const axiosInstance = axios.create({
   baseURL,

@@ -11,7 +11,7 @@ interface BookingFormFields {
 }
 
 export const handleBooking = async (data: BookingFormFields) => {
-  const res = await axiosInstance.post("api/submit-form", data, {
+  const res = await axiosInstance.post("/api/submit-form", data, {
     headers: {
       "Content-Type": "application/json",
     },
