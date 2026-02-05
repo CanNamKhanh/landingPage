@@ -6,7 +6,7 @@ import { Mouse } from "lucide-react";
 export function HeroSection() {
   return (
     <section className="relative border-b reveal min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
-      <div className="absolute inset-0 w-full rounded-2xl overflow-hidden bg-[url('/bg.png')] bg-contain bg-center mt-20">
+      <div className="absolute inset-0 w-full rounded-2xl overflow-hidden bg-[url('/bg.jpg')] bg-contain bg-center mt-20">
         {/* Layer 1: làm ảnh chìm xuống */}
         <div className="absolute inset-0 bg-black/60" />
 
