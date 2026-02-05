@@ -5,18 +5,20 @@ import { Mouse } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative reveal min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 bg-[url('/bg.png')] bg-no-repeat bg-cover bg-[center_top_90px] opacity-40 blur-[10px]" />
+    <section className="relative border-b reveal min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
+      <div className="absolute inset-0 w-full rounded-2xl overflow-hidden bg-[url('/bg.png')] bg-contain bg-center mt-20">
+        {/* Layer 1: làm ảnh chìm xuống */}
+        <div className="absolute inset-0 bg-black/60" />
 
-      {/* Center glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,26,140,0.25)_0%,rgba(88,28,135,0.25)_35%,rgba(11,6,20,1)_70%)]" />
+        {/* Layer 2: vignette mạnh 4 cạnh */}
+        <div className="absolute inset-[-10%] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_35%,rgba(0,0,0,0.9)_100%)]" />
 
-      {/* Bottom dark shadow */}
-      <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t via-black/40 to-transparent" />
+        {/* Layer 3: gradient chéo giống ảnh */}
+        <div className="absolute inset-0 bg-linear-to-br from-black/90 via-black/30 to-black/90" />
 
-      {/* Overlay dark */}
-      <div className="absolute inset-0 bg-linear-to-b from-pink-950/20 via-background to-background opacity-60" />
+        {/* Layer 4: nối liền background với section bên dưới */}
+        <div className="absolute -bottom-24 h-24 w-full bg-linear-to-b from-[#0b0614]/80 via-black/40 to-transparent" />
+      </div>
 
       <div className="relative z-10 text-center">
         {/* Main Heading */}
