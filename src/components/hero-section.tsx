@@ -11,7 +11,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-black/60" />
 
         {/* Layer 2: vignette mạnh 4 cạnh */}
-        <div className="absolute inset-[-10%] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_35%,rgba(0,0,0,0.9)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_35%,rgba(0,0,0,0.9)_100%)]" />
 
         {/* Layer 3: gradient chéo giống ảnh */}
         <div className="absolute inset-0 bg-linear-to-br from-black/90 via-black/30 to-black/90" />
