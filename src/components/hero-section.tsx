@@ -30,7 +30,7 @@ export function HeroSection() {
         </h1>
 
         {/* Description */}
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto flex flex-col animate-slide-down delay-200">
+        <p className="text-lg font-semibold md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto flex flex-col animate-slide-down delay-200">
           <span>
             Professional game boosting service. We carry your rank while you
             relax.
@@ -63,7 +63,7 @@ export function HeroSection() {
             size="lg"
             className="border-2 cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent hover:border-pink-500"
           >
-            BOOK NOW
+            ORDER
           </Button>
         </div>
       </div>

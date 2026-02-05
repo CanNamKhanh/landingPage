@@ -10,7 +10,7 @@ export function StatsSection() {
   return (
     <section className="relative reveal w-full py-20 px-4 bg-background overflow-visible">
       {/* Glow background */}
-      <div className="absolute inset-0 bg-linear-to-r from-transparent via-[#ff1a8c1a] to-transparent blur-3xl" />
+      <div className="absolute left-1/2 top-1/2 h-[60%] -translate-x-1/2 -translate-y-1/2 bg-linear-to-r from-transparent via-[#ff1a8c1a] to-transparent blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="flex flex-col justify-center gap-32 sm:flex-row">

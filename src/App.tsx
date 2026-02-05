@@ -1,5 +1,8 @@
 import { Toaster } from "sonner";
 import MainLayout from "./layouts/MainLayout";
+import MainPage from "./pages/MainPage";
+import { Route, Routes } from "react-router-dom";
+import ServicePolicyPage from "./pages/ServicePolicyPage";
 
 function App() {
   return (
@@ -16,7 +19,12 @@ function App() {
         }}
       />
 
-      <MainLayout />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path={"/"} element={<MainPage />} />
+        </Route>
+        <Route path={"/service-policy"} element={<ServicePolicyPage />} />
+      </Routes>
     </>
   );
 }

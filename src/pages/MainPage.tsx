@@ -2,7 +2,9 @@ import { HeroSection } from "@/components/hero-section";
 import { GameCarousel } from "@/components/game-carousel";
 import { BookingForm } from "@/components/booking-form";
 import { StatsSection } from "@/components/starts-section";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowUp } from "lucide-react";
 
 function MainPage() {
   useEffect(() => {
@@ -26,12 +28,41 @@ function MainPage() {
     return () => observer.disconnect();
   }, []);
 
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <main className="bg-background">
+    <main className="bg-background relative">
       <HeroSection />
       <StatsSection />
       <GameCarousel />
       <BookingForm />
+
+      <Button
+        onClick={scrollToTop}
+        className={`
+        fixed right-10 bottom-10 z-50 rounded-full w-10 h-10
+        transition-all duration-300 text-white cursor-pointer hover:scale-110
+        ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
+      `}
+      >
+        <ArrowUp />
+      </Button>
     </main>
   );
 }
