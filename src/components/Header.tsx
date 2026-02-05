@@ -21,14 +21,14 @@ function Header() {
           </div>
         </NavLink>
 
-        <div className="text-gray-400 hidden items-center gap-10 md:flex">
+        <div className="text-gray-400 hidden items-center gap-15 md:flex">
           <span
             onClick={() => {
               document.querySelector(".ts-games")?.scrollIntoView({
                 behavior: "smooth",
               });
             }}
-            className="cursor-pointer hover:text-[#FF1A8C]"
+            className="cursor-pointer hover:text-[#FF1A8C] font-bold hover:scale-110"
           >
             Games
           </span>
@@ -38,13 +38,13 @@ function Header() {
                 behavior: "smooth",
               });
             }}
-            className="cursor-pointer hover:text-[#FF1A8C]"
+            className="cursor-pointer hover:text-[#FF1A8C] font-bold hover:scale-110"
           >
             Order
           </span>
           <NavLink
             to={"service-policy"}
-            className="cursor-pointer hover:text-[#FF1A8C]"
+            className="cursor-pointer hover:text-[#FF1A8C] font-bold hover:scale-110"
           >
             About
           </NavLink>
