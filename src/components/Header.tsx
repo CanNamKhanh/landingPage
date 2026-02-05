@@ -52,7 +52,7 @@ function Header() {
         <div className="flex gap-3 items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="block md:hidden">
-              <Button variant="outline" className="rounded-xl">
+              <Button variant="outline" className="rounded-xl cursor-pointer">
                 <Menu />
               </Button>
             </DropdownMenuTrigger>
