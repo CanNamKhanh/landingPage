@@ -35,7 +35,10 @@ const schema = z.object({
     .min(1, { message: "Email can not be blank!" })
     .email({ message: "Email format is invalid!" }),
   contactMethod: z.string().nonempty("Please choose your contact method!"),
-  contactInfo: z.string().min(1, { message: "Contact info can not be blank!" }),
+  contactInfo: z.string().min(1, {
+    message:
+      "Note: Provide your exact @username or a direct profile link (e.g., t.me/username, instagram.com/username) so we can find you quickly. Check your privacy settings!",
+  }),
   game: z.string().nonempty("Please choose your game!"),
   paymentMethod: z.string().nonempty("Please choose your payment method!"),
   boostingRequirements: z
