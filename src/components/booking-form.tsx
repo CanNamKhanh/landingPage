@@ -37,7 +37,7 @@ const schema = z.object({
   contactMethod: z.string().nonempty("Please choose your contact method!"),
   contactInfo: z.string().min(1, {
     message:
-      "Note: Provide your exact @username or a direct profile link (e.g., t.me/username, instagram.com/username) so we can find you quickly. Check your privacy settings!",
+      "Discord: username#0000 \nTelegram/IG: @username or Link \nWhatsApp: Phone number. \nIMPORTANT: Check your privacy settings to allow messages from strangers!",
   }),
   game: z.string().nonempty("Please choose your game!"),
   paymentMethod: z.string().nonempty("Please choose your payment method!"),
