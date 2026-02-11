@@ -25,7 +25,7 @@ function AcceptPaymentMethods() {
   return (
     <div className="mx-auto w-full select-none py-12 flex reveal flex-col items-center border-y border-gray-800 gap-10">
       <h2 className="text-gray-400 text-[14px]">ACCEPTED PAYMENT METHODS</h2>
-      <div className="flex items-center mx-auto gap-12">
+      <div className="flex items-center mx-auto gap-12 flex-wrap justify-center">
         {paymentMethods.map((item, index) => (
           <div
             key={index}

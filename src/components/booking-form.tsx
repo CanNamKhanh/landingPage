@@ -35,7 +35,7 @@ const schema = z.object({
     .min(1, { message: "Email can not be blank!" })
     .email({ message: "Email format is invalid!" }),
   contactMethod: z.string().nonempty("Please choose your contact method!"),
-  contactInfo: z.string().min(1, {
+  contactInfo: z.string().min(3, {
     message:
       "Discord: username#0000 | Telegram/IG: @username or Link | WhatsApp: Phone number. IMPORTANT: Check your privacy settings to allow messages from strangers!",
   }),
@@ -57,6 +57,7 @@ export function BookingForm() {
     register,
     handleSubmit,
     control,
+    trigger,
     formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -176,6 +177,7 @@ export function BookingForm() {
                 placeholder="Your Discord ID, Telegram username"
                 required
                 className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
+                onFocus={() => trigger("contactInfo")}
               />
               {errors?.contactInfo?.message && (
                 <span className="text-red-500 text-[12px]">
