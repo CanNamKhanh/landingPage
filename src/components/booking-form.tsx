@@ -77,17 +77,17 @@ export function BookingForm() {
   };
 
   return (
-    <section className="ts-book-form reveal bg-background py-20 px-4">
+    <section className="ts-book-form reveal select-none py-20 px-4">
       <div className="max-w-3xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+          <h2 className="text-5xl md:text-4xl font-bold mb-4">
             <span className="text-white">BOOK YOUR </span>
             <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
               BOOST
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-[16px] text-muted-foreground">
             Fill in the form below and we'll get back to you within 24 hours
           </p>
         </div>

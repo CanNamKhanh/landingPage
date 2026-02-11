@@ -79,17 +79,17 @@ export function GameCarousel() {
   };
 
   return (
-    <section className="ts-games reveal bg-background py-20 px-4">
+    <section className="ts-games reveal py-20 px-4 select-none">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+          <h2 className="text-5xl md:text-4xl font-bold mb-4">
             <span className="text-white">SELECT YOUR </span>
             <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
               GAME
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[16px] text-muted-foreground max-w-2xl mx-auto">
             Choose your game and let our professional boosters carry you to
             glory
           </p>
@@ -101,7 +101,7 @@ export function GameCarousel() {
           <div
             ref={scrollContainerRef}
             onScroll={checkScroll}
-            className="flex gap-7 px-5 overflow-x-scroll scrollbar-hide pt-10 pb-10"
+            className="flex gap-7 px-5 overflow-x-scroll scrollbar-hide py-10"
             style={{ scrollBehavior: "smooth" }}
           >
             {games.map((game) => (

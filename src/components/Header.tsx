@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { ChevronUp, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -11,15 +11,15 @@ import { NavLink } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="bg-[#09071631] w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md to-transparent via-[#0b0614]/80 from-[#0b0614]">
+    <div className="bg-[#09071631] select-none w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md to-transparent via-[#0b0614]/80 from-[#0b0614]">
       <div className="ts-1st-line flex items-center justify-between h-21 border-y border-gray-800 px-20">
-        <NavLink to={"/"} className="flex items-center gap-3 cursor-pointer">
-          <img src="/favicon.png" alt="" className="w-13" />
+        <a href="#" className="flex items-center gap-3 cursor-pointer">
+          <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
           <div className="hidden items-center text-xl sm:flex">
             <span className="font-bold text-white">Rosie</span>
             <span className="font-bold text-[#FF1A8C]">Boost</span>
           </div>
-        </NavLink>
+        </a>
 
         <div className="text-gray-400 hidden items-center gap-15 md:flex">
           <span
@@ -28,26 +28,44 @@ function Header() {
                 behavior: "smooth",
               });
             }}
-            className="cursor-pointer hover:text-[#FF1A8C] font-bold hover:scale-110"
-          >
-            Games
-          </span>
-          <span
-            onClick={() => {
-              document.querySelector(".ts-book-form")?.scrollIntoView({
-                behavior: "smooth",
-              });
-            }}
-            className="cursor-pointer hover:text-[#FF1A8C] font-bold hover:scale-110"
+            className="cursor-pointer hover:text-[#FF1A8C] hover:scale-110"
           >
             Order
           </span>
+
           <NavLink
             to={"service-policy"}
-            className="cursor-pointer hover:text-[#FF1A8C] font-bold hover:scale-110"
+            className="cursor-pointer hover:text-[#FF1A8C] hover:scale-110"
           >
-            About
+            Policy
           </NavLink>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className="group active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
+              <span>Contact Us</span>
+              <ChevronUp className=" group-data-[state=open]:rotate-180 transform duration-300" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-50 text-gray-500">
+              <DropdownMenuItem>
+                <NavLink to={"https://discord.com/invite/9rWNTFA9y6"}>
+                  Discord
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <NavLink to={"https://t.me/rosieboost"}>Telegram</NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <NavLink to={"https://www.facebook.com/rosieboostofficial/"}>
+                  Facebook
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <NavLink to={"https://www.instagram.com/rosieboostservice/"}>
+                  Instagram
+                </NavLink>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div className="flex gap-3 items-center">
           <DropdownMenu>

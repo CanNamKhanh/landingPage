@@ -1,10 +1,12 @@
 import { HeroSection } from "@/components/hero-section";
 import { GameCarousel } from "@/components/game-carousel";
 import { BookingForm } from "@/components/booking-form";
-import { StatsSection } from "@/components/starts-section";
+// import { StatsSection } from "@/components/starts-section";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
+import AcceptPaymentMethods from "@/components/payment-method";
+import CustomerReview from "@/components/CustomerReview";
 
 function MainPage() {
   useEffect(() => {
@@ -47,11 +49,13 @@ function MainPage() {
   };
 
   return (
-    <main className="bg-background relative">
+    <main className="bg-linear-to-b from-[#110A1E] to-[#1A0E22] relative">
       <HeroSection />
-      <StatsSection />
+      {/* <StatsSection /> */}
       <GameCarousel />
       <BookingForm />
+      <CustomerReview />
+      <AcceptPaymentMethods />
 
       <Button
         onClick={scrollToTop}
