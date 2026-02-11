@@ -53,7 +53,7 @@ function CustomerReview() {
           See what our clients say about their experience
         </span>
       </span>
-      <div className="w-full justify-center flex flex-wrap gap-8">
+      <div className="w-[83%] justify-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {customerReview.map((item, index) => (
           <div
             key={index}
