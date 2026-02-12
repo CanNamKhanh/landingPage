@@ -14,11 +14,12 @@ function Header() {
   return (
     <div className="bg-[#09071631] select-none w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-xl to-transparent">
       {/* Discount */}
-      <span className="text-white w-screen bg-pink-500 h-10 flex justify-center items-center">
-        🎉 Grand Opening Sale - Get{" "}
-        <span className="font-bold px-1.5">30% Off</span> for all Boosting
-        Services (Limited Time Only)
-      </span>
+      <div className="w-screen bg-pink-500 py-2 flex justify-center text-center items-center text-white">
+        <div>
+          🎉 Grand Opening Sale - Get <span className="font-bold">30% Off</span>{" "}
+          for all Boosting Services (Limited Time Only)
+        </div>
+      </div>
       {/* Discount */}
 
       <div className="via-[#0b0614]/80 from-[#0b0614]">

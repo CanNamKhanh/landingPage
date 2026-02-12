@@ -42,7 +42,7 @@ function CustomerReview() {
 
   return (
     <div className="w-full items-center flex flex-col gap-8 py-25 reveal">
-      <span className="flex flex-col items-center">
+      <span className="flex flex-col items-center text-center">
         <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none">
           CUSTOMER{" "}
           <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
