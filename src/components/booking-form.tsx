@@ -66,10 +66,10 @@ export function BookingForm() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await dispatch(fetchBooking(data)).unwrap();
-      setTimeout(() => {
+      const res = await dispatch(fetchBooking(data)).unwrap();
+      if (res) {
         setOpen(true);
-      }, 1500);
+      }
       toast.success("Booking success!");
     } catch (error) {
       console.error("Booking failed", error);

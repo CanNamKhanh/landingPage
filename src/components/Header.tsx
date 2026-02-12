@@ -5,6 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuSub,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { NavLink } from "react-router-dom";
@@ -85,26 +86,50 @@ function Header() {
                     }}
                     className="cursor-pointer"
                   >
-                    Games
+                    Order
                   </span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span
-                    onClick={() => {
-                      document.querySelector(".ts-book-form")?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                    }}
-                    className="cursor-pointer"
-                  >
-                    Book Now
-                  </span>
-                </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <NavLink to={"service-policy"} className="cursor-pointer">
-                    About
+                    Policy
                   </NavLink>
                 </DropdownMenuItem>
+
+                <DropdownMenuSub>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="group active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
+                      <span>Contact Us</span>
+                      <ChevronUp className=" group-data-[state=open]:rotate-180 transform duration-300" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-50 text-gray-500">
+                      <DropdownMenuItem>
+                        <NavLink to={"https://discord.com/invite/9rWNTFA9y6"}>
+                          Discord
+                        </NavLink>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <NavLink to={"https://t.me/rosieboost"}>
+                          Telegram
+                        </NavLink>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <NavLink
+                          to={"https://www.facebook.com/rosieboostofficial/"}
+                        >
+                          Facebook
+                        </NavLink>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <NavLink
+                          to={"https://www.instagram.com/rosieboostservice/"}
+                        >
+                          Instagram
+                        </NavLink>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </DropdownMenuSub>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>

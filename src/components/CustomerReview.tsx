@@ -57,7 +57,7 @@ function CustomerReview() {
         {customerReview.map((item, index) => (
           <div
             key={index}
-            className="border-gray-800 hover:scale-105 bg-[#120a21] hover:border-pink-500 transform duration-300 cursor-pointer border w-100 p-7 gap-3 rounded-xl flex flex-col justify-start"
+            className="border-gray-800 hover:scale-105 bg-[#120a21] hover:border-pink-500 transform duration-300 cursor-pointer border w-full p-7 gap-3 rounded-xl flex flex-col justify-start"
           >
             <div className="flex gap-1">
               {Array.from({ length: item.rated }).map((_, i) => (
