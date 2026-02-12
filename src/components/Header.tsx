@@ -14,7 +14,7 @@ function Header() {
   return (
     <div className="bg-[#09071631] select-none w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-xl to-transparent">
       {/* Discount */}
-      <div className="w-screen bg-pink-500 py-2 flex justify-center text-center items-center text-white">
+      <div className="w-full bg-pink-500 py-2 flex justify-center text-center items-center text-white">
         <div>
           🎉 Grand Opening Sale - Get <span className="font-bold">30% Off</span>{" "}
           for all Boosting Services (Limited Time Only)

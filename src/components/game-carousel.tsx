@@ -80,7 +80,7 @@ export function GameCarousel() {
 
   return (
     <section className="ts-games reveal py-20 px-4 select-none">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-296 mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-4xl font-bold mb-4">
