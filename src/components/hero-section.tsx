@@ -68,6 +68,10 @@ export function HeroSection() {
             ORDER
           </Button>
         </div>
+        <div className="border rounded-xl border-pink-500 text-gray-400 w-fit bg-[#260925] mx-auto -mt-10 text-[14px] px-5 py-3">
+          🔥 <span className="text-pink-500">30% OFF</span> Grand Opening —
+          Limited Time Only
+        </div>
       </div>
       <Mouse
         strokeWidth={0.75}
