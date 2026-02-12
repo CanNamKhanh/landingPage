@@ -44,7 +44,7 @@ function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className="group active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
               <span>Contact Us</span>
-              <ChevronUp className=" group-data-[state=open]:rotate-180 transform duration-300" />
+              <ChevronUp className="group-data-[state=open]:rotate-180 transform duration-300" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-50 text-gray-500">
               <DropdownMenuItem>
@@ -98,11 +98,11 @@ function Header() {
 
                 <DropdownMenuSub>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="group active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
+                    <DropdownMenuTrigger className="group text-[14px] px-2 active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
                       <span>Contact Us</span>
                       <ChevronUp className=" group-data-[state=open]:rotate-180 transform duration-300" />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-50 text-gray-500">
+                    <DropdownMenuContent className="w-50">
                       <DropdownMenuItem>
                         <NavLink to={"https://discord.com/invite/9rWNTFA9y6"}>
                           Discord
