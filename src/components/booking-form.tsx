@@ -57,12 +57,15 @@ export function BookingForm() {
     register,
     handleSubmit,
     control,
+    watch,
     trigger,
     formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onChange",
   });
+
+  const contactMethod = watch("contactMethod");
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -172,9 +175,44 @@ export function BookingForm() {
                 Contact Info <span className="text-accent">*</span>
               </label>
               <Input
-                {...register("contactInfo")}
+                {...register("contactInfo", {
+                  validate: (value) => {
+                    if (contactMethod === "whatsapp") {
+                      return (
+                        /^\d+$/.test(value) || "WhatsApp must be a phone number"
+                      );
+                    }
+                    if (contactMethod === "telegram") {
+                      return (
+                        /^@[a-zA-Z0-9_]{5,}$/.test(value) ||
+                        "Telegram must start with @"
+                      );
+                    }
+                    return true;
+                  },
+                })}
                 type="text"
-                placeholder="Your Discord ID, Telegram username"
+                inputMode={contactMethod === "whatsapp" ? "numeric" : "text"}
+                onChange={(e) => {
+                  let value = e.target.value;
+
+                  if (contactMethod === "whatsapp") {
+                    value = value.replace(/\D/g, "");
+                  }
+
+                  if (contactMethod === "telegram") {
+                    if (!value.startsWith("@")) {
+                      value = "@" + value.replace(/^@+/, "");
+                    }
+                  }
+
+                  e.target.value = value;
+                }}
+                placeholder={
+                  contactMethod === "whatsapp"
+                    ? "Phone number"
+                    : "Your Discord ID, Telegram username"
+                }
                 required
                 className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
                 onFocus={() => trigger("contactInfo")}
