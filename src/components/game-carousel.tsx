@@ -148,7 +148,7 @@ export function GameCarousel() {
           {canScrollLeft && (
             <Button
               size="icon"
-              className="absolute cursor-pointer left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-accent hover:bg-pink-500 text-primary-foreground rounded-full shadow-lg"
+              className="absolute hover:scale-105 cursor-pointer left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-accent hover:bg-pink-500 text-primary-foreground rounded-full shadow-lg"
               onClick={() => scroll("left")}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -157,7 +157,7 @@ export function GameCarousel() {
           {canScrollRight && (
             <Button
               size="icon"
-              className="absolute cursor-pointer right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-accent hover:bg-pink-500 text-primary-foreground rounded-full shadow-lg"
+              className="absolute hover:scale-105 cursor-pointer right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-accent hover:bg-pink-500 text-primary-foreground rounded-full shadow-lg"
               onClick={() => scroll("right")}
             >
               <ChevronRight className="w-6 h-6" />

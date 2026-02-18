@@ -61,7 +61,7 @@ function MainPage() {
         onClick={scrollToTop}
         className={`
         fixed right-10 bottom-10 z-50 rounded-full w-10 h-10
-        transition-all duration-300 text-white cursor-pointer hover:scale-110
+        transition-all duration-300 text-black cursor-pointer hover:scale-110
         ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
       `}
       >

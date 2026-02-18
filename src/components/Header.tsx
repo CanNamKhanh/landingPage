@@ -58,20 +58,31 @@ function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-50 text-gray-500">
                 <DropdownMenuItem>
-                  <NavLink to={"https://discord.com/invite/9rWNTFA9y6"}>
+                  <NavLink
+                    to={"https://discord.com/invite/9rWNTFA9y6"}
+                    className="w-full"
+                  >
                     Discord
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <NavLink to={"https://t.me/rosieboost"}>Telegram</NavLink>
+                  <NavLink to={"https://t.me/rosieboost"} className="w-full">
+                    Telegram
+                  </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <NavLink to={"https://www.facebook.com/rosieboostofficial/"}>
+                  <NavLink
+                    to={"https://www.facebook.com/rosieboostofficial/"}
+                    className="w-full"
+                  >
                     Facebook
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <NavLink to={"https://www.instagram.com/rosieboostservice/"}>
+                  <NavLink
+                    to={"https://www.instagram.com/rosieboostservice/"}
+                    className="w-full"
+                  >
                     Instagram
                   </NavLink>
                 </DropdownMenuItem>
@@ -114,18 +125,25 @@ function Header() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="w-50">
                         <DropdownMenuItem>
-                          <NavLink to={"https://discord.com/invite/9rWNTFA9y6"}>
+                          <NavLink
+                            to={"https://discord.com/invite/9rWNTFA9y6"}
+                            className="w-full"
+                          >
                             Discord
                           </NavLink>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                          <NavLink to={"https://t.me/rosieboost"}>
+                          <NavLink
+                            to={"https://t.me/rosieboost"}
+                            className="w-full"
+                          >
                             Telegram
                           </NavLink>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <NavLink
                             to={"https://www.facebook.com/rosieboostofficial/"}
+                            className="w-full"
                           >
                             Facebook
                           </NavLink>
@@ -133,6 +151,7 @@ function Header() {
                         <DropdownMenuItem>
                           <NavLink
                             to={"https://www.instagram.com/rosieboostservice/"}
+                            className="w-full"
                           >
                             Instagram
                           </NavLink>

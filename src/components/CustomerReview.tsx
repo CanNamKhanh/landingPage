@@ -5,38 +5,37 @@ function CustomerReview() {
     {
       rated: 5,
       content:
-        "Got my Valorant account from Gold to Diamond in just 2 days. Super professional and kept me updated the whole time. Highly recommend!",
-      name: "Alex T.",
+        "Great players, good communication, followed all instructions. Completed boost in less than 3 days. Highly recommend.",
+      name: "zzc**",
     },
     {
       rated: 5,
       content:
-        "Best boosting service I've used. My League account went from Silver to Platinum smoothly. No issues at all, very trustworthy team.",
-      name: "Sarah M.",
+        "Is a very nice person fast and secure and very kind love u roosie 😃",
+      name: "dar*******",
     },
     {
       rated: 5,
       content:
-        "Fast delivery and great communication through Discord. They finished my CS2 boost ahead of schedule. Will definitely come back!",
-      name: "AJames K.",
+        "Greatest TFT booster in the game. Fast, efficient and very good communication. If you're looking for a booster then look no further, this guy is the best!",
+      name: "sin*****",
+    },
+    {
+      rated: 5,
+      content: "Very fast completed immo 1 to rad boost in 4 days",
+      name: "mira**********",
     },
     {
       rated: 5,
       content:
-        "I was skeptical at first but RosieBoost proved me wrong. Account was safe, boost was done manually, and the price was fair.",
-      name: "Minh D.",
+        "Delivered within 2 days even though I gave him the wrong log in the first time ❤️❤️❤️",
+      name: "fond*****",
     },
     {
       rated: 5,
       content:
-        "Amazing service for TFT ranked boost! They explained everything clearly and delivered exactly what was promised. 10/10!",
-      name: "Luna W.",
-    },
-    {
-      rated: 5,
-      content:
-        "Used their service for Arena Breakout. Very smooth process from payment to completion. The booster was skilled and efficient.",
-      name: "Chris P.",
+        "Again used Rosie to help me reach immo 1. Best booster in the market ❤",
+      name: "head*******",
     },
   ];
 
@@ -57,17 +56,21 @@ function CustomerReview() {
         {customerReview.map((item, index) => (
           <div
             key={index}
-            className="border-gray-800 hover:scale-105 bg-[#120a21] hover:border-pink-500 transform duration-300 cursor-pointer border w-full p-7 gap-3 rounded-xl flex flex-col justify-start"
+            className="border-gray-800 h-50 hover:scale-105 bg-[#120a21] hover:border-pink-500 transform duration-300 cursor-pointer border w-full p-7 gap-3 rounded-xl flex flex-col justify-between"
           >
-            <div className="flex gap-1">
-              {Array.from({ length: item.rated }).map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-4 h-4 text-pink-500 fill-pink-500 stroke-pink-500"
-                />
-              ))}
+            <div className="flex flex-col justify-start gap-3">
+              <div className="flex gap-1">
+                {Array.from({ length: item.rated }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 text-pink-500 fill-pink-500 stroke-pink-500"
+                  />
+                ))}
+              </div>
+              <span className="text-gray-400 text-[15px]">
+                "{item.content}"
+              </span>
             </div>
-            <span className="text-gray-400 text-[15px]">"{item.content}"</span>
             <span>{item.name}</span>
           </div>
         ))}
