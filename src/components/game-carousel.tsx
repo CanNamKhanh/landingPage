@@ -16,36 +16,59 @@ export function GameCarousel() {
       name: "Valorant",
       color: "from-red-600 to-orange-500",
       imgSrc: "/valorant.png",
+      services: [
+        "Rank Boosting",
+        "Placement Matches",
+        "Net Wins",
+        "Account Leveling",
+        "Coaching",
+      ],
     },
     {
       id: 2,
       name: "Arena Breakout: Infinite",
       color: "from-blue-600 to-cyan-500",
       imgSrc: "/arena-breakout.png",
+      services: [
+        "Koens Farming",
+        "Account Leveling",
+        "Rank Boosting",
+        "Quest Boosting",
+        "Titanium Case",
+      ],
     },
     {
       id: 3,
       name: "Teamfight Tactics",
       color: "from-purple-600 to-pink-500",
       imgSrc: "/tft.png",
+      services: ["Rank Boosting", "Placement Matches"],
     },
     {
       id: 4,
       name: "League of Legends",
       color: "from-yellow-600 to-orange-500",
       imgSrc: "/lol.png",
+      services: ["Rank Boosting", "Placement Matches", "Net Wins"],
     },
     {
       id: 5,
       name: "Counter-Strike 2",
       color: "from-cyan-600 to-blue-500",
       imgSrc: "/counter-strike.png",
+      services: ["Premier Boosting", "Rank Boosting", "Faceit Boosting"],
     },
     {
       id: 6,
       name: "Delta Force",
       color: "from-red-700 to-orange-600",
       imgSrc: "/delta-force.png",
+      services: [
+        "Tekniq Alloy Farming",
+        "Account Leveling",
+        "Rank Boosting",
+        "Quest Boosting",
+      ],
     },
   ];
 
@@ -101,7 +124,7 @@ export function GameCarousel() {
           <div
             ref={scrollContainerRef}
             onScroll={checkScroll}
-            className="flex gap-7 px-5 overflow-x-scroll scrollbar-hide py-10"
+            className="flex gap-7 px-10 overflow-x-scroll scrollbar-hide py-10"
             style={{ scrollBehavior: "smooth" }}
           >
             {games.map((game) => (
@@ -165,13 +188,27 @@ export function GameCarousel() {
           )}
         </div>
         {selectedGame && (
-          <div className="mt-14 text-center animate-fade-in">
-            <p className="text-lg text-muted-foreground mb-5">
+          <div className="mt-14 text-center animate-fade-in border w-82 rounded-xl p-5 mx-auto flex flex-col gap-5 sm:w-110 bg-linear-to-br from-[#1d1530] to-[#100E20] bg-clip-padding border-pink-500 ">
+            <p className="text-[16px] text-muted-foreground">
               Selected:{" "}
               <span className="text-accent font-semibold">
                 {selectedGame.name}
               </span>
             </p>
+
+            <div className="flex flex-col items-start gap-3">
+              <h2 className="text-[14px]">AVAILABLE SERVICES:</h2>
+              <ul>
+                {selectedGame.services.map((item) => (
+                  <li className="flex items-center gap-3">
+                    <span className="text-[#FF1A8C]">●</span>
+                    <span className="text-muted-foreground text-[14px]">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <Button
               onClick={() => {
@@ -180,7 +217,7 @@ export function GameCarousel() {
                 });
               }}
               size="lg"
-              className="bg-accent cursor-pointer text-white font-bold px-10 py-7 rounded-xl shadow-[0_0_30px_8px_rgba(236,72,153,0.3)] hover:shadow-[0_0_30px_8px_rgba(236,72,153,0.7)] transition-all"
+              className="bg-accent cursor-pointer text-white font-bold py-6 rounded-xl shadow-[0_0_30px_0px_rgba(236,72,153,0.3)] hover:shadow-[0_0_15px_3px_rgba(236,72,153,0.7)] transition-all"
             >
               CONTINUE TO BOOKING
             </Button>
