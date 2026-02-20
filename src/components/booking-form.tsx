@@ -80,6 +80,20 @@ export function BookingForm() {
     }
   };
 
+  const handleContactLinkText = () => {
+    if (contactMethod === "discord") {
+      return "https://discord.gg/9rWNTFA9y6";
+    } else if (contactMethod === "telegram") {
+      return "https://t.me/rosieboost";
+    } else if (contactMethod === "whatsapp") {
+      return "https://wa.me/84775602756";
+    } else if (contactMethod === "instagram") {
+      return "https://www.instagram.com/rosieboostservice/";
+    } else if (contactMethod === "facebook") {
+      return "https://www.facebook.com/rosieboostofficial/";
+    }
+  };
+
   return (
     <section className="ts-book-form reveal select-none py-20 px-4">
       <div className="max-w-3xl mx-auto">
@@ -159,7 +173,6 @@ export function BookingForm() {
                       <SelectItem value="whatsapp">WhatsApp</SelectItem>
                       <SelectItem value="facebook">Facebook</SelectItem>
                       <SelectItem value="instagram">Instagram</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
@@ -337,14 +350,12 @@ export function BookingForm() {
 
               <div className="my-6 p-4 bg-slate-800/50 rounded-lg border border-pink-500/20 hover:border-pink-500/40 transition-colors">
                 <a
-                  href="https://discord.gg/JjVzxkVEmE"
+                  href={handleContactLinkText()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center justify-between p-3 text-pink-400 hover:text-pink-300 transition-colors font-medium"
                 >
-                  <span className="break-all">
-                    https://discord.gg/JjVzxkVEmE
-                  </span>
+                  <span className="break-all">{handleContactLinkText()}</span>
                   <ExternalLink className="w-5 h-5 shrink-0 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
