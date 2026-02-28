@@ -6,7 +6,7 @@ function AcceptPaymentMethods() {
     },
     {
       imgSrc: "/btc.png",
-      title: "BTC",
+      title: "Crypto",
     },
     {
       imgSrc: "/wise.png",
