@@ -14,7 +14,7 @@ function Header() {
   return (
     <div className="bg-[#09071631] select-none w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-xl to-transparent">
       {/* Discount */}
-      <div className="w-full bg-pink-500 py-2 flex justify-center text-center items-center text-white">
+      <div className="w-full bg-[#00FF00] py-2 flex justify-center text-center items-center text-black">
         <div>
           🎉 Grand Opening Sale - Get <span className="font-bold">30% Off</span>{" "}
           for all Boosting Services (Limited Time Only)
@@ -28,7 +28,7 @@ function Header() {
             <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
             <div className="hidden items-center text-xl sm:flex">
               <span className="font-bold text-white">Rosie</span>
-              <span className="font-bold text-[#FF1A8C]">Boost</span>
+              <span className="font-bold text-[#00FF00]">Boost</span>
             </div>
           </a>
 
@@ -39,92 +39,142 @@ function Header() {
                   behavior: "smooth",
                 });
               }}
-              className="cursor-pointer hover:text-[#FF1A8C] hover:scale-110"
+              className="cursor-pointer hover:text-[#00FF00] hover:scale-110"
             >
               Order
             </span>
 
             <NavLink
               to={"service-policy"}
-              className="cursor-pointer hover:text-[#FF1A8C] hover:scale-110"
+              className="cursor-pointer hover:text-[#00FF00] hover:scale-110"
             >
               Policy
             </NavLink>
 
             <DropdownMenu>
-              <DropdownMenuTrigger className="group active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
+              <DropdownMenuTrigger className="group flex items-center gap-1 p-0 bg-transparent hover:bg-transparent hover:text-[#00FF00] hover:scale-110 transition-all duration-200 cursor-pointer outline-none">
                 <span>Contact Us</span>
-                <ChevronUp className="group-data-[state=open]:rotate-180 transform duration-300" />
+
+                <ChevronUp className="transition-transform duration-300 group-data-[state=open]:rotate-180" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-50 text-gray-500">
-                <DropdownMenuItem>
-                  <NavLink
-                    to={"https://discord.com/invite/9rWNTFA9y6"}
+
+              <DropdownMenuContent
+                align="center"
+                className="w-50 border border-white/10 bg-[#140022] text-gray-300 rounded-xl p-2"
+              >
+                <DropdownMenuItem
+                  asChild
+                  className="rounded-lg cursor-pointer outline-none transition-colors duration-200 data-highlighted:bg-[#00FF00] data-highlighted:text-black"
+                >
+                  <a
+                    href="https://discord.com/invite/9rWNTFA9y6"
+                    target="_blank"
+                    rel="noreferrer"
                     className="w-full"
                   >
                     Discord
-                  </NavLink>
+                  </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <NavLink to={"https://t.me/rosieboost"} className="w-full">
+
+                <DropdownMenuItem
+                  asChild
+                  className="rounded-lg cursor-pointer outline-none transition-colors duration-200 data-highlighted:bg-[#00FF00] data-highlighted:text-black"
+                >
+                  <a
+                    href="https://t.me/rosieboost"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full"
+                  >
                     Telegram
-                  </NavLink>
+                  </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <NavLink
-                    to={"https://www.facebook.com/rosieboostofficial/"}
+
+                <DropdownMenuItem
+                  asChild
+                  className="rounded-lg cursor-pointer outline-none transition-colors duration-200 data-highlighted:bg-[#00FF00] data-highlighted:text-black"
+                >
+                  <a
+                    href="https://www.facebook.com/rosieboostofficial/"
+                    target="_blank"
+                    rel="noreferrer"
                     className="w-full"
                   >
                     Facebook
-                  </NavLink>
+                  </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <NavLink
-                    to={"https://www.instagram.com/rosieboostservice/"}
+
+                <DropdownMenuItem
+                  asChild
+                  className="rounded-lg cursor-pointer outline-none transition-colors duration-200 data-highlighted:bg-[#00FF00] data-highlighted:text-black"
+                >
+                  <a
+                    href="https://www.instagram.com/rosieboostservice/"
+                    target="_blank"
+                    rel="noreferrer"
                     className="w-full"
                   >
                     Instagram
-                  </NavLink>
+                  </a>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
           <div className="flex gap-3 items-center">
             <DropdownMenu>
-              <DropdownMenuTrigger asChild className="block md:hidden">
-                <Button variant="outline" className="rounded-xl cursor-pointer">
+              <DropdownMenuTrigger
+                asChild
+                className="block md:hidden shadow-none outline-none"
+              >
+                <Button
+                  variant="ghost"
+                  className="rounded-xl hover:bg-transparent cursor-pointer border border-[#00FF00]"
+                >
                   <Menu />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="">
+              <DropdownMenuContent
+                onCloseAutoFocus={(e) => {
+                  e.preventDefault();
+                }}
+                className=""
+              >
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="focus:bg-transparent data-highlighted:bg-transparent cursor-pointer">
                     <span
                       onClick={() => {
                         document.querySelector(".ts-games")?.scrollIntoView({
                           behavior: "smooth",
                         });
                       }}
-                      className="cursor-pointer"
+                      className="cursor-pointer hover:text-[#00FF00] hover:scale-110"
                     >
                       Order
                     </span>
                   </DropdownMenuItem>
 
-                  <DropdownMenuItem>
-                    <NavLink to={"service-policy"} className="cursor-pointer">
+                  <DropdownMenuItem className="focus:bg-transparent data-highlighted:bg-transparent cursor-pointer">
+                    <NavLink
+                      to={"service-policy"}
+                      className="cursor-pointer hover:text-[#00FF00] hover:scale-110"
+                    >
                       Policy
                     </NavLink>
                   </DropdownMenuItem>
 
                   <DropdownMenuSub>
                     <DropdownMenu>
-                      <DropdownMenuTrigger className="group text-[14px] px-2 active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#FF1A8C] hover:scale-110 p-0">
+                      <DropdownMenuTrigger className="group text-[14px] py-1 select-none px-2 active bg-transparent flex items-center gap-1 hover:bg-transparent cursor-pointer hover:text-[#00FF00] hover:scale-110 p-0">
                         <span>Contact Us</span>
-                        <ChevronUp className=" group-data-[state=open]:rotate-180 transform duration-300" />
+                        <ChevronUp className="group-data-[state=open]:rotate-180" />
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-50">
-                        <DropdownMenuItem>
+                      <DropdownMenuContent
+                        onCloseAutoFocus={(e) => {
+                          e.preventDefault();
+                        }}
+                        className="w-50"
+                      >
+                        <DropdownMenuItem className="focus:bg-[#00FF00] data-highlighted:bg-[#00FF00]">
                           <NavLink
                             to={"https://discord.com/invite/9rWNTFA9y6"}
                             className="w-full"
@@ -132,7 +182,7 @@ function Header() {
                             Discord
                           </NavLink>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-[#00FF00] data-highlighted:bg-[#00FF00]">
                           <NavLink
                             to={"https://t.me/rosieboost"}
                             className="w-full"
@@ -140,7 +190,7 @@ function Header() {
                             Telegram
                           </NavLink>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-[#00FF00] data-highlighted:bg-[#00FF00]">
                           <NavLink
                             to={"https://www.facebook.com/rosieboostofficial/"}
                             className="w-full"
@@ -148,7 +198,7 @@ function Header() {
                             Facebook
                           </NavLink>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="focus:bg-[#00FF00] data-highlighted:bg-[#00FF00]">
                           <NavLink
                             to={"https://www.instagram.com/rosieboostservice/"}
                             className="w-full"
@@ -164,11 +214,11 @@ function Header() {
             </DropdownMenu>
             <Button
               onClick={() => {
-                document.querySelector(".ts-book-form")?.scrollIntoView({
+                document.querySelector(".ts-games")?.scrollIntoView({
                   behavior: "smooth",
                 });
               }}
-              className="bg-[#FF1A8C] text-white font-bold px-6 rounded-xl transition-all duration-300 hover:shadow-[0_0_25px_6px_rgba(255,26,140,0.6)] cursor-pointer hover:bg-[#f7288f]"
+              className="bg-[#00FF00] text-black font-bold px-6 rounded-xl transition-all duration-300 hover:shadow-[0_0_25px_6px_rgba(0,255,0,0.35)] cursor-pointer hover:bg-[#00FF00]"
             >
               GET STARTED
             </Button>

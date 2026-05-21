@@ -75,7 +75,7 @@ export default function ConnectionMenu() {
           >
             <Button
               size="icon"
-              className="rounded-full bg-linear-to-br from-pink-500 via-red-500 to-yellow-500 w-12 h-12 hover:scale-110 cursor-pointer"
+              className="rounded-full bg-linear-to-br from-[#00FF00] via-red-500 to-yellow-500 w-12 h-12 hover:scale-110 cursor-pointer"
             >
               <Instagram className="text-white" />
             </Button>
@@ -87,7 +87,7 @@ export default function ConnectionMenu() {
       <Button
         size="icon"
         onClick={() => setOpen(!open)}
-        className="rounded-full bg-pink-500 hover:scale-110 cursor-pointer hover:bg-pink-600 w-12 h-12 shadow-lg"
+        className="rounded-full bg-[#00FF00] hover:scale-110 cursor-pointer hover:bg-[#00FF00] w-12 h-12 shadow-lg"
       >
         {open ? (
           <X className="text-white scale-120" />

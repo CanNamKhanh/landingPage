@@ -1,0 +1,729 @@
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { games, gameServers } from "@/services/gameService";
+import axiosInstance from "@/utils/axios";
+import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type ServerName = "AP" | "EU" | "KR" | "NA" | "LATAM" | "BR";
+
+interface ServerInfo {
+  id: number;
+  name: ServerName;
+  price: number;
+}
+
+// ─── Pricing Data ─────────────────────────────────────────────────────────────
+
+const RANK_ORDER = [
+  "Iron 1",
+  "Iron 2",
+  "Iron 3",
+  "Iron 4",
+  "Bronze 4",
+  "Bronze 3",
+  "Bronze 2",
+  "Bronze 1",
+  "Silver 4",
+  "Silver 3",
+  "Silver 2",
+  "Silver 1",
+  "Gold 4",
+  "Gold 3",
+  "Gold 2",
+  "Gold 1",
+  "Platinum 4",
+  "Platinum 3",
+  "Platinum 2",
+  "Platinum 1",
+  "Emerald 4",
+  "Emerald 3",
+  "Emerald 2",
+  "Emerald 1",
+  "Diamond 4",
+  "Diamond 3",
+  "Diamond 2",
+  "Diamond 1",
+  "Master",
+  //   "Grandmaster",
+  //   "Challenger",
+] as const;
+
+type RankName = (typeof RANK_ORDER)[number];
+
+// type RankPrice = number | string;
+
+const RANK_STEP_PRICE_AP: Record<RankName, number> = {
+  "Iron 4": 2.4,
+  "Iron 3": 2.4,
+  "Iron 2": 2.4,
+  "Iron 1": 2.4,
+  "Bronze 4": 3.2,
+  "Bronze 3": 3.2,
+  "Bronze 2": 3.2,
+  "Bronze 1": 3.2,
+  "Silver 4": 4.8,
+  "Silver 3": 4.8,
+  "Silver 2": 4.8,
+  "Silver 1": 4.8,
+  "Gold 4": 6.4,
+  "Gold 3": 6.4,
+  "Gold 2": 6.4,
+  "Gold 1": 6.4,
+  "Platinum 4": 8,
+  "Platinum 3": 8,
+  "Platinum 2": 8,
+  "Platinum 1": 8,
+  "Emerald 4": 9.6,
+  "Emerald 3": 9.6,
+  "Emerald 2": 9.6,
+  "Emerald 1": 9.6,
+  "Diamond 4": 12.8,
+  "Diamond 3": 12.8,
+  "Diamond 2": 12.8,
+  "Diamond 1": 12.8,
+  Master: 19.2,
+  //   Grandmaster: "To be decided",
+  //   Challenger: "To be decided",
+};
+
+const PLACEMENT_RANKS = [
+  "Unranked",
+  "Iron",
+  "Bronze",
+  "Silver",
+  "Gold",
+  "Platinum",
+  "Emerald",
+  "Diamond",
+  "Master",
+  "Grandmaster",
+  "Challenger",
+] as const;
+
+type PlacementRankName = (typeof PLACEMENT_RANKS)[number];
+
+const PLACEMENT_PRICE_AP: Record<PlacementRankName, number> = {
+  Unranked: 3,
+  Iron: 3,
+  Bronze: 3,
+  Silver: 3.6,
+  Gold: 4,
+  Platinum: 5,
+  Emerald: 6,
+  Diamond: 7,
+  Master: 10,
+  Grandmaster: 15,
+  Challenger: 20,
+};
+
+const MATCH_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
+type MatchCount = (typeof MATCH_OPTIONS)[number];
+
+const SERVER_MULTIPLIER: Record<ServerName, number> = {
+  AP: 1,
+  EU: 1.1,
+  KR: 1.1,
+  NA: 1.5,
+  LATAM: 1.5,
+  BR: 1.5,
+};
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function round2(n: number): number {
+  return parseFloat(n.toFixed(2));
+}
+
+function calcRankBoostPrice(
+  from: RankName,
+  to: RankName,
+  server: ServerName,
+): number {
+  const fromIdx = RANK_ORDER.indexOf(from);
+  const toIdx = RANK_ORDER.indexOf(to);
+  if (fromIdx < 0 || toIdx <= fromIdx) return 0;
+
+  let apSum = 0;
+  for (let i = fromIdx + 1; i <= toIdx; i++) {
+    // ← +1 là điểm sửa duy nhất
+    apSum += RANK_STEP_PRICE_AP[RANK_ORDER[i]];
+  }
+  return round2(apSum * SERVER_MULTIPLIER[server]);
+}
+
+function calcPlacementPrice(
+  matches: number,
+  rank: PlacementRankName,
+  server: ServerName,
+): number {
+  return round2(PLACEMENT_PRICE_AP[rank] * SERVER_MULTIPLIER[server] * matches);
+}
+
+function isValidEmail(val: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+}
+
+// ─── SelectField ──────────────────────────────────────────────────────────────
+
+interface SelectFieldProps<T extends string> {
+  label: string;
+  required?: boolean;
+  value: T | null;
+  options: readonly T[];
+  placeholder?: string;
+  onChange: (v: T) => void;
+}
+
+function SelectField<T extends string>({
+  label,
+  required,
+  value,
+  options,
+  placeholder = "Select",
+  onChange,
+}: SelectFieldProps<T>) {
+  const [open, setOpen] = useState(false);
+  const isSelected = value !== null;
+  const showGreen = open || isSelected;
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="text-sm font-medium text-white/80">
+        {label} {required && <span className="text-[#00FF00]">*</span>}
+      </div>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger asChild>
+          {/*
+            KEY FIX: shadcn Button applies focus-visible:ring-* which renders as
+            the pink/magenta ring after click. We override it completely here.
+          */}
+          <Button
+            className={[
+              "w-full cursor-pointer flex justify-between items-center text-sm font-medium transition-colors",
+
+              // kill all default focus styles
+              "outline-none! ring-0! shadow-none!",
+              "focus:outline-none! focus:ring-0! focus:shadow-none!",
+              "focus-visible:outline-none! focus-visible:ring-0! focus-visible:shadow-none!",
+
+              // custom green focus
+              "focus:border-[#00FF00] focus-visible:border-[#00FF00]",
+
+              showGreen
+                ? "bg-[#00FF00]/10 border border-[#00FF00] text-white hover:bg-[#00FF00]/15"
+                : "bg-[#25272D] border border-white/10 text-white/50 hover:bg-[#2f3137]",
+            ].join(" ")}
+          >
+            <span className={value ? "text-white" : "text-white/50"}>
+              {value ?? placeholder}
+            </span>
+            <svg
+              className={`w-4 h-4 opacity-60 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </Button>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent
+          className="bg-[#1a1c22] border border-[#333] z-50 max-h-64 overflow-y-auto"
+          style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}
+        >
+          {options.map((opt) => (
+            <DropdownMenuItem
+              key={opt}
+              className={[
+                "cursor-pointer text-sm transition-colors px-3 py-2",
+                "outline-none focus:outline-none",
+                value === opt
+                  ? "text-[#00FF00] bg-[#00FF00]/10 focus:text-[#00FF00] focus:bg-[#00FF00]/10"
+                  : "text-white/80 focus:text-[#00FF00] focus:bg-[#00FF00]/10",
+              ].join(" ")}
+              onSelect={() => {
+                onChange(opt);
+                setOpen(false);
+              }}
+            >
+              {opt}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+}
+
+// ─── PriceSummary ─────────────────────────────────────────────────────────────
+
+function PriceSummary({ price, label }: { price: number; label: string }) {
+  return (
+    <div className="rounded-xl bg-[#0d1a0d] border border-[#00FF00]/20 p-4 flex items-start justify-between">
+      <div>
+        <p className="text-xs text-white/40 mb-1">Total Price</p>
+        <p className="text-3xl font-extrabold text-[#00FF00]">
+          ${price.toFixed(2)}
+        </p>
+        <p className="text-xs text-white/40 mt-1">{label}</p>
+      </div>
+      <div className="text-right text-xs text-white/40">
+        <span className="text-base">🎉</span>
+        <p className="font-semibold text-white/60">Grand Opening</p>
+        <p>30% OFF — contact us</p>
+      </div>
+    </div>
+  );
+}
+
+// ─── CustomerFields ───────────────────────────────────────────────────────────
+
+interface CustomerFieldsProps {
+  name: string;
+  email: string;
+  nameError: string;
+  emailError: string;
+  onNameChange: (v: string) => void;
+  onEmailChange: (v: string) => void;
+}
+
+function CustomerFields({
+  name,
+  email,
+  nameError,
+  emailError,
+  onNameChange,
+  onEmailChange,
+}: CustomerFieldsProps) {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      {/* Name */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-medium text-white/80">
+          Your Name <span className="text-[#00FF00]">*</span>
+        </label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => onNameChange(e.target.value)}
+          placeholder="Full name"
+          className={`bg-[#25272D] border rounded-md px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none transition-colors
+            ${nameError ? "border-red-500 focus:border-red-500" : "border-white/10 focus:border-[#00FF00]/60"}`}
+        />
+        {nameError && <p className="text-xs text-red-500">{nameError}</p>}
+      </div>
+
+      {/* Email */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-medium text-white/80">
+          Email <span className="text-[#00FF00]">*</span>
+        </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => onEmailChange(e.target.value)}
+          placeholder="you@example.com"
+          className={`bg-[#25272D] border rounded-md px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none transition-colors
+            ${emailError ? "border-red-500 focus:border-red-500" : "border-white/10 focus:border-[#00FF00]/60"}`}
+        />
+        {emailError && <p className="text-xs text-red-500">{emailError}</p>}
+      </div>
+    </div>
+  );
+}
+
+// ─── PayButton ────────────────────────────────────────────────────────────────
+
+interface PayButtonProps {
+  price: number;
+  loading: boolean;
+  onPay: () => void;
+}
+
+function PayButton({ price, loading, onPay }: PayButtonProps) {
+  const disabled = loading || price <= 0;
+  return (
+    <button
+      onClick={onPay}
+      disabled={disabled}
+      className={`w-full py-4 rounded-xl font-extrabold text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-2
+        ${
+          disabled
+            ? "bg-[#00FF00]/30 text-black/40 cursor-not-allowed"
+            : "bg-[#00FF00] text-black hover:brightness-110 active:scale-[0.98] cursor-pointer"
+        }`}
+    >
+      {loading ? (
+        <>
+          <Loader2 size={16} className="animate-spin text-black/70" />
+          <span>Creating invoice...</span>
+        </>
+      ) : (
+        "PAY WITH PAYPAL"
+      )}
+    </button>
+  );
+}
+
+// ─── TermsLine ────────────────────────────────────────────────────────────────
+
+function TermsLine() {
+  return (
+    <p className="text-center text-xs text-white/40">
+      By making a payment, you agree to the{" "}
+      <NavLink
+        to="/service-policy"
+        className="text-[#00FF00] hover:underline cursor-pointer"
+      >
+        Terms &amp; Policies.
+      </NavLink>
+    </p>
+  );
+}
+
+// ─── ContactModal ─────────────────────────────────────────────────────────────
+
+function ContactModal({ onClose }: { onClose: () => void }) {
+  const contactLinks: { label: string; href: string }[] = [
+    { label: "Discord", href: "#" },
+    { label: "WhatsApp", href: "#" },
+    { label: "Telegram", href: "#" },
+    { label: "Instagram", href: "#" },
+    { label: "Facebook", href: "#" },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+      <div className="relative bg-[#14161c] border border-white/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+        >
+          <X size={18} />
+        </button>
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="w-14 h-14 rounded-full border-2 border-[#00FF00] flex items-center justify-center">
+            <CheckCircle className="text-[#00FF00]" size={32} />
+          </div>
+          <h2 className="text-2xl font-extrabold text-white">
+            Order placed successfully!
+          </h2>
+          <p className="text-sm text-white/50">
+            An invoice has been created and sent to your email. Please check
+            your inbox (including Spam) and complete the payment via PayPal.
+          </p>
+          <p className="text-sm text-white/60 font-medium">
+            Contact our booster to get started:
+          </p>
+          <div className="grid grid-cols-2 gap-2 w-full">
+            {contactLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="bg-[#25272D] hover:bg-[#2f3137] border border-white/10 text-white/80 hover:text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
+
+const tftGameObj = games.find((g) => g.name === "Teamfight Tactics");
+
+function TftBookingPage() {
+  const [curServer, setCurServer] = useState<ServerName>("AP");
+
+  // Rank Boosting
+  const [currentRank, setCurrentRank] = useState<RankName | null>(null);
+  const [desiredRank, setDesiredRank] = useState<RankName | null>(null);
+
+  // Placement Matches
+  const [placementMatches, setPlacementMatches] = useState<MatchCount | null>(
+    null,
+  );
+  const [placementRank, setPlacementRank] = useState<PlacementRankName | null>(
+    null,
+  );
+
+  // Form
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  // UI
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // TABS
+  const [activeTab, setActiveTab] = useState<
+    "Rank Boosting" | "Placement Matches"
+  >("Rank Boosting");
+
+  // Derived prices
+  const rankBoostPrice =
+    currentRank && desiredRank
+      ? calcRankBoostPrice(currentRank, desiredRank, curServer)
+      : 0;
+
+  const placementPrice =
+    placementMatches && placementRank
+      ? calcPlacementPrice(placementMatches, placementRank, curServer)
+      : 0;
+
+  const desiredRankOptions: RankName[] =
+    currentRank !== null
+      ? RANK_ORDER.filter(
+          (r) => RANK_ORDER.indexOf(r) > RANK_ORDER.indexOf(currentRank!),
+        )
+      : [];
+
+  function handleServerChange(s: ServerName) {
+    setCurServer(s);
+    setDesiredRank(null);
+  }
+
+  function handleCurrentRankChange(rank: RankName) {
+    setCurrentRank(rank);
+    setDesiredRank(null);
+  }
+
+  // Clear errors as user types
+  function handleNameChange(v: string) {
+    setName(v);
+    if (nameError) setNameError("");
+  }
+
+  function handleEmailChange(v: string) {
+    setEmail(v);
+    if (emailError) setEmailError("");
+  }
+
+  function validate(): boolean {
+    let valid = true;
+    if (!name.trim()) {
+      setNameError("Full name is required.");
+      valid = false;
+    }
+    if (!email.trim()) {
+      setEmailError("Email is required.");
+      valid = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      valid = false;
+    }
+    return valid;
+  }
+
+  async function handlePay() {
+    if (!validate()) return;
+
+    const isRankTab = activeTab === "Rank Boosting";
+    const price = isRankTab ? rankBoostPrice : placementPrice;
+    const label = isRankTab
+      ? `Tft Rank Boost · ${curServer} · ${currentRank} → ${desiredRank}`
+      : `Tft Placement · ${curServer} · ${placementMatches} match · ${placementRank}`;
+
+    if (price <= 0) return;
+
+    setLoading(true);
+    try {
+      const { data } = await axiosInstance.post("/paypal/create-invoice", {
+        customerName: name,
+        customerEmail: email,
+        serviceLabel: label,
+        amount: price,
+      });
+
+      console.log("Invoice created:", data);
+      setShowSuccess(true);
+    } catch (err) {
+      console.error(err);
+      alert("Có lỗi xảy ra khi tạo invoice. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const serverOptions = (gameServers as ServerInfo[]).map((s) => s.name);
+
+  // Shared form section for each tab
+  const formSection = (price: number, label: string) => (
+    <>
+      <PriceSummary price={price} label={label} />
+      <CustomerFields
+        name={name}
+        email={email}
+        nameError={nameError}
+        emailError={emailError}
+        onNameChange={handleNameChange}
+        onEmailChange={handleEmailChange}
+      />
+      <PayButton price={price} loading={loading} onPay={handlePay} />
+      <TermsLine />
+    </>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#0b0614] text-white">
+      {/* HEADER */}
+      <div className="bg-[#09071631] w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md">
+        <div className="flex items-center justify-between h-21 border-y border-gray-800 px-6 md:px-20">
+          <NavLink to={"/"} className="flex items-center gap-3 cursor-pointer">
+            <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
+            <div className="hidden items-center text-xl sm:flex">
+              <span className="font-bold text-white">Rosie</span>
+              <span className="font-bold text-[#00FF00]">Boost</span>
+            </div>
+          </NavLink>
+          <NavLink
+            to={"/"}
+            className="flex gap-2 font-medium text-gray-500 hover:text-[#00FF00] cursor-pointer transition-colors"
+          >
+            <ArrowLeft />
+            <span>Back To Home</span>
+          </NavLink>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div className="pt-35 pb-20 mx-auto max-w-2xl px-4">
+        {/* Game Info */}
+        <div className="flex items-center gap-7 mb-10">
+          <img
+            className="w-28 md:w-35 rounded-xl shadow-[0_0_50px_rgba(0,255,120,0.25)] drop-shadow-[0_0_20px_rgba(0,255,120,0.6)]"
+            src="/tft.png"
+            alt="Tft"
+          />
+          <div className="flex flex-col gap-2">
+            <h1 className="text-[#00FF00] text-xs tracking-widest uppercase font-semibold">
+              Select Service
+            </h1>
+            <h2 className="text-5xl font-extrabold">Teamfight Tactics</h2>
+            <p className="text-white/50 text-sm">Choose a service tab below.</p>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <Tabs
+          defaultValue="Rank Boosting"
+          onValueChange={(v) => setActiveTab(v as typeof activeTab)}
+          className="w-full flex flex-col gap-5"
+        >
+          <TabsList className="bg-[#191B1F] w-full">
+            {tftGameObj?.services.map((item, index) => (
+              <TabsTrigger
+                key={index}
+                className="cursor-pointer flex-1"
+                value={item}
+              >
+                {item}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {/* ── Rank Boosting ── */}
+          <TabsContent
+            value="Rank Boosting"
+            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+          >
+            <SelectField<ServerName>
+              label="Server"
+              required
+              value={curServer}
+              options={serverOptions as ServerName[]}
+              onChange={handleServerChange}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <SelectField<RankName>
+                label="Current Rank"
+                required
+                value={currentRank}
+                options={RANK_ORDER}
+                placeholder="Select rank"
+                onChange={handleCurrentRankChange}
+              />
+              <SelectField<RankName>
+                label="Desired Rank"
+                required
+                value={desiredRank}
+                options={desiredRankOptions}
+                placeholder="Select rank"
+                onChange={setDesiredRank}
+              />
+            </div>
+            {formSection(
+              rankBoostPrice,
+              `Tft Rank Boost · ${curServer} · ${currentRank ?? "?"} → ${desiredRank ?? "?"}`,
+            )}
+          </TabsContent>
+
+          {/* ── Placement Matches ── */}
+          <TabsContent
+            value="Placement Matches"
+            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+          >
+            <SelectField<ServerName>
+              label="Server"
+              required
+              value={curServer}
+              options={serverOptions as ServerName[]}
+              onChange={handleServerChange}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <SelectField<string>
+                label="Number of Matches"
+                required
+                value={
+                  placementMatches !== null ? String(placementMatches) : null
+                }
+                options={MATCH_OPTIONS.map(String)}
+                placeholder="Select"
+                onChange={(v) => setPlacementMatches(Number(v) as MatchCount)}
+              />
+              <SelectField<PlacementRankName>
+                label="Previous Season Rank"
+                required
+                value={placementRank}
+                options={PLACEMENT_RANKS}
+                placeholder="Select rank"
+                onChange={setPlacementRank}
+              />
+            </div>
+            {formSection(
+              placementPrice,
+              `Tft Placement · ${curServer} · ${placementMatches ?? 0} match · ${placementRank ?? "?"}`,
+            )}
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/* Success modal */}
+      {showSuccess && <ContactModal onClose={() => setShowSuccess(false)} />}
+    </div>
+  );
+}
+
+export default TftBookingPage;

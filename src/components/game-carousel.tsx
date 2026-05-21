@@ -3,78 +3,14 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { games } from "@/services/gameService";
+import { NavLink } from "react-router-dom";
 
 export function GameCarousel() {
-  //   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const games = [
-    {
-      id: 1,
-      name: "Valorant",
-      color: "from-red-600 to-orange-500",
-      imgSrc: "/valorant.png",
-      services: [
-        "Rank Boosting",
-        "Placement Matches",
-        "Net Wins",
-        "Account Leveling",
-        "Coaching",
-      ],
-    },
-    {
-      id: 2,
-      name: "Arena Breakout: Infinite",
-      color: "from-blue-600 to-cyan-500",
-      imgSrc: "/arena-breakout.png",
-      services: [
-        "Koens Farming",
-        "Account Leveling",
-        "Rank Boosting",
-        "Quest Boosting",
-        "Titanium Case",
-      ],
-    },
-    {
-      id: 3,
-      name: "Teamfight Tactics",
-      color: "from-purple-600 to-pink-500",
-      imgSrc: "/tft.png",
-      services: ["Rank Boosting", "Placement Matches"],
-    },
-    {
-      id: 4,
-      name: "League of Legends",
-      color: "from-yellow-600 to-orange-500",
-      imgSrc: "/lol.png",
-      services: ["Rank Boosting", "Placement Matches", "Net Wins"],
-    },
-    {
-      id: 5,
-      name: "Counter-Strike 2",
-      color: "from-cyan-600 to-blue-500",
-      imgSrc: "/counter-strike.png",
-      services: ["Premier Boosting", "Rank Boosting", "Faceit Boosting"],
-    },
-    {
-      id: 6,
-      name: "Delta Force",
-      color: "from-red-700 to-orange-600",
-      imgSrc: "/delta-force.png",
-      services: [
-        "Tekniq Alloy Farming",
-        "Account Leveling",
-        "Rank Boosting",
-        "Quest Boosting",
-      ],
-    },
-  ];
-
-  const [selectedGame, setSelectedGame] = useState<null | (typeof games)[0]>(
-    null,
-  );
   const checkScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } =
@@ -105,10 +41,10 @@ export function GameCarousel() {
     <section className="ts-games reveal py-20 px-4 select-none">
       <div className="max-w-296 mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center">
           <h2 className="text-5xl md:text-4xl font-bold mb-4">
             <span className="text-white">SELECT YOUR </span>
-            <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
+            <span className="text-[#00FF00] text-shadow-[0_0_20px_rgba(34,197,94,0.5)]">
               GAME
             </span>
           </h2>
@@ -124,29 +60,17 @@ export function GameCarousel() {
           <div
             ref={scrollContainerRef}
             onScroll={checkScroll}
-            className="flex gap-7 px-10 overflow-x-scroll scrollbar-hide py-10"
+            className="flex gap-7 px-10 overflow-x-scroll scrollbar-hide py-15"
             style={{ scrollBehavior: "smooth" }}
           >
             {games.map((game) => (
-              <div
+              <NavLink
+                to={game.href}
                 key={game.id}
-                onClick={() => {
-                  setSelectedGame((prev) =>
-                    prev?.id === game.id ? null : game,
-                  );
-                }}
-                className={`shrink-0 w-64 h-80 rounded-2xl overflow-hidden relative cursor-pointer transition-all duration-300 ${selectedGame?.id === game.id ? "scale-110 shadow-[0_0_50px_#FF1A8Caa] ring-2 ring-pink-500/70" : "hover:scale-105 hover:shadow-[0_0_40px_#FF1A8C66]"}`}
+                className={`shrink-0 w-64 h-80 rounded-2xl overflow-hidden relative cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_#22C55E]`}
               >
                 {/* Card */}
                 <div className="relative w-full h-full overflow-hidden">
-                  {selectedGame?.id === game.id && (
-                    <div className="absolute top-3 right-3 z-20">
-                      <div className="w-7 h-7 rounded-full bg-pink-500 flex items-center justify-center shadow-[0_0_15px_#FF1A8C]">
-                        <span className="text-white text-sm font-bold">✓</span>
-                      </div>
-                    </div>
-                  )}
-
                   {/* Image */}
                   <img
                     src={game.imgSrc}
@@ -163,7 +87,7 @@ export function GameCarousel() {
                     </h3>
                   </div>
                 </div>
-              </div>
+              </NavLink>
             ))}
           </div>
 
@@ -171,7 +95,7 @@ export function GameCarousel() {
           {canScrollLeft && (
             <Button
               size="icon"
-              className="absolute hover:scale-105 cursor-pointer left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-accent hover:bg-pink-500 text-primary-foreground rounded-full shadow-lg"
+              className="absolute hover:scale-105 cursor-pointer left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-[#00FF00] hover:bg-[#00FF00] text-primary-foreground rounded-full shadow-lg"
               onClick={() => scroll("left")}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -180,49 +104,13 @@ export function GameCarousel() {
           {canScrollRight && (
             <Button
               size="icon"
-              className="absolute hover:scale-105 cursor-pointer right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-accent hover:bg-pink-500 text-primary-foreground rounded-full shadow-lg"
+              className="absolute hover:scale-105 cursor-pointer right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-[#00FF00] hover:bg-[#00FF00] text-primary-foreground rounded-full shadow-lg"
               onClick={() => scroll("right")}
             >
               <ChevronRight className="w-6 h-6" />
             </Button>
           )}
         </div>
-        {selectedGame && (
-          <div className="mt-14 text-center animate-fade-in border w-82 rounded-xl p-5 mx-auto flex flex-col gap-5 sm:w-110 bg-linear-to-br from-[#1d1530] to-[#100E20] bg-clip-padding border-pink-500 ">
-            <p className="text-[16px] text-muted-foreground">
-              Selected:{" "}
-              <span className="text-accent font-semibold">
-                {selectedGame.name}
-              </span>
-            </p>
-
-            <div className="flex flex-col items-start gap-3">
-              <h2 className="text-[14px]">AVAILABLE SERVICES:</h2>
-              <ul>
-                {selectedGame.services.map((item) => (
-                  <li className="flex items-center gap-3">
-                    <span className="text-[#FF1A8C]">●</span>
-                    <span className="text-muted-foreground text-[14px]">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <Button
-              onClick={() => {
-                document.querySelector(".ts-book-form")?.scrollIntoView({
-                  behavior: "smooth",
-                });
-              }}
-              size="lg"
-              className="bg-accent cursor-pointer text-white font-bold py-6 rounded-xl shadow-[0_0_30px_0px_rgba(236,72,153,0.3)] hover:shadow-[0_0_15px_3px_rgba(236,72,153,0.7)] transition-all"
-            >
-              CONTINUE TO BOOKING
-            </Button>
-          </div>
-        )}
       </div>
     </section>
   );

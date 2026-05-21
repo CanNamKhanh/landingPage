@@ -24,7 +24,7 @@ export function StatsSection() {
                 {/* Glow behind number */}
                 <div className="absolute inset-0 w-50 mx-auto sm:w-auto blur-2xl bg-[#FF1A8C]/40 opacity-80 group-hover:opacity-100 transition-opacity" />
 
-                <div className="relative text-5xl md:text-6xl font-bold text-[#FF1A8C] drop-shadow-[0_0_20px_#FF1A8Caa]">
+                <div className="relative text-5xl md:text-6xl font-bold text-[#00FF00] drop-shadow-[0_0_20px_#FF1A8Caa]">
                   {stat.number}
                 </div>
               </div>

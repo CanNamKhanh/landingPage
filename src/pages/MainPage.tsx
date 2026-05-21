@@ -1,6 +1,6 @@
 import { HeroSection } from "@/components/hero-section";
 import { GameCarousel } from "@/components/game-carousel";
-import { BookingForm } from "@/components/booking-form";
+// import { BookingForm } from "@/components/booking-form";
 // import { StatsSection } from "@/components/starts-section";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -53,13 +53,14 @@ function MainPage() {
       <HeroSection />
       {/* <StatsSection /> */}
       <GameCarousel />
-      <BookingForm />
+      {/* <BookingForm /> */}
       <CustomerReview />
       <AcceptPaymentMethods />
 
       <Button
         onClick={scrollToTop}
         className={`
+          bg-[#00ff00] hover:bg-[#00ff00]
         fixed left-8 bottom-8 z-50 rounded-full w-10 h-10
         transition-all duration-300 text-black cursor-pointer hover:scale-110
         ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}

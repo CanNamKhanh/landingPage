@@ -40,11 +40,11 @@ function CustomerReview() {
   ];
 
   return (
-    <div className="w-full items-center flex flex-col gap-8 py-25 reveal">
+    <div className="w-full items-center flex flex-col gap-8 pb-25 reveal">
       <span className="flex flex-col items-center text-center">
         <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none">
           CUSTOMER{" "}
-          <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
+          <span className="text-[#00FF00] text-shadow-[0_0_20px_rgba(34,197,94,0.5)]">
             REVIEWS
           </span>
         </h2>
@@ -56,14 +56,14 @@ function CustomerReview() {
         {customerReview.map((item, index) => (
           <div
             key={index}
-            className="border-gray-800 h-50 hover:scale-105 bg-[#120a21] hover:border-pink-500 transform duration-300 cursor-pointer border w-full p-7 gap-3 rounded-xl flex flex-col justify-between"
+            className="border-gray-800 h-50 hover:scale-105 bg-[#120a21] hover:border-[#00FF00] transform duration-300 cursor-pointer border w-full p-7 gap-3 rounded-xl flex flex-col justify-between"
           >
             <div className="flex flex-col justify-start gap-3">
               <div className="flex gap-1">
                 {Array.from({ length: item.rated }).map((_, i) => (
                   <Star
                     key={i}
-                    className="w-4 h-4 text-pink-500 fill-pink-500 stroke-pink-500"
+                    className="w-4 h-4 text-[#00FF00] fill-[#00FF00] stroke-[#00FF00]"
                   />
                 ))}
               </div>

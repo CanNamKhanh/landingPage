@@ -101,7 +101,7 @@ export function BookingForm() {
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-4xl font-bold mb-4">
             <span className="text-white">BOOK YOUR </span>
-            <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
+            <span className="text-[#00FF00] text-shadow-[0_0_20px_rgba(34,197,94,0.5)]">
               BOOST
             </span>
           </h2>
@@ -113,20 +113,20 @@ export function BookingForm() {
         {/* Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="border-2 border-accent/50 rounded-lg p-8 backdrop-blur-sm bg-card/30 shadow-[0_0_20px_rgba(236,72,153,0.8)]"
+          className="border-2 border-[#00FF00]/50 rounded-lg p-8 backdrop-blur-sm bg-card/30 shadow-[0_0_20px_rgba(34,197,94,0.5)]"
         >
           {/* Name & Email Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-white font-semibold mb-3">
-                Name <span className="text-accent">*</span>
+                Name <span className="text-[#00FF00]">*</span>
               </label>
               <Input
                 {...register("name")}
                 type="text"
                 placeholder="Your name"
                 required
-                className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
+                className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-[#00FF00] focus:ring-[#00FF00]"
               />
               {errors?.name?.message && (
                 <span className="text-red-500 text-[12px]">
@@ -136,14 +136,14 @@ export function BookingForm() {
             </div>
             <div>
               <label className="block text-white font-semibold mb-3">
-                Email <span className="text-accent">*</span>
+                Email <span className="text-[#00FF00]">*</span>
               </label>
               <Input
                 {...register("email")}
                 type="email"
                 placeholder="your@email.com"
                 required
-                className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
+                className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-[#00FF00] focus:ring-[#00FF00]"
               />
               {errors?.email?.message && (
                 <span className="text-red-500 text-[12px]">
@@ -157,7 +157,7 @@ export function BookingForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-white font-semibold mb-3">
-                Contact Method <span className="text-accent">*</span>
+                Contact Method <span className="text-[#00FF00]">*</span>
               </label>
               <Controller
                 name="contactMethod"
@@ -185,7 +185,7 @@ export function BookingForm() {
             </div>
             <div>
               <label className="block text-white font-semibold mb-3">
-                Contact Info <span className="text-accent">*</span>
+                Contact Info <span className="text-[#00FF00]">*</span>
               </label>
               <Input
                 {...register("contactInfo", {
@@ -227,7 +227,7 @@ export function BookingForm() {
                     : "Your Discord ID, Telegram username"
                 }
                 required
-                className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent"
+                className="bg-card border-border/50 text-foreground placeholder:text-muted-foreground focus:border-[#00FF00] focus:ring-[#00FF00]"
                 onFocus={() => trigger("contactInfo")}
               />
               {errors?.contactInfo?.message && (
@@ -242,7 +242,7 @@ export function BookingForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-white font-semibold mb-3">
-                Game <span className="text-accent">*</span>
+                Game <span className="text-[#00FF00]">*</span>
               </label>
               <Controller
                 name="game"
@@ -273,7 +273,7 @@ export function BookingForm() {
             </div>
             <div>
               <label className="block text-white font-semibold mb-3">
-                Payment Method <span className="text-accent">*</span>
+                Payment Method <span className="text-[#00FF00]">*</span>
               </label>
               <Controller
                 name="paymentMethod"
@@ -309,14 +309,14 @@ export function BookingForm() {
           {/* Boosting Requirements */}
           <div className="mb-8">
             <label className="block text-white font-semibold mb-3">
-              Boosting Requirements <span className="text-accent">*</span>
+              Boosting Requirements <span className="text-[#00FF00]">*</span>
             </label>
             <textarea
               {...register("boostingRequirements")}
               placeholder="Describe what you need (e.g., 'Boost from Silver 2 to Diamond 1', 'Win 10 ranked games', etc.)"
               required
               rows={5}
-              className="w-full bg-card border border-border/50 rounded-lg p-4 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none resize-none"
+              className="w-full bg-card border border-border/50 rounded-lg p-4 text-foreground placeholder:text-muted-foreground focus:border-[#00FF00] focus:ring-2 focus:ring-[#00FF00]/20 focus:outline-none resize-none"
             />
             {errors?.boostingRequirements?.message && (
               <span className="text-red-500 text-[12px]">
@@ -330,30 +330,30 @@ export function BookingForm() {
           <Button
             disabled={!isValid}
             type="submit"
-            className="w-full bg-accent cursor-pointer text-white font-bold py-8 text-lg rounded-lg"
+            className="w-full bg-[#00FF00] cursor-pointer text-white font-bold py-8 text-lg rounded-lg"
           >
             {bookingState?.loading ? <Spinner /> : "SUBMIT ORDER"}
           </Button>
 
           {/* Dialog */}
           <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="w-120 [&>button]:hidden max-w-2xl border-pink-500/30 bg-linear-to-b from-slate-900 to-slate-950 sm:rounded-lg">
+            <DialogContent className="w-120 [&>button]:hidden max-w-2xl border-[#00FF00]/30 bg-linear-to-b from-slate-900 to-slate-950 sm:rounded-lg">
               <DialogHeader className="space-y-3 text-center">
                 <DialogTitle className="text-3xl font-bold text-white">
                   Thank you for choosing us!
                 </DialogTitle>
-                <div className="h-1 w-24 bg-linear-to-r from-pink-500 to-pink-600 mx-auto rounded-full" />
+                <div className="h-1 w-24 bg-linear-to-r from-[#00FF00] to-[#01e701] mx-auto rounded-full" />
                 <DialogDescription className="text-base text-slate-300 leading-relaxed pt-2">
                   Please join our discord server to proceed with the boost:
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="my-6 p-4 bg-slate-800/50 rounded-lg border border-pink-500/20 hover:border-pink-500/40 transition-colors">
+              <div className="my-6 p-4 bg-slate-800/50 rounded-lg border border-[#00FF00]/20 hover:border-[#00FF00]/40 transition-colors">
                 <a
                   href={handleContactLinkText()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between p-3 text-pink-400 hover:text-pink-300 transition-colors font-medium"
+                  className="group flex items-center justify-between p-3 text-[#00FF00] hover:text-[#00FF00] transition-colors font-medium"
                 >
                   <span className="break-all">{handleContactLinkText()}</span>
                   <ExternalLink className="w-5 h-5 shrink-0 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -361,14 +361,14 @@ export function BookingForm() {
               </div>
 
               <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-                <DialogClose className="border-2 cursor-pointer text-white hover:bg-accent/10 font-semibold px-4 py-3 text-lg rounded-xl bg-transparent hover:border-pink-500">
+                <DialogClose className="border-2 cursor-pointer text-white hover:bg-[#00FF00]/10 font-semibold px-4 py-3 text-lg rounded-xl bg-transparent hover:border-[#00FF00]">
                   Close
                 </DialogClose>
                 <Button
                   onClick={() =>
                     window.open("https://discord.gg/JjVzxkVEmE", "_blank")
                   }
-                  className="bg-accent cursor-pointer text-white hover:bg-pink-500 font-semibold px-4 py-7 text-lg rounded-xl shadow-sm shadow-pink-500/50 transition-all hover:shadow-[0_0_30px_8px_rgba(236,72,153,0.7)]"
+                  className="bg-[#00FF00] cursor-pointer text-white hover:bg-[#00FF00] font-semibold px-4 py-7 text-lg rounded-xl shadow-sm shadow-[#00FF00]/50 transition-all hover:shadow-[0_0_30px_8px_rgba(236,72,153,0.7)]"
                 >
                   Join Discord Server
                 </Button>

@@ -24,7 +24,7 @@ export function HeroSection() {
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-text-pretty leading-tight animate-slide-down delay-100 select-none">
           <span className="text-white">YOUR </span>
-          <span className="text-accent text-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
+          <span className="text-[#00FF00] text-shadow-[0_0_20px_rgba(34,197,94,0.5)]">
             LIGHT
           </span>
           <br />
@@ -37,7 +37,7 @@ export function HeroSection() {
             Professional game boosting service. We carry your rank while you
             relax.
           </span>
-          <span className="text-accent font-semibold">
+          <span className="text-[#00FF00] font-semibold">
             Fast, safe, and reliable.
           </span>
         </p>
@@ -51,7 +51,7 @@ export function HeroSection() {
               });
             }}
             size="lg"
-            className="bg-accent cursor-pointer text-white hover:bg-pink-500 font-semibold px-8 py-7 text-lg rounded-xl shadow-lg shadow-pink-500/50 transition-all hover:shadow-[0_0_30px_8px_rgba(236,72,153,0.7)]"
+            className="bg-[#00FF00] cursor-pointer text-black hover:bg-[#00FF00] font-semibold px-8 py-7 text-lg rounded-xl shadow-lg shadow-[#00FF00]/50 transition-all hover:shadow-[0_0_30px_8px_rgba(236,72,153,0.7)]"
           >
             VIEW GAMES
           </Button>
@@ -63,19 +63,19 @@ export function HeroSection() {
             }}
             variant="outline"
             size="lg"
-            className="border-2 select-none cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent hover:border-pink-500"
+            className="border-2 select-none cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent hover:border-[#00FF00]"
           >
             ORDER
           </Button>
         </div>
-        <div className="border rounded-xl border-pink-500 text-gray-400 w-fit bg-[#260925] mx-auto -mt-10 text-[14px] px-5 py-3">
-          🔥 <span className="text-pink-500">30% OFF</span> Grand Opening —
+        <div className="border rounded-xl border-[#00FF00] select-none text-gray-400 w-fit bg-[#260925] mx-auto -mt-10 text-[14px] px-5 py-3">
+          🔥 <span className="text-[#00FF00]">30% OFF</span> Grand Opening —
           Limited Time Only
         </div>
       </div>
       <Mouse
         strokeWidth={0.75}
-        className="scale-200 text-pink-500 animate-bounce mt-10 -mb-15"
+        className="scale-200 text-[#00FF00] animate-bounce mt-10 -mb-15"
       />
     </section>
   );
