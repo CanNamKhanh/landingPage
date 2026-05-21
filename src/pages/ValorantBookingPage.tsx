@@ -11,6 +11,7 @@ import axiosInstance from "@/utils/axios";
 import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -594,9 +595,10 @@ function ValorantBookingPage() {
 
       console.log("Invoice created:", data);
       setShowSuccess(true);
+      toast.success("Invoice created successfully");
     } catch (err) {
       console.error(err);
-      alert("Có lỗi xảy ra khi tạo invoice. Vui lòng thử lại.");
+      toast.error("Failed to create invoice. Please try again.");
     } finally {
       setLoading(false);
     }
