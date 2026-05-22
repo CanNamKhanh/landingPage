@@ -1,5 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import axiosInstance from "@/utils/axios";
+import {
+  submitABIAccountLeveling,
+  submitABIKoensFarming,
+  submitABIRaidBoost,
+  submitABITitaniumCase,
+  type BookingResult,
+} from "@/services/bookingService";
+// import axiosInstance from "@/utils/axios";
 import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -303,11 +310,14 @@ function SelectDropdown<T extends string | number>({
 
 function ContactModal({ onClose }: { onClose: () => void }) {
   const links = [
-    { label: "Discord", href: "#" },
-    { label: "WhatsApp", href: "#" },
-    { label: "Telegram", href: "#" },
-    { label: "Instagram", href: "#" },
-    { label: "Facebook", href: "#" },
+    { label: "Discord", href: "https://discord.gg/9rWNTFA9y6" },
+    { label: "WhatsApp", href: "https://wa.me/84775602756" },
+    { label: "Telegram", href: "https://t.me/rosieboost" },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/rosieboostservice/",
+    },
+    { label: "Facebook", href: "https://www.facebook.com/rosieboostofficial/" },
   ];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
@@ -326,11 +336,12 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             Order placed successfully!
           </h2>
           <p className="text-sm text-white/50">
-            An invoice has been created and sent to your email. Please check
-            your inbox (including Spam) and complete the payment via PayPal.
+            We have receiced your information. Your invoice will be shortly
+            created and sent to your email. Please check your inbox (and Spam
+            folder) to complete the payment.
           </p>
           <p className="text-sm text-white/60 font-medium">
-            Contact our booster to get started:
+            Contact us to get started right away:
           </p>
           <div className="grid grid-cols-2 gap-2 w-full">
             {links.map((l) => (
@@ -384,24 +395,44 @@ function useBookingForm() {
     return valid;
   }
 
-  async function handlePay(price: number, label: string) {
+  //PAYPAL COMMENT TO FIX
+  // async function handlePay(price: number, label: string) {
+  //   if (!validate()) return;
+  //   if (price <= 0) return;
+
+  //   setLoading(true);
+  //   try {
+  //     const { data } = await axiosInstance.post("/paypal/create-invoice", {
+  //       customerName: name,
+  //       customerEmail: email,
+  //       serviceLabel: label,
+  //       amount: price,
+  //     });
+  //     console.log("Invoice created:", data);
+  //     setShowSuccess(true);
+  //     toast.success("Invoice created successfully");
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to create invoice. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+  async function handlePay(
+    price: number,
+    submitFn: () => Promise<BookingResult>,
+  ) {
     if (!validate()) return;
     if (price <= 0) return;
 
     setLoading(true);
     try {
-      const { data } = await axiosInstance.post("/paypal/create-invoice", {
-        customerName: name,
-        customerEmail: email,
-        serviceLabel: label,
-        amount: price,
-      });
-      console.log("Invoice created:", data);
+      await submitFn();
       setShowSuccess(true);
-      toast.success("Invoice created successfully");
+      toast.success("Order submitted successfully");
     } catch (err) {
       console.error(err);
-      toast.error("Failed to create invoice. Please try again.");
+      toast.error("Failed to submit order. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -466,8 +497,18 @@ function KoensFarmingTab() {
       <CheckoutButton
         price={price}
         loading={loading}
+        // onPay={() =>
+        //   handlePay(price, `ABI Koens Farming · ${amount ?? "?"}M Koens`)
+        // }
         onPay={() =>
-          handlePay(price, `ABI Koens Farming · ${amount ?? "?"}M Koens`)
+          handlePay(price, () =>
+            submitABIKoensFarming({
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+              amountM: amount!,
+            }),
+          )
         }
       />
       <TermsLine />
@@ -551,10 +592,21 @@ function AccountLevelingTab() {
       <CheckoutButton
         price={price}
         loading={loading}
+        // onPay={() =>
+        //   handlePay(
+        //     price,
+        //     `ABI Account Leveling · Lv ${currentLevel} → Lv ${targetLevel ?? "?"}`,
+        //   )
+        // }
         onPay={() =>
-          handlePay(
-            price,
-            `ABI Account Leveling · Lv ${currentLevel} → Lv ${targetLevel ?? "?"}`,
+          handlePay(price, () =>
+            submitABIAccountLeveling({
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+              currentLevel,
+              targetLevel: targetLevel!,
+            }),
           )
         }
       />
@@ -695,10 +747,22 @@ function RaidBoostTab() {
       <CheckoutButton
         price={price}
         loading={loading}
+        // onPay={() =>
+        //   handlePay(
+        //     price,
+        //     `ABI Raid Boost · ${selectedMap ?? "?"} · ${selectedDiff ?? "?"} · ${runsNum > 0 ? runsNum : "?"} runs`,
+        //   )
+        // }
         onPay={() =>
-          handlePay(
-            price,
-            `ABI Raid Boost · ${selectedMap ?? "?"} · ${selectedDiff ?? "?"} · ${runsNum > 0 ? runsNum : "?"} runs`,
+          handlePay(price, () =>
+            submitABIRaidBoost({
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+              map: selectedMap!,
+              difficulty: selectedDiff!,
+              runs: runsNum,
+            }),
           )
         }
       />
@@ -781,10 +845,21 @@ function TitaniumCaseTab() {
       <CheckoutButton
         price={price}
         loading={loading}
+        // onPay={() =>
+        //   handlePay(
+        //     price,
+        //     `ABI Titanium Case · ${missions}/${TITANIUM_TOTAL_MISSIONS} missions`,
+        //   )
+        // }
         onPay={() =>
-          handlePay(
-            price,
-            `ABI Titanium Case · ${missions}/${TITANIUM_TOTAL_MISSIONS} missions`,
+          handlePay(price, () =>
+            submitABITitaniumCase({
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+              missions,
+              totalMissions: TITANIUM_TOTAL_MISSIONS,
+            }),
           )
         }
       />

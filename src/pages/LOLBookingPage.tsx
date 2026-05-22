@@ -6,8 +6,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  submitLOLPlacement,
+  submitLOLRankBoost,
+} from "@/services/bookingService";
 import { games, gameServers } from "@/services/gameService";
-import axiosInstance from "@/utils/axios";
+// import axiosInstance from "@/utils/axios";
 import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -402,11 +406,14 @@ function TermsLine() {
 
 function ContactModal({ onClose }: { onClose: () => void }) {
   const contactLinks: { label: string; href: string }[] = [
-    { label: "Discord", href: "#" },
-    { label: "WhatsApp", href: "#" },
-    { label: "Telegram", href: "#" },
-    { label: "Instagram", href: "#" },
-    { label: "Facebook", href: "#" },
+    { label: "Discord", href: "https://discord.gg/9rWNTFA9y6" },
+    { label: "WhatsApp", href: "https://wa.me/84775602756" },
+    { label: "Telegram", href: "https://t.me/rosieboost" },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/rosieboostservice/",
+    },
+    { label: "Facebook", href: "https://www.facebook.com/rosieboostofficial/" },
   ];
 
   return (
@@ -426,11 +433,12 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             Order placed successfully!
           </h2>
           <p className="text-sm text-white/50">
-            An invoice has been created and sent to your email. Please check
-            your inbox (including Spam) and complete the payment via PayPal.
+            We have receiced your information. Your invoice will be shortly
+            created and sent to your email. Please check your inbox (and Spam
+            folder) to complete the payment.
           </p>
           <p className="text-sm text-white/60 font-medium">
-            Contact our booster to get started:
+            Contact us to get started right away:
           </p>
           <div className="grid grid-cols-2 gap-2 w-full">
             {contactLinks.map((link) => (
@@ -538,32 +546,72 @@ function LOLBookingPage() {
     return valid;
   }
 
+  //PAYPAL COMMENTED TO FIX
+  // async function handlePay() {
+  //   if (!validate()) return;
+
+  //   const isRankTab = activeTab === "Rank Boosting";
+  //   const price = isRankTab ? rankBoostPrice : placementPrice;
+  //   const label = isRankTab
+  //     ? `LoL Rank Boost · ${curServer} · ${currentRank} → ${desiredRank}`
+  //     : `LoL Placement · ${curServer} · ${placementMatches} match · ${placementRank}`;
+
+  //   if (price <= 0) return;
+
+  //   setLoading(true);
+  //   try {
+  //     const { data } = await axiosInstance.post("/paypal/create-invoice", {
+  //       customerName: name,
+  //       customerEmail: email,
+  //       serviceLabel: label,
+  //       amount: price,
+  //     });
+
+  //     console.log("Invoice created:", data);
+  //     setShowSuccess(true);
+  //     toast.success("Invoice created successfully");
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to create invoice. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
   async function handlePay() {
     if (!validate()) return;
 
     const isRankTab = activeTab === "Rank Boosting";
     const price = isRankTab ? rankBoostPrice : placementPrice;
-    const label = isRankTab
-      ? `LoL Rank Boost · ${curServer} · ${currentRank} → ${desiredRank}`
-      : `LoL Placement · ${curServer} · ${placementMatches} match · ${placementRank}`;
-
     if (price <= 0) return;
 
     setLoading(true);
     try {
-      const { data } = await axiosInstance.post("/paypal/create-invoice", {
-        customerName: name,
-        customerEmail: email,
-        serviceLabel: label,
-        amount: price,
-      });
+      if (isRankTab) {
+        await submitLOLRankBoost({
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+          server: curServer,
+          currentRank: currentRank!,
+          desiredRank: desiredRank!,
+        });
+      } else {
+        await submitLOLPlacement({
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+          server: curServer,
+          numberOfMatches: placementMatches!,
+          previousSeasonRank: placementRank!,
+        });
+      }
 
-      console.log("Invoice created:", data);
       setShowSuccess(true);
-      toast.success("Invoice created successfully");
+      toast.success("Order submitted successfully");
     } catch (err) {
       console.error(err);
-      toast.error("Failed to create invoice. Please try again.");
+      toast.error("Failed to submit order. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -609,7 +657,7 @@ function LOLBookingPage() {
           </NavLink>
         </div>
       </div>
-      n{/* CONTENT */}
+      {/* CONTENT */}
       <div className="pt-29 pb-20 mx-auto max-w-2xl px-4">
         {/* Game Info */}
         <div className="flex items-center gap-7 mb-10">

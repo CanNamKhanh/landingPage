@@ -1,5 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import axiosInstance from "@/utils/axios";
+import {
+  submitDFAccountLeveling,
+  submitDFHazardOperation,
+  submitDFRankBoosting,
+  submitDFSeasonMission,
+  submitDFTekniqqAlloyyFarming,
+  type BookingResult,
+} from "@/services/bookingService";
+// import axiosInstance from "@/utils/axios";
 import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -362,11 +370,14 @@ function SelectDropdown<T extends string | number>({
 
 function ContactModal({ onClose }: { onClose: () => void }) {
   const links = [
-    { label: "Discord", href: "#" },
-    { label: "WhatsApp", href: "#" },
-    { label: "Telegram", href: "#" },
-    { label: "Instagram", href: "#" },
-    { label: "Facebook", href: "#" },
+    { label: "Discord", href: "https://discord.gg/9rWNTFA9y6" },
+    { label: "WhatsApp", href: "https://wa.me/84775602756" },
+    { label: "Telegram", href: "https://t.me/rosieboost" },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/rosieboostservice/",
+    },
+    { label: "Facebook", href: "https://www.facebook.com/rosieboostofficial/" },
   ];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
@@ -385,11 +396,12 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             Order placed successfully!
           </h2>
           <p className="text-sm text-white/50">
-            An invoice has been created and sent to your email. Please check
-            your inbox (including Spam) and complete the payment via PayPal.
+            We have receiced your information. Your invoice will be shortly
+            created and sent to your email. Please check your inbox (and Spam
+            folder) to complete the payment.
           </p>
           <p className="text-sm text-white/60 font-medium">
-            Contact our booster to get started:
+            Contact us to get started right away:
           </p>
           <div className="grid grid-cols-2 gap-2 w-full">
             {links.map((l) => (
@@ -443,25 +455,45 @@ function useBookingForm() {
     return valid;
   }
 
-  // ← nhận price và label từ mỗi tab
-  async function handlePay(price: number, label: string) {
+  //PAYPAL COMMENTED TO FIX
+  // async function handlePay(price: number, label: string) {
+  //   if (!validate()) return;
+  //   if (price <= 0) return;
+
+  //   setLoading(true);
+  //   try {
+  //     const { data } = await axiosInstance.post("/paypal/create-invoice", {
+  //       customerName: name,
+  //       customerEmail: email,
+  //       serviceLabel: label,
+  //       amount: price,
+  //     });
+  //     console.log("Invoice created:", data);
+  //     setShowSuccess(true);
+  //     toast.success("Invoice created successfully");
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to create invoice. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
+  async function handlePay(
+    price: number,
+    submitFn: () => Promise<BookingResult>,
+  ) {
     if (!validate()) return;
     if (price <= 0) return;
 
     setLoading(true);
     try {
-      const { data } = await axiosInstance.post("/paypal/create-invoice", {
-        customerName: name,
-        customerEmail: email,
-        serviceLabel: label,
-        amount: price,
-      });
-      console.log("Invoice created:", data);
+      await submitFn();
       setShowSuccess(true);
-      toast.success("Invoice created successfully");
+      toast.success("Order submitted successfully");
     } catch (err) {
       console.error(err);
-      toast.error("Failed to create invoice. Please try again.");
+      toast.error("Failed to submit order. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -511,11 +543,25 @@ function TekniqqAlloyyFarmingTab() {
         onNameChange={form.handleNameChange}
         onEmailChange={form.handleEmailChange}
       />
-      <CheckoutButton
+      {/* <CheckoutButton
         price={price}
         loading={form.loading}
         onPay={() =>
           form.handlePay(price, `Delta Force Tekniq Alloy · ${amount ?? "?"}M`)
+        }
+      /> */}
+      <CheckoutButton
+        price={price}
+        loading={form.loading}
+        onPay={() =>
+          form.handlePay(price, () =>
+            submitDFTekniqqAlloyyFarming({
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+              amountM: amount!,
+            }),
+          )
         }
       />
       <TermsLine />
@@ -587,9 +633,17 @@ function DFAccountLevelingTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          form.handlePay(
-            price,
-            `Delta Force Account Leveling · ${selectedLabel}`,
+          // form.handlePay(
+          //   price,
+          //   `Delta Force Account Leveling · ${selectedLabel}`,
+          // )
+          form.handlePay(price, () =>
+            submitDFAccountLeveling({
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+              selectedRanges: Array.from(selected),
+            }),
           )
         }
       />
@@ -714,9 +768,19 @@ function HazardOperationTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          form.handlePay(
-            price,
-            `Delta Force Hazard Op · ${selectedMap ?? "?"} · ${selectedDiff ?? "?"} · ${runsNum > 0 ? runsNum : "?"} runs`,
+          // form.handlePay(
+          //   price,
+          //   `Delta Force Hazard Op · ${selectedMap ?? "?"} · ${selectedDiff ?? "?"} · ${runsNum > 0 ? runsNum : "?"} runs`,
+          // )
+          form.handlePay(price, () =>
+            submitDFHazardOperation({
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+              map: selectedMap!,
+              difficulty: selectedDiff!,
+              runs: runsNum,
+            }),
           )
         }
       />
@@ -762,9 +826,16 @@ function SeasonMissionTab() {
         price={SEASON_MISSION_PRICE}
         loading={form.loading}
         onPay={() =>
-          form.handlePay(
-            SEASON_MISSION_PRICE,
-            "Delta Force Season Mission — Safebox (Full)",
+          // form.handlePay(
+          //   SEASON_MISSION_PRICE,
+          //   "Delta Force Season Mission — Safebox (Full)",
+          // )
+          form.handlePay(SEASON_MISSION_PRICE, () =>
+            submitDFSeasonMission({
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: SEASON_MISSION_PRICE,
+            }),
           )
         }
       />
@@ -837,9 +908,18 @@ function DFRankBoostingTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          form.handlePay(
-            price,
-            `Delta Force Rank Boost · ${currentRank ?? "?"} → ${desiredRank ?? "?"}`,
+          // form.handlePay(
+          //   price,
+          //   `Delta Force Rank Boost · ${currentRank ?? "?"} → ${desiredRank ?? "?"}`,
+          // )
+          form.handlePay(price, () =>
+            submitDFRankBoosting({
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+              currentRank: currentRank!,
+              desiredRank: desiredRank!,
+            }),
           )
         }
       />
