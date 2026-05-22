@@ -380,7 +380,7 @@ function PayButton({ price, loading, onPay }: PayButtonProps) {
           <span>Creating invoice...</span>
         </>
       ) : (
-        "PAY WITH PAYPAL"
+        "CHECKOUT"
       )}
     </button>
   );
