@@ -49,7 +49,7 @@ function MainPage() {
   };
 
   return (
-    <main className="bg-linear-to-b from-[#110A1E] to-[#1A0E22] relative">
+    <main className="bg-[#F2E5F7] relative">
       <HeroSection />
       {/* <StatsSection /> */}
       <GameCarousel />
@@ -60,9 +60,9 @@ function MainPage() {
       <Button
         onClick={scrollToTop}
         className={`
-          bg-[#00ff00] hover:bg-[#00ff00]
-        fixed left-8 bottom-8 z-50 rounded-full w-10 h-10
-        transition-all duration-300 text-black cursor-pointer hover:scale-110
+          bg-[#B842F0] hover:bg-[#B842F0]
+        fixed right-8 bottom-8 z-50 rounded-full w-12 h-12
+        transition-all duration-300 text-white cursor-pointer hover:scale-110
         ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
       `}
       >

@@ -20,7 +20,7 @@ function ChatBox() {
           asChild
           className={`w-55 h-12 ${hiddenChatBoxWhenInMsgPage}`}
         >
-          <button className="fixed bottom-0 right-10 z-50 bg-[#120A21] border-[#00FF00] border border-b-0 flex items-center gap-3 shadow-[0_0_40px_rgba(0,0,0,0.20)] rounded-t-lg px-4 py-3 cursor-pointer justify-between">
+          <button className="fixed bottom-0 right-10 z-50 bg-[#120A21] border-[#B842F0] border border-b-0 flex items-center gap-3 shadow-[0_0_40px_rgba(0,0,0,0.20)] rounded-t-lg px-4 py-3 cursor-pointer justify-between">
             <div className="flex gap-3 items-center">
               <span className="font-medium text-white flex items-center gap-3">
                 <MessageSquareMore />

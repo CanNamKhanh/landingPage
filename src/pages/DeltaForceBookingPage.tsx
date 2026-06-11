@@ -160,17 +160,17 @@ function isValidEmail(v: string): boolean {
 
 function PriceSummary({ price, label }: { price: number; label: string }) {
   return (
-    <div className="rounded-xl bg-[#0d1a0d] border border-[#00FF00]/20 p-4 flex items-start justify-between">
+    <div className="rounded-xl bg-[#F9F2FD] border border-[#B842F0]/20 p-4 flex items-start justify-between">
       <div>
-        <p className="text-xs text-white/40 mb-1">Total Price</p>
-        <p className="text-3xl font-extrabold text-[#00FF00]">
+        <p className="text-xs text-black/40 mb-1">Total Price</p>
+        <p className="text-3xl font-extrabold text-[#B842F0]">
           ${price.toFixed(2)}
         </p>
-        {price > 0 && <p className="text-xs text-white/40 mt-1">{label}</p>}
+        {price > 0 && <p className="text-xs text-black/40 mt-1">{label}</p>}
       </div>
-      <div className="text-right text-xs text-white/40">
+      <div className="text-right text-xs text-black/40">
         <span className="text-base">🎉</span>
-        <p className="font-semibold text-white/60">Grand Opening</p>
+        <p className="font-semibold text-black/60">Grand Opening</p>
         <p>30% OFF — contact us</p>
       </div>
     </div>
@@ -196,30 +196,30 @@ function CustomerFields({
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-white/80">
-          Your Name <span className="text-[#00FF00]">*</span>
+        <label className="text-sm font-medium text-black/80">
+          Your Name <span className="text-[#B842F0]">*</span>
         </label>
         <input
           type="text"
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
           placeholder="Full name"
-          className={`bg-[#25272D] border rounded-md px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none transition-colors
-            ${nameError ? "border-red-500" : "border-white/10 focus:border-[#00FF00]/60"}`}
+          className={`bg-[#F9F2FD] border rounded-md px-3 py-2 text-sm text-black placeholder:text-black/30 focus:outline-none transition-colors
+            ${nameError ? "border-red-500" : "border-black/10 focus:border-[#B842F0]/60"}`}
         />
         {nameError && <p className="text-xs text-red-500">{nameError}</p>}
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-white/80">
-          Email <span className="text-[#00FF00]">*</span>
+        <label className="text-sm font-medium text-black/80">
+          Email <span className="text-[#B842F0]">*</span>
         </label>
         <input
           type="email"
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           placeholder="you@example.com"
-          className={`bg-[#25272D] border rounded-md px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none transition-colors
-            ${emailError ? "border-red-500" : "border-white/10 focus:border-[#00FF00]/60"}`}
+          className={`bg-[#F9F2FD] border rounded-md px-3 py-2 text-sm text-black placeholder:text-black/30 focus:outline-none transition-colors
+            ${emailError ? "border-red-500" : "border-black/10 focus:border-[#B842F0]/60"}`}
         />
         {emailError && <p className="text-xs text-red-500">{emailError}</p>}
       </div>
@@ -242,11 +242,11 @@ function CheckoutButton({
       onClick={onPay}
       disabled={disabled}
       className={`w-full py-4 rounded-xl font-extrabold text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-2
-        ${disabled ? "bg-[#00FF00]/30 text-black/40 cursor-not-allowed" : "bg-[#00FF00] text-black hover:brightness-110 active:scale-[0.98] cursor-pointer"}`}
+        ${disabled ? "bg-[#B842F0]/30 text-white/40 cursor-not-allowed" : "bg-[#B842F0] text-white hover:brightness-110 active:scale-[0.98] cursor-pointer"}`}
     >
       {loading ? (
         <>
-          <Loader2 size={16} className="animate-spin text-black/70" />
+          <Loader2 size={16} className="animate-spin text-white/70" />
           <span>Creating invoice...</span>
         </>
       ) : (
@@ -258,11 +258,11 @@ function CheckoutButton({
 
 function TermsLine() {
   return (
-    <p className="text-center text-xs text-white/40">
+    <p className="text-center text-xs text-black/40">
       By proceeding, you agree to our{" "}
       <NavLink
         to="/service-policy"
-        className="text-[#00FF00] hover:underline cursor-pointer"
+        className="text-[#B842F0] hover:underline cursor-pointer"
       >
         Terms &amp; Policy.
       </NavLink>
@@ -303,8 +303,8 @@ function SelectDropdown<T extends string | number>({
   return (
     <div className="flex flex-col gap-1.5 relative">
       {label && (
-        <div className="text-sm font-medium text-white/80">
-          {label} {required && <span className="text-[#00FF00]">*</span>}
+        <div className="text-sm font-medium text-black/80">
+          {label} {required && <span className="text-[#B842F0]">*</span>}
         </div>
       )}
       <button
@@ -313,19 +313,19 @@ function SelectDropdown<T extends string | number>({
         className={`w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors outline-none
           ${
             disabled
-              ? "bg-[#1e1e1e] border border-white/5 text-white/20 cursor-not-allowed"
+              ? "bg-[#F9F2FD] border border-black/5 text-black/20 cursor-not-allowed"
               : showGreen
-                ? "bg-[#00FF00]/10 border border-[#00FF00] text-white cursor-pointer"
-                : "bg-[#25272D] border border-white/10 text-white/50 cursor-pointer hover:border-white/30"
+                ? "bg-[#B842F0]/10 border border-[#B842F0] text-black cursor-pointer"
+                : "bg-[#F9F2FD] border border-black/10 text-black/50 cursor-pointer hover:border-black/30"
           }`}
       >
         <span
           className={
             value !== null && !disabled
-              ? "text-white"
+              ? "text-black"
               : disabled
-                ? "text-white/20"
-                : "text-white/50"
+                ? "text-black/20"
+                : "text-black/50"
           }
         >
           {display ?? placeholder}
@@ -345,7 +345,7 @@ function SelectDropdown<T extends string | number>({
         </svg>
       </button>
       {open && !disabled && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1c22] border border-[#333] rounded-md z-50 max-h-56 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-[white] border border-[#B842F0] rounded-md z-50 max-h-56 overflow-y-auto">
           {options.map((opt) => {
             const lbl = formatOption ? formatOption(opt) : String(opt);
             return (
@@ -356,7 +356,7 @@ function SelectDropdown<T extends string | number>({
                   setOpen(false);
                 }}
                 className={`px-3 py-2 text-sm cursor-pointer transition-colors
-                  ${value === opt ? "text-[#00FF00] bg-[#00FF00]/10" : "text-white/80 hover:text-[#00FF00] hover:bg-[#00FF00]/10"}`}
+                  ${value === opt ? "text-[#B842F0] bg-[#B842F0]/10" : "text-black/80 hover:text-[#B842F0] hover:bg-[#B842F0]/10"}`}
               >
                 {lbl}
               </div>
@@ -381,26 +381,26 @@ function ContactModal({ onClose }: { onClose: () => void }) {
   ];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="relative bg-[#14161c] border border-white/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
+      <div className="relative bg-[#14161c] border border-black/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-black/40 hover:text-black transition-colors"
         >
           <X size={18} />
         </button>
         <div className="flex flex-col items-center gap-4 text-center">
-          <div className="w-14 h-14 rounded-full border-2 border-[#00FF00] flex items-center justify-center">
-            <CheckCircle className="text-[#00FF00]" size={32} />
+          <div className="w-14 h-14 rounded-full border-2 border-[#B842F0] flex items-center justify-center">
+            <CheckCircle className="text-[#B842F0]" size={32} />
           </div>
-          <h2 className="text-2xl font-extrabold text-white">
+          <h2 className="text-2xl font-extrabold text-black">
             Order placed successfully!
           </h2>
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-black/50">
             We have receiced your information. Your invoice will be shortly
             created and sent to your email. Please check your inbox (and Spam
             folder) to complete the payment.
           </p>
-          <p className="text-sm text-white/60 font-medium">
+          <p className="text-sm text-black/60 font-medium">
             Contact us to get started right away:
           </p>
           <div className="grid grid-cols-2 gap-2 w-full">
@@ -408,7 +408,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
               <a
                 key={l.label}
                 href={l.href}
-                className="bg-[#25272D] hover:bg-[#2f3137] border border-white/10 text-white/80 hover:text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
+                className="bg-[#F9F2FD] hover:bg-[#2f3137] border border-black/10 text-black/80 hover:text-black text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
               >
                 {l.label}
               </a>
@@ -597,8 +597,8 @@ function DFAccountLevelingTab() {
   return (
     <>
       <div className="flex flex-col gap-1.5">
-        <div className="text-sm font-medium text-white/80">
-          Select level ranges <span className="text-[#00FF00]">*</span>
+        <div className="text-sm font-medium text-black/80">
+          Select level ranges <span className="text-[#B842F0]">*</span>
         </div>
         <div className="grid grid-cols-3 gap-2">
           {ALL_LEVEL_RANGES.map((range) => (
@@ -608,8 +608,8 @@ function DFAccountLevelingTab() {
               className={`py-2.5 px-3 rounded-lg border text-sm font-semibold transition-all cursor-pointer
                 ${
                   selected.has(range)
-                    ? "bg-[#00FF00]/15 border-[#00FF00] text-[#00FF00]"
-                    : "bg-[#25272D] border-white/10 text-white/70 hover:border-white/30 hover:text-white"
+                    ? "bg-[#B842F0]/15 border-[#B842F0] text-[#B842F0]"
+                    : "bg-[#F9F2FD] border-black/10 text-black/70 hover:border-black/30 hover:text-black"
                 }`}
             >
               {range}
@@ -684,8 +684,8 @@ function HazardOperationTab() {
     <>
       {/* Map */}
       <div className="flex flex-col gap-1.5">
-        <div className="text-sm font-medium text-white/80">
-          Map <span className="text-[#00FF00]">*</span>
+        <div className="text-sm font-medium text-black/80">
+          Map <span className="text-[#B842F0]">*</span>
         </div>
         <div className="grid grid-cols-3 gap-2">
           {ALL_HAZARD_MAPS.map((map) => (
@@ -695,8 +695,8 @@ function HazardOperationTab() {
               className={`py-2 px-3 rounded-lg border text-sm font-medium transition-all cursor-pointer
                 ${
                   selectedMap === map
-                    ? "bg-[#00FF00]/15 border-[#00FF00] text-[#00FF00]"
-                    : "bg-[#25272D] border-white/10 text-white/70 hover:border-white/30 hover:text-white"
+                    ? "bg-[#B842F0]/15 border-[#B842F0] text-[#B842F0]"
+                    : "bg-[#F9F2FD] border-black/10 text-black/70 hover:border-black/30 hover:text-black"
                 }`}
             >
               {map}
@@ -707,8 +707,8 @@ function HazardOperationTab() {
 
       {/* Difficulty */}
       <div className="flex flex-col gap-1.5">
-        <div className="text-sm font-medium text-white/80">
-          Difficulty <span className="text-[#00FF00]">*</span>
+        <div className="text-sm font-medium text-black/80">
+          Difficulty <span className="text-[#B842F0]">*</span>
         </div>
         <div className="flex gap-2">
           {ALL_HAZARD_DIFFICULTIES.map((diff) => {
@@ -724,10 +724,10 @@ function HazardOperationTab() {
                 className={`py-2 px-4 rounded-lg border text-sm font-medium transition-all
                   ${
                     !available
-                      ? "bg-[#1a1a1a] border-white/5 text-white/20 cursor-not-allowed"
+                      ? "bg-[#F9F2FD] border-black/5 text-black/20 cursor-not-allowed"
                       : isSelected
-                        ? "bg-[#00FF00]/15 border-[#00FF00] text-[#00FF00] cursor-pointer"
-                        : "bg-[#25272D] border-white/10 text-white/70 hover:border-white/30 hover:text-white cursor-pointer"
+                        ? "bg-[#B842F0]/15 border-[#B842F0] text-[#B842F0] cursor-pointer"
+                        : "bg-[#F9F2FD] border-black/10 text-black/70 hover:border-black/30 hover:text-black cursor-pointer"
                   }`}
               >
                 {diff}
@@ -739,8 +739,8 @@ function HazardOperationTab() {
 
       {/* Runs */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-white/80">
-          Quantity (runs) <span className="text-[#00FF00]">*</span>
+        <label className="text-sm font-medium text-black/80">
+          Quantity (runs) <span className="text-[#B842F0]">*</span>
         </label>
         <input
           type="number"
@@ -748,7 +748,7 @@ function HazardOperationTab() {
           value={runs}
           onChange={(e) => setRuns(e.target.value)}
           placeholder="Enter number of runs"
-          className="bg-[#25272D] border border-white/10 rounded-md px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#00FF00]/60 transition-colors"
+          className="bg-[#F9F2FD] border border-black/10 rounded-md px-3 py-2 text-sm text-black placeholder:text-black/30 focus:outline-none focus:border-[#B842F0]/60 transition-colors"
         />
       </div>
 
@@ -800,11 +800,11 @@ function SeasonMissionTab() {
   return (
     <>
       {/* Info card */}
-      <div className="rounded-xl bg-[#25272D] border border-white/10 p-4">
-        <p className="text-base font-bold text-white">
+      <div className="rounded-xl bg-[#F9F2FD] border border-black/10 p-4">
+        <p className="text-base font-bold text-black">
           Safebox — Full Completion
         </p>
-        <p className="text-sm text-white/50 mt-1">
+        <p className="text-sm text-black/50 mt-1">
           All season missions completed to unlock the Safebox reward. Flat
           price.
         </p>
@@ -943,20 +943,20 @@ const DF_SERVICES = [
 
 function DeltaForceBookingPage() {
   return (
-    <div className="min-h-screen bg-[#0b0614] text-white">
+    <div className="min-h-screen bg-[#FCFBFE] text-black">
       {/* HEADER */}
-      <div className="bg-[#09071631] w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md">
-        <div className="flex items-center justify-between h-21 border-y border-gray-800 px-6 md:px-20">
+      <div className="bg-[#FCFBFE] w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md">
+        <div className="flex items-center justify-between h-21 border-y border-black/10 px-6 md:px-20">
           <NavLink to={"/"} className="flex items-center gap-3 cursor-pointer">
             <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
             <div className="hidden items-center text-xl sm:flex">
-              <span className="font-bold text-white">Rosie</span>
-              <span className="font-bold text-[#00FF00]">Boost</span>
+              <span className="font-bold text-black">Rosie</span>
+              <span className="font-bold text-[#B842F0]">Boost</span>
             </div>
           </NavLink>
           <NavLink
             to={"/"}
-            className="flex gap-2 font-medium text-gray-500 hover:text-[#00FF00] cursor-pointer transition-colors"
+            className="flex gap-2 font-medium text-gray-500 hover:text-[#B842F0] cursor-pointer transition-colors"
           >
             <ArrowLeft />
             <span>Back To Home</span>
@@ -974,11 +974,11 @@ function DeltaForceBookingPage() {
             alt="Delta Force"
           />
           <div className="flex flex-col gap-2">
-            <h1 className="text-[#00FF00] text-xs tracking-widest uppercase font-semibold">
+            <h1 className="text-[#B842F0] text-xs tracking-widest uppercase font-semibold">
               Select Service
             </h1>
             <h2 className="text-5xl font-extrabold">Delta Force</h2>
-            <p className="text-white/50 text-sm">Choose a service tab below.</p>
+            <p className="text-black/50 text-sm">Choose a service tab below.</p>
           </div>
         </div>
 
@@ -987,12 +987,12 @@ function DeltaForceBookingPage() {
           defaultValue="Tekniq Alloy Farming"
           className="w-full flex flex-col gap-5"
         >
-          <TabsList className="bg-[#191B1F] w-full h-auto! grid grid-cols-3 gap-1 p-1">
+          <TabsList className="bg-[#F8F7FA] w-full h-auto! grid grid-cols-3 gap-1 p-1">
             {DF_SERVICES.map((s) => (
               <TabsTrigger
                 key={s}
                 value={s}
-                className="cursor-pointer text-xs md:text-sm py-2"
+                className="cursor-pointer text-xs md:text-sm py-2 text-black hover:text-black data-[state=active]:text-black"
               >
                 {s}
               </TabsTrigger>
@@ -1001,35 +1001,35 @@ function DeltaForceBookingPage() {
 
           <TabsContent
             value="Tekniq Alloy Farming"
-            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#F8F7FA]"
           >
             <TekniqqAlloyyFarmingTab />
           </TabsContent>
 
           <TabsContent
             value="Account Leveling"
-            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#F8F7FA]"
           >
             <DFAccountLevelingTab />
           </TabsContent>
 
           <TabsContent
             value="Hazard Operation"
-            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#F8F7FA]"
           >
             <HazardOperationTab />
           </TabsContent>
 
           <TabsContent
             value="Season Mission"
-            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#F8F7FA]"
           >
             <SeasonMissionTab />
           </TabsContent>
 
           <TabsContent
             value="Rank Boosting"
-            className="border border-[#00FF00]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#0f1117]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#F8F7FA]"
           >
             <DFRankBoostingTab />
           </TabsContent>

@@ -1,82 +1,271 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Mouse } from "lucide-react";
+import { useEffect } from "react";
 
 export function HeroSection() {
+  useEffect(() => {
+    const header = document.querySelector("header") as HTMLElement;
+    if (header) {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${header.offsetHeight}px`,
+      );
+    }
+  }, []);
+
   return (
-    <section className="relative reveal min-h-screen flex flex-col items-center justify-center px-4 pb-20 pt-25 bg-[#0b0614] overflow-hidden">
-      <div className="absolute inset-0 w-full rounded-2xl overflow-hidden bg-[url('/bg.jpg')] bg-contain bg-center mt-20">
-        {/* Layer 1: làm ảnh chìm xuống */}
-        <div className="absolute inset-0 bg-black/60" />
-
-        {/* Layer 2: vignette mạnh 4 cạnh */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_35%,rgba(0,0,0,0.9)_100%)]" />
-
-        {/* Layer 3: gradient chéo giống ảnh */}
-        <div className="absolute inset-0 bg-linear-to-br from-black/90 via-black/30 to-black/90" />
-
-        {/* Layer 4: nối liền background với section bên dưới */}
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-[linear-gradient(to_bottom,transparent,#110a20)]" />
-      </div>
-
-      <div className="relative z-10 text-center">
-        {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-text-pretty leading-tight animate-slide-down delay-100 select-none">
-          <span className="text-white">YOUR </span>
-          <span className="text-[#00FF00] text-shadow-[0_0_20px_rgba(34,197,94,0.5)]">
-            LIGHT
-          </span>
-          <br />
-          <span className="text-white">AT THE END OF THE TUNNEL</span>
-        </h1>
-
-        {/* Description */}
-        <p className="text-lg select-none font-semibold md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto flex flex-col animate-slide-down delay-200">
-          <span>
-            Professional game boosting service. We carry your rank while you
-            relax.
-          </span>
-          <span className="text-[#00FF00] font-semibold">
-            Fast, safe, and reliable.
-          </span>
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col select-none sm:flex-row gap-4 justify-center mb-16 animate-slide-down delay-300">
-          <Button
-            onClick={() => {
-              document.querySelector(".ts-games")?.scrollIntoView({
-                behavior: "smooth",
-              });
-            }}
-            size="lg"
-            className="bg-[#00FF00] cursor-pointer text-black hover:bg-[#00FF00] font-semibold px-8 py-7 text-lg rounded-xl shadow-lg shadow-[#00FF00]/50 transition-all hover:shadow-[0_0_30px_8px_rgba(236,72,153,0.7)]"
-          >
-            VIEW GAMES
-          </Button>
-          <Button
-            onClick={() => {
-              document.querySelector(".ts-book-form")?.scrollIntoView({
-                behavior: "smooth",
-              });
-            }}
-            variant="outline"
-            size="lg"
-            className="border-2 select-none cursor-pointer text-white hover:bg-accent/10 font-semibold px-8 py-7 text-lg rounded-xl bg-transparent hover:border-[#00FF00]"
-          >
-            ORDER
-          </Button>
-        </div>
-        <div className="border rounded-xl border-[#00FF00] select-none text-gray-400 w-fit bg-[#260925] mx-auto -mt-10 text-[14px] px-5 py-3">
-          🔥 <span className="text-[#00FF00]">30% OFF</span> Grand Opening —
-          Limited Time Only
-        </div>
-      </div>
-      <Mouse
-        strokeWidth={0.75}
-        className="scale-200 text-[#00FF00] animate-bounce mt-10 -mb-15"
+    <section
+      className="relative w-full overflow-hidden pb-20 pt-44 min-h-130"
+      style={{
+        background:
+          "linear-gradient(135deg, #f9eefb 0%, #f4e8f9 30%, #eedff6 60%, #f5ecfa 100%)",
+      }}
+    >
+      {/* bg.png */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-no-repeat bg-right"
+        style={{
+          backgroundImage: "url('/bg.png')",
+          backgroundSize: "50% auto",
+        }}
       />
+
+      {/* Fade overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to right, #f4e8f9 28%, rgba(244,232,249,0.6) 50%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative z-10 flex items-center min-h-130 px-12 md:px-18 lg:px-22">
+        <div className="w-full max-w-155">
+          {/* Headline */}
+          <h1
+            className="leading-[1.05] tracking-tight mb-5 select-none -mt-10 font-extrabold"
+            style={{ fontSize: "clamp(2.8rem, 4vw, 3.5rem)" }}
+          >
+            <span className="block text-[#12082a]">ESCAPE STUCK.</span>
+            <span
+              className="block bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #a21caf 0%, #db2777 35%, #f43f5e 65%, #fb923c 100%)",
+              }}
+            >
+              BREAK YOUR LIMITS.
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className="mb-10 mt-8 leading-relaxed text-[0.95rem] text-[#5a4a6a] max-w-140">
+            RosieBoost — the most trusted, safe and effective game boosting
+            service. We carry your account so you can enjoy the rank you
+            deserve.
+          </p>
+
+          {/* Feature cards — 3 in ONE row */}
+          <div className="flex items-stretch gap-3 mb-10">
+            {/* Total Privacy */}
+            <div
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 flex-1 min-w-0"
+              style={{
+                background: "rgba(255,255,255,0.88)",
+                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+              }}
+            >
+              <span
+                className="shrink-0 rounded-xl flex items-center justify-center w-8.5 h-8.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #d42d82 0%, #f55a6a 100%)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                  TOTAL PRIVACY
+                </div>
+                <div className="text-[11px] text-[#8a7a9a]">
+                  Your info stays safe
+                </div>
+              </div>
+            </div>
+
+            {/* Trusted Boosters */}
+            <div
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 flex-1 min-w-0"
+              style={{
+                background: "rgba(255,255,255,0.88)",
+                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+              }}
+            >
+              <span
+                className="shrink-0 rounded-xl flex items-center justify-center w-8.5 h-8.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #d42d82 0%, #f55a6a 100%)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                  <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                  TRUSTED BOOSTERS
+                </div>
+                <div className="text-[11px] text-[#8a7a9a]">
+                  1000+ happy clients
+                </div>
+              </div>
+            </div>
+
+            {/* Fast Delivery */}
+            <div
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 flex-1 min-w-0"
+              style={{
+                background: "rgba(255,255,255,0.88)",
+                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+              }}
+            >
+              <span
+                className="shrink-0 rounded-xl flex items-center justify-center w-8.5 h-8.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #d42d82 0%, #f55a6a 100%)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                  FAST DELIVERY
+                </div>
+                <div className="text-[11px] text-[#8a7a9a]">
+                  Right rank, guaranteed
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex items-center gap-3 mb-5">
+            {/* VIEW SERVICES */}
+            <button
+              onClick={() => {
+                document
+                  .querySelector(".ts-games")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="select-none cursor-pointer transition-all duration-200 font-bold text-[13.5px] tracking-[0.05em] text-white rounded-full px-6 py-4 border-none"
+              style={{
+                background:
+                  "linear-gradient(90deg, #d42d82 0%, #ed3f6a 60%, #f55a50 100%)",
+                boxShadow: "0 4px 18px rgba(212,45,130,0.32)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                  "0 6px 24px rgba(212,45,130,0.52)";
+                (e.currentTarget as HTMLButtonElement).style.transform =
+                  "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                  "0 4px 18px rgba(212,45,130,0.32)";
+                (e.currentTarget as HTMLButtonElement).style.transform =
+                  "translateY(0)";
+              }}
+            >
+              VIEW SERVICES &nbsp;→
+            </button>
+
+            {/* ORDER */}
+            <button
+              onClick={() => {
+                document
+                  .querySelector(".ts-book-form")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="select-none cursor-pointer transition-all duration-200 font-bold text-[13.5px] tracking-[0.05em] text-[#12082a] rounded-full px-6 py-4"
+              style={{
+                background: "rgba(255,255,255,0.92)",
+                border: "2px solid rgba(190,170,210,0.5)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.border =
+                  "2px solid #d42d82";
+                (e.currentTarget as HTMLButtonElement).style.color = "#d42d82";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.border =
+                  "2px solid rgba(190,170,210,0.5)";
+                (e.currentTarget as HTMLButtonElement).style.color = "#12082a";
+              }}
+            >
+              ORDER
+            </button>
+          </div>
+
+          {/* Promo badge */}
+          <div
+            className="inline-flex bg-[#FAE0F1] items-center gap-2 select-none rounded-full px-4.5 py-2 text-[13px] text-[#6a5a7a]"
+            style={{
+              background: "rgba(255,255,255,0.72)",
+              border: "1.5px solid rgba(212,45,130,0.2)",
+            }}
+          >
+            <span>🔥</span>
+            <span
+              className="font-bold bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #d42d82 0%, #f55a50 100%)",
+              }}
+            >
+              30% OFF
+            </span>
+            <span>Grand Opening — Limited Time</span>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
