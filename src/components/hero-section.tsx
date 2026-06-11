@@ -15,7 +15,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden pb-20 pt-44 min-h-130"
+      className="relative w-full overflow-hidden pb-20 pt-60 sm:pt-55 md:pt-44 lg:pt-40"
       style={{
         background:
           "linear-gradient(135deg, #f9eefb 0%, #f4e8f9 30%, #eedff6 60%, #f5ecfa 100%)",
@@ -23,10 +23,13 @@ export function HeroSection() {
     >
       {/* bg.png */}
       <div
-        className="absolute inset-0 pointer-events-none bg-no-repeat bg-right"
+        className="
+    absolute inset-0 pointer-events-none
+    bg-no-repeat bg-center md:bg-right
+    bg-size-[120%_auto] md:bg-size-[50%_auto]
+  "
         style={{
           backgroundImage: "url('/bg.png')",
-          backgroundSize: "50% auto",
         }}
       />
 
@@ -40,12 +43,9 @@ export function HeroSection() {
       />
 
       <div className="relative z-10 flex items-center min-h-130 px-12 md:px-18 lg:px-22">
-        <div className="w-full max-w-155">
+        <div className="w-full max-w-160">
           {/* Headline */}
-          <h1
-            className="leading-[1.05] tracking-tight mb-5 select-none -mt-10 font-extrabold"
-            style={{ fontSize: "clamp(2.8rem, 4vw, 3.5rem)" }}
-          >
+          <h1 className="leading-[1.05] tracking-tight mb-5 select-none -mt-10 font-extrabold text-[50px]">
             <span className="block text-[#12082a]">ESCAPE STUCK.</span>
             <span
               className="block bg-clip-text text-transparent"
@@ -66,10 +66,10 @@ export function HeroSection() {
           </p>
 
           {/* Feature cards — 3 in ONE row */}
-          <div className="flex items-stretch gap-3 mb-10">
+          <div className="flex gap-3 mb-10 flex-wrap max-w-200">
             {/* Total Privacy */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 flex-1 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
               style={{
                 background: "rgba(255,255,255,0.88)",
                 boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
@@ -107,7 +107,7 @@ export function HeroSection() {
 
             {/* Trusted Boosters */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 flex-1 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
               style={{
                 background: "rgba(255,255,255,0.88)",
                 boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
@@ -148,7 +148,7 @@ export function HeroSection() {
 
             {/* Fast Delivery */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 flex-1 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
               style={{
                 background: "rgba(255,255,255,0.88)",
                 boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
