@@ -3,61 +3,40 @@ import { ArrowLeft, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-function ServicePolicyPage() {
+function PrivacyPolicyPage() {
   const terms = [
     {
       id: 1,
-      title: "Account Requirements",
+      title: "Information We Collect",
       content: [
-        "The client's account must be the exact rank and status as initially reported to us before the boosting process starts.",
-        "The client must provide accurate login information and any additional details required to access the account.",
+        "Email",
+        "Discord username (or any other contact methods)",
+        "Order information",
       ],
     },
     {
       id: 2,
-      title: "Payment & Refunds",
-      content: [
-        "Payment is made in full before the boosting begins.",
-        "If cheating, hacking, or any unauthorized software is detected on the account during our service, a full refund will be issued.",
-        "If the account is banned due to smurfing, account sharing, or boosting (which violates the game's terms of service), no refund will be given.",
-      ],
+      title: "How We Use Information",
+      content: ["Process orders", "Customer support", "Service updates"],
     },
     {
       id: 3,
-      title: "Ban & Risk Policy",
-      content: [
-        "Boosting is against the rules of most games, and there is always a risk of penalty or ban. By purchasing our services, you acknowledge and accept this risk.",
-        "We will not be held responsible for any bans caused by smurfing, past violations, or the game's automated detection systems outside of our direct actions.",
-      ],
+      title: "Data Protection",
+      content: ["Information stored securely", "No sale of customer data"],
     },
     {
       id: 4,
-      title: "Service Conduct",
-      content: [
-        "We will not use any cheats, hacks, or third-party software.",
-        "Progress will be handled manually by our boosters, ensuring legitimate gameplay.",
-      ],
+      title: "Third-Party Services",
+      content: ["PayPal", "Discord"],
     },
     {
       id: 5,
-      title: "Communication",
+      title: "Contact Information",
       content: [
-        "Clients can contact us via Discord, Telegram, or WhatsApp for updates and support.",
-        "Regular progress updates will be provided if requested.",
-      ],
-    },
-    {
-      id: 6,
-      title: "Confidentiality",
-      content: [
-        "All account information is kept strictly confidential and will be deleted after the service is completed.",
-      ],
-    },
-    {
-      id: 7,
-      title: "Compensation",
-      content: [
-        "In cases where the account is banned due to our use of cheats/hacks, we will issue a full refund plus compensation for the inconvenience.",
+        "Discord: https://discord.gg/9rWNTFA9y6",
+        "Telegram: https://t.me/rosieboost",
+        "Facebook: https://www.facebook.com/rosieboostofficial/",
+        "Instagram: https://www.instagram.com/rosieboostservice/",
       ],
     },
   ];
@@ -104,11 +83,10 @@ function ServicePolicyPage() {
       <main className="px-90 mx-auto flex flex-col gap-10 py-30 bg-white">
         <header className="flex flex-col gap-5">
           <h1 className="font-bold text-5xl text-black">
-            Terms of Service and <span className="text-[#B842F0]">Policy</span>
+            Privacy <span className="text-[#B842F0]">Policy</span>
           </h1>
           <p className="font-medium text-gray-500">
-            *Please read carefully before ordering. We are not responsible for
-            any problems caused by not following these policies
+            Short and clear — your privacy matters to us.
           </p>
         </header>
         <div className="ts-terms flex flex-col gap-10">
@@ -179,4 +157,4 @@ function ServicePolicyPage() {
   );
 }
 
-export default ServicePolicyPage;
+export default PrivacyPolicyPage;

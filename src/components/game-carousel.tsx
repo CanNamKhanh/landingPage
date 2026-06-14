@@ -38,7 +38,7 @@ export function GameCarousel() {
   };
 
   return (
-    <section className="ts-games reveal py-20 px-4 select-none bg-[#F2E5F7] relative">
+    <section className="ts-games reveal py-20 px-4 select-none relative">
       <div
         className="absolute top-0 left-0 w-full h-32 pointer-events-none"
         style={{

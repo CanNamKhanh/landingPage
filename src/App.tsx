@@ -8,6 +8,8 @@ import LOLBookingPage from "./pages/LOLBookingPage";
 import TftBookingPage from "./pages/TftBookingPage";
 import DeltaForceBookingPage from "./pages/DeltaForceBookingPage";
 import ArenaBreakoutBookingPage from "./pages/ArenaBreakoutBookingPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import RefundPolicyPage from "./pages/RefundPolicyPage";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path={"/"} element={<MainPage />} />
         </Route>
         <Route path={"/service-policy"} element={<ServicePolicyPage />} />
+        <Route path={"/privacy-policy"} element={<PrivacyPolicyPage />} />
+        <Route path={"/refund-policy"} element={<RefundPolicyPage />} />
         <Route path={"/valorant"} element={<ValorantBookingPage />} />
         <Route path={"/lol"} element={<LOLBookingPage />} />
         <Route path={"/tft"} element={<TftBookingPage />} />

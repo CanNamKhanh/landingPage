@@ -184,6 +184,127 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
+
+            {/* Vpn Protection */}
+            <div
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              style={{
+                background: "rgba(255,255,255,0.88)",
+                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+              }}
+            >
+              <span
+                className="shrink-0 rounded-xl flex items-center justify-center w-8.5 h-8.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #d42d82 0%, #f55a6a 100%)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="5" y="10" width="14" height="11" rx="2" />
+                  <path d="M8 10V7C8 4.2 9.8 2 12 2C14.2 2 16 4.2 16 7V10" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                  VPN Protection
+                </div>
+                <div className="text-[11px] text-[#8a7a9a]">
+                  Available upon request
+                </div>
+              </div>
+            </div>
+
+            {/* 1000+ Order */}
+            <div
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              style={{
+                background: "rgba(255,255,255,0.88)",
+                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+              }}
+            >
+              <span
+                className="shrink-0 rounded-xl flex items-center justify-center w-8.5 h-8.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #d42d82 0%, #f55a6a 100%)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M8 4H16V10C16 12.8 14.2 15 12 15C9.8 15 8 12.8 8 10V4Z" />
+                  <path d="M8 6H5C5 9.3 6.2 11 9 11" />
+                  <path d="M16 6H19C19 9.3 17.8 11 15 11" />
+                  <path d="M12 15V19" />
+                  <path d="M9 22H15" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                  1000+ ORDERS
+                </div>
+                <div className="text-[11px] text-[#8a7a9a]">
+                  Completed worldwide
+                </div>
+              </div>
+            </div>
+
+            {/* 24/7 Discord */}
+            <div
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              style={{
+                background: "rgba(255,255,255,0.88)",
+                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+              }}
+            >
+              <span
+                className="shrink-0 rounded-xl flex items-center justify-center w-8.5 h-8.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #d42d82 0%, #f55a6a 100%)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 14V12C4 7.6 7.6 4 12 4C16.4 4 20 7.6 20 12V14" />
+                  <path d="M6 14H5C3.9 14 3 14.9 3 16V18C3 19.1 3.9 20 5 20H6V14Z" />
+                  <path d="M18 14H19C20.1 14 21 14.9 21 16V18C21 19.1 20.1 20 19 20H18V14Z" />
+                </svg>
+              </span>
+              <div className="min-w-0">
+                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                  24/7 DISCORD
+                </div>
+                <div className="text-[11px] text-[#8a7a9a]">
+                  Always here to help
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* CTA Buttons */}

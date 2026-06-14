@@ -41,7 +41,7 @@ function CustomerReview() {
   ];
 
   return (
-    <div className="w-full items-center flex flex-col gap-8 pb-25 reveal bg-[#F2E5F7]">
+    <div className="w-full items-center flex flex-col gap-8 pb-25 reveal">
       <span className="flex flex-col items-center text-center">
         <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-black">
           CUSTOMER{" "}
