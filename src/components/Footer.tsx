@@ -21,7 +21,7 @@ function Footer() {
           <h2 className="font-bold text-black">COMPANY</h2>
           <div className="flex flex-col items-start gap-3">
             <a href="#about" className="cursor-pointer hover:text-[#B842F0]">
-              About RoiseBoost
+              About RosieBoost
             </a>
             <NavLink to={"/"} className="cursor-pointer hover:text-[#B842F0]">
               Contact Us

@@ -381,7 +381,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
   ];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="relative bg-[#14161c] border border-black/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
+      <div className="relative bg-[white] border border-black/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-black/40 hover:text-black transition-colors"
@@ -408,7 +408,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
               <a
                 key={l.label}
                 href={l.href}
-                className="bg-[#F9F2FD] hover:bg-[#2f3137] border border-black/10 text-black/80 hover:text-black text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
+                className="bg-[white] hover:bg-[#969696] border border-black/10 text-black/80 hover:text-black text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
               >
                 {l.label}
               </a>

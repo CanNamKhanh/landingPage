@@ -59,15 +59,15 @@ const RANK_ORDER = [
   "Diamond 2",
   "Diamond 1",
   "Master",
-  //   "Grandmaster",
-  //   "Challenger",
+  "Grandmaster",
+  "Challenger",
 ] as const;
 
 type RankName = (typeof RANK_ORDER)[number];
 
-// type RankPrice = number | string;
+type RankPrice = number | string;
 
-const RANK_STEP_PRICE_AP: Record<RankName, number> = {
+const RANK_STEP_PRICE_AP: Record<RankName, RankPrice> = {
   "Iron 4": 6.4,
   "Iron 3": 6.4,
   "Iron 2": 6.4,
@@ -97,8 +97,8 @@ const RANK_STEP_PRICE_AP: Record<RankName, number> = {
   "Diamond 2": 38.4,
   "Diamond 1": 43.2,
   Master: 64,
-  //   Grandmaster: "To be decided",
-  //   Challenger: "To be decided",
+  Grandmaster: "To be decided",
+  Challenger: "To be decided",
 };
 
 const PLACEMENT_RANKS = [
@@ -131,7 +131,7 @@ const PLACEMENT_PRICE_AP: Record<PlacementRankName, number> = {
   Challenger: 30,
 };
 
-const MATCH_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
+const MATCH_OPTIONS = [1, 2, 3, 4, 5] as const;
 type MatchCount = (typeof MATCH_OPTIONS)[number];
 
 const SERVER_MULTIPLIER: Record<ServerName, number> = {
@@ -149,19 +149,26 @@ function round2(n: number): number {
   return parseFloat(n.toFixed(2));
 }
 
+type BoostPriceResult = number | "Contact us for a custom quote.";
+
 function calcRankBoostPrice(
   from: RankName,
   to: RankName,
   server: ServerName,
-): number {
+): BoostPriceResult {
   const fromIdx = RANK_ORDER.indexOf(from);
   const toIdx = RANK_ORDER.indexOf(to);
   if (fromIdx < 0 || toIdx <= fromIdx) return 0;
 
   let apSum = 0;
   for (let i = fromIdx + 1; i <= toIdx; i++) {
-    // ← +1 là điểm sửa duy nhất
-    apSum += RANK_STEP_PRICE_AP[RANK_ORDER[i]];
+    const price = RANK_STEP_PRICE_AP[RANK_ORDER[i]];
+
+    if (typeof price !== "number") {
+      return "Contact us for a custom quote.";
+    }
+
+    apSum += price;
   }
   return round2(apSum * SERVER_MULTIPLIER[server]);
 }
@@ -278,13 +285,19 @@ function SelectField<T extends string>({
 
 // ─── PriceSummary ─────────────────────────────────────────────────────────────
 
-function PriceSummary({ price, label }: { price: number; label: string }) {
+function PriceSummary({
+  price,
+  label,
+}: {
+  price: number | string;
+  label: string;
+}) {
   return (
     <div className="rounded-xl bg-[#F9F2FD] border border-[#B842F0]/20 p-4 flex items-start justify-between">
       <div>
         <p className="text-xs text-black/40 mb-1">Total Price</p>
         <p className="text-3xl font-extrabold text-[#B842F0]">
-          ${price.toFixed(2)}
+          {typeof price === "number" ? `$${price.toFixed(2)}` : price}
         </p>
         <p className="text-xs text-black/40 mt-1">{label}</p>
       </div>
@@ -356,13 +369,14 @@ function CustomerFields({
 // ─── PayButton ────────────────────────────────────────────────────────────────
 
 interface PayButtonProps {
-  price: number;
+  price: BoostPriceResult;
   loading: boolean;
   onPay: () => void;
+  disabled?: boolean;
 }
 
-function PayButton({ price, loading, onPay }: PayButtonProps) {
-  const disabled = loading || price <= 0;
+function PayButton({ loading, onPay }: PayButtonProps) {
+  const disabled = loading;
   return (
     <button
       onClick={onPay}
@@ -418,7 +432,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="relative bg-[#14161c] border border-black/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
+      <div className="relative bg-[white] border border-black/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-black/40 hover:text-black transition-colors"
@@ -445,7 +459,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
               <a
                 key={link.label}
                 href={link.href}
-                className="bg-[#F9F2FD] hover:bg-[#2f3137] border border-black/10 text-black/80 hover:text-black text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
+                className="bg-[white] hover:bg-[#969696] border border-black/10 text-black/80 hover:text-black text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
               >
                 {link.label}
               </a>
@@ -583,7 +597,8 @@ function LOLBookingPage() {
 
     const isRankTab = activeTab === "Rank Boosting";
     const price = isRankTab ? rankBoostPrice : placementPrice;
-    if (price <= 0) return;
+
+    if (price === 0) return;
 
     setLoading(true);
     try {
@@ -600,7 +615,7 @@ function LOLBookingPage() {
         await submitLOLPlacement({
           customerName: name,
           customerEmail: email,
-          totalPrice: price,
+          totalPrice: price as number,
           server: curServer,
           numberOfMatches: placementMatches!,
           previousSeasonRank: placementRank!,
@@ -620,7 +635,7 @@ function LOLBookingPage() {
   const serverOptions = (gameServers as ServerInfo[]).map((s) => s.name);
 
   // Shared form section for each tab
-  const formSection = (price: number, label: string) => (
+  const formSection = (price: BoostPriceResult, label: string) => (
     <>
       <PriceSummary price={price} label={label} />
       <CustomerFields

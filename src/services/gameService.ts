@@ -1,9 +1,18 @@
-export const games = [
+interface GameType {
+  id: number;
+  name: string;
+  color: string;
+  imgSrc: string;
+  services: string[];
+  href: string;
+}
+
+export const games: GameType[] = [
   {
     id: 1,
     name: "Valorant",
     color: "from-red-600 to-orange-500",
-    imgSrc: "/valorant.png",
+    imgSrc: "/valorant.jpg",
     services: ["Rank Boosting", "Placement Matches", "Net Wins"],
     href: "valorant",
   },

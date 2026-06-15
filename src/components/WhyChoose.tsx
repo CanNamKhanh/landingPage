@@ -85,17 +85,23 @@ function WhyChoose() {
         </span>
       </span>
 
-      <div className="grid gap-5 grid-cols-4 mt-5">
-        {chooseReason.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white rounded-xl hover:scale-105 border border-white hover:border-[#B642F0] transform duration-300 p-5 w-70 h-50 cursor-pointer flex flex-col gap-2 text-black"
-          >
-            <item.icon />
-            <h2 className="font-bold">{item.title}</h2>
-            <span className="text-black/50 text-sm">{item.content}</span>
-          </div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-5 w-[80%] bg-white p-10 rounded-xl">
+        {chooseReason.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <div
+              key={item.id}
+              className="text-black w-full min-w-0 h-40 flex flex-col items-start gap-3"
+            >
+              <Icon className="w-7 h-7 shrink-0" />
+              <h2 className="font-bold text-base">{item.title}</h2>
+              <span className="text-black/50 text-sm wrap-break-word">
+                {item.content}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ interface BasePayload {
   customerEmail: string;
   game: string;
   service: string;
-  totalPrice: number;
+  totalPrice: number | string;
 }
 
 // ─── Valorant ─────────────────────────────────────────────────────────────────

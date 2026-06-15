@@ -1,8 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Command,
+  CommandEmpty,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "./ui/command";
+import { games } from "@/services/gameService";
 
 export function HeroSection() {
+  const [openSearch, setOpenSearch] = useState(false);
+  const commandRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const header = document.querySelector("header") as HTMLElement;
     if (header) {
@@ -13,9 +24,25 @@ export function HeroSection() {
     }
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        commandRef.current &&
+        !commandRef.current.contains(event.target as Node)
+      ) {
+        setOpenSearch(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <section
-      className="relative w-full overflow-hidden pb-20 pt-60 sm:pt-55 md:pt-44 lg:pt-40"
+      className="relative w-full overflow-visible pb-20 pt-60 sm:pt-55 md:pt-44 lg:pt-40"
       style={{
         background:
           "linear-gradient(135deg, #f9eefb 0%, #f4e8f9 30%, #eedff6 60%, #f5ecfa 100%)",
@@ -308,7 +335,7 @@ export function HeroSection() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-start md:items-center gap-3 mb-5 flex-col md:flex-row">
             {/* VIEW SERVICES */}
             <button
               onClick={() => {
@@ -316,7 +343,7 @@ export function HeroSection() {
                   .querySelector(".ts-games")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="select-none cursor-pointer transition-all duration-200 font-bold text-[13.5px] tracking-[0.05em] text-white rounded-full px-6 py-4 border-none"
+              className="select-none cursor-pointer transition-all duration-200 font-bold text-[13.5px] tracking-[0.05em] text-white rounded-full px-6 py-3.5 border-none"
               style={{
                 background:
                   "linear-gradient(90deg, #d42d82 0%, #ed3f6a 60%, #f55a50 100%)",
@@ -337,32 +364,42 @@ export function HeroSection() {
             >
               VIEW SERVICES &nbsp;→
             </button>
+            <div className="relative" ref={commandRef}>
+              <Command className="rounded-full bg-white border-gray-400 border w-85 text-black hover:border-[#B642F0]">
+                <CommandInput
+                  onFocus={() => {
+                    setOpenSearch(true);
+                  }}
+                  placeholder="Search a game..."
+                  className="outline-red-500"
+                />
 
-            {/* ORDER */}
-            <button
-              onClick={() => {
-                document
-                  .querySelector(".ts-book-form")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="select-none cursor-pointer transition-all duration-200 font-bold text-[13.5px] tracking-[0.05em] text-[#12082a] rounded-full px-6 py-4"
-              style={{
-                background: "rgba(255,255,255,0.92)",
-                border: "2px solid rgba(190,170,210,0.5)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.border =
-                  "2px solid #d42d82";
-                (e.currentTarget as HTMLButtonElement).style.color = "#d42d82";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.border =
-                  "2px solid rgba(190,170,210,0.5)";
-                (e.currentTarget as HTMLButtonElement).style.color = "#12082a";
-              }}
-            >
-              ORDER
-            </button>
+                {openSearch && (
+                  <CommandList className="absolute border border-gray-400 w-full translate-y-15 rounded-2xl! bg-white text-black p-3 flex flex-col">
+                    <CommandEmpty>No game found.</CommandEmpty>
+
+                    {games.map((game) => (
+                      <CommandItem
+                        onSelect={() => {
+                          window.location.href =
+                            window.location.pathname + game.href;
+                          setOpenSearch(false);
+                        }}
+                        key={game.id}
+                        className="cursor-pointer hover:text-[#FF1493]! data-[selected=true]:text-[#FF1493] data-[selected=true]:bg-[#F2E5F7] hover:bg-[#F2E5F7]!"
+                      >
+                        <img
+                          src={game.imgSrc}
+                          alt="img"
+                          className="w-10 h-10 rounded-md"
+                        />
+                        <span>{game.name}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                )}
+              </Command>
+            </div>
           </div>
 
           {/* Promo badge */}
