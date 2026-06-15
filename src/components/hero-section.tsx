@@ -9,10 +9,12 @@ import {
   CommandList,
 } from "./ui/command";
 import { games } from "@/services/gameService";
+import { useNavigate } from "react-router-dom";
 
 export function HeroSection() {
   const [openSearch, setOpenSearch] = useState(false);
   const commandRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const header = document.querySelector("header") as HTMLElement;
@@ -381,8 +383,7 @@ export function HeroSection() {
                     {games.map((game) => (
                       <CommandItem
                         onSelect={() => {
-                          window.location.href =
-                            window.location.pathname + game.href;
+                          navigate(game.href);
                           setOpenSearch(false);
                         }}
                         key={game.id}
