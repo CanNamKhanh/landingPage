@@ -9,7 +9,7 @@ const stats = [
 
 function StartSection() {
   return (
-    <div className="reveal py-20 px-4 bg-[#F2E5F7]! select-none relative flex mx-auto w-full flex-wrap gap-5 justify-center">
+    <div className="reveal py-20 px-4 select-none relative flex mx-auto w-full flex-wrap gap-5 justify-center">
       {stats.map((item) => (
         <div
           key={item.id}

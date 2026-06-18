@@ -50,19 +50,32 @@ export function HeroSection() {
           "linear-gradient(135deg, #f9eefb 0%, #f4e8f9 30%, #eedff6 60%, #f5ecfa 100%)",
       }}
     >
-      {/* bg.png */}
+      {/* bg.jpg - dùng cover để không bị méo/lặp ở mọi tỉ lệ màn hình */}
       <div
         className="
     absolute inset-0 pointer-events-none
-    bg-no-repeat bg-center md:bg-right
-    bg-size-[120%_auto] md:bg-size-[50%_auto]
+    bg-no-repeat
+    bg-size-cover
+    bg-position-[center_top] sm:bg-position-[center_top]
+    md:bg-position-center lg:bg-position-center
   "
         style={{
-          backgroundImage: "url('/bg.png')",
+          backgroundImage: "url('/bg.jpg')",
         }}
       />
 
-      {/* Fade overlay */}
+      {/* Overlay làm mờ 2 góc dưới, blend ảnh vào nền section */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+      radial-gradient(circle at 0% 100%, rgba(245,236,250,0.9) 0%, rgba(245,236,250,0.45) 22%, transparent 48%),
+      radial-gradient(circle at 100% 100%, rgba(245,236,250,0.9) 0%, rgba(245,236,250,0.45) 22%, transparent 48%)
+    `,
+        }}
+      />
+
+      {/* Fade overlay ngang (giữ nguyên) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
