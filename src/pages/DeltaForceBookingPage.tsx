@@ -12,6 +12,16 @@ import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "sonner";
+import * as orderService from "@/services/orderService";
+
+const DF_GAME_ID = "cmqxlj3iy000f4cvn2yzql1k5";
+const DF_SERVICE_ID = {
+  TEKNIQ_ALLOY_FARMING: "cmqxlj5dr000g4cvnebboosm9",
+  ACCOUNT_LEVELING: "cmqxlj7rg000h4cvnhph43q1a",
+  HAZARD_OPERATION: "cmqxlj9rm000i4cvn6j6lrmth",
+  SEASON_MISSION: "cmqxljc4k000j4cvnzn2rvu0r",
+  RANK_BOOSTING: "cmqxlje1q000k4cvnn8yz0l5a",
+};
 
 // ─── Pricing Data ─────────────────────────────────────────────────────────────
 
@@ -554,14 +564,22 @@ function TekniqqAlloyyFarmingTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          form.handlePay(price, () =>
-            submitDFTekniqqAlloyyFarming({
+          form.handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: DF_GAME_ID,
+              serviceId: DF_SERVICE_ID.TEKNIQ_ALLOY_FARMING,
+              details: { amount: amount! },
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+            });
+            return submitDFTekniqqAlloyyFarming({
               customerName: form.name,
               customerEmail: form.email,
               totalPrice: price,
               amountM: amount!,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
@@ -633,18 +651,22 @@ function DFAccountLevelingTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          // form.handlePay(
-          //   price,
-          //   `Delta Force Account Leveling · ${selectedLabel}`,
-          // )
-          form.handlePay(price, () =>
-            submitDFAccountLeveling({
+          form.handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: DF_GAME_ID,
+              serviceId: DF_SERVICE_ID.ACCOUNT_LEVELING,
+              details: { levelRanges: Array.from(selected) },
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+            });
+            return submitDFAccountLeveling({
               customerName: form.name,
               customerEmail: form.email,
               totalPrice: price,
               selectedRanges: Array.from(selected),
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
@@ -768,20 +790,28 @@ function HazardOperationTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          // form.handlePay(
-          //   price,
-          //   `Delta Force Hazard Op · ${selectedMap ?? "?"} · ${selectedDiff ?? "?"} · ${runsNum > 0 ? runsNum : "?"} runs`,
-          // )
-          form.handlePay(price, () =>
-            submitDFHazardOperation({
+          form.handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: DF_GAME_ID,
+              serviceId: DF_SERVICE_ID.HAZARD_OPERATION,
+              details: {
+                map: selectedMap!,
+                difficulty: selectedDiff!,
+                quantity: runsNum,
+              },
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+            });
+            return submitDFHazardOperation({
               customerName: form.name,
               customerEmail: form.email,
               totalPrice: price,
               map: selectedMap!,
               difficulty: selectedDiff!,
               runs: runsNum,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
@@ -826,17 +856,21 @@ function SeasonMissionTab() {
         price={SEASON_MISSION_PRICE}
         loading={form.loading}
         onPay={() =>
-          // form.handlePay(
-          //   SEASON_MISSION_PRICE,
-          //   "Delta Force Season Mission — Safebox (Full)",
-          // )
-          form.handlePay(SEASON_MISSION_PRICE, () =>
-            submitDFSeasonMission({
+          form.handlePay(SEASON_MISSION_PRICE, async () => {
+            await orderService.createOrder({
+              gameId: DF_GAME_ID,
+              serviceId: DF_SERVICE_ID.SEASON_MISSION,
+              details: { packageCode: "SAFEBOX_FULL" },
               customerName: form.name,
               customerEmail: form.email,
               totalPrice: SEASON_MISSION_PRICE,
-            }),
-          )
+            });
+            return submitDFSeasonMission({
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: SEASON_MISSION_PRICE,
+            });
+          })
         }
       />
       <TermsLine />
@@ -908,19 +942,23 @@ function DFRankBoostingTab() {
         price={price}
         loading={form.loading}
         onPay={() =>
-          // form.handlePay(
-          //   price,
-          //   `Delta Force Rank Boost · ${currentRank ?? "?"} → ${desiredRank ?? "?"}`,
-          // )
-          form.handlePay(price, () =>
-            submitDFRankBoosting({
+          form.handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: DF_GAME_ID,
+              serviceId: DF_SERVICE_ID.RANK_BOOSTING,
+              details: { currentRank: currentRank!, desiredRank: desiredRank! },
+              customerName: form.name,
+              customerEmail: form.email,
+              totalPrice: price,
+            });
+            return submitDFRankBoosting({
               customerName: form.name,
               customerEmail: form.email,
               totalPrice: price,
               currentRank: currentRank!,
               desiredRank: desiredRank!,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />

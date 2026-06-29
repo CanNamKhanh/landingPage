@@ -11,6 +11,15 @@ import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "sonner";
+import * as orderService from "@/services/orderService";
+
+const ABI_GAME_ID = "cmqxlitqe000a4cvn6o4n21cl";
+const ABI_SERVICE_ID = {
+  KOENS_FARMING: "cmqxlivfa000b4cvn7gpll2vf",
+  ACCOUNT_LEVELING: "cmqxlixjz000c4cvnf9e7ke4g",
+  RAID_BOOST: "cmqxlizjy000d4cvnmkrbhewk",
+  TITANIUM_CASE: "cmqxlj1qe000e4cvnq3ekrd4l",
+};
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -508,14 +517,22 @@ function KoensFarmingTab() {
         //   handlePay(price, `ABI Koens Farming · ${amount ?? "?"}M Koens`)
         // }
         onPay={() =>
-          handlePay(price, () =>
-            submitABIKoensFarming({
+          handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: ABI_GAME_ID,
+              serviceId: ABI_SERVICE_ID.KOENS_FARMING,
+              details: { amount: amount! },
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+            });
+            return submitABIKoensFarming({
               customerName: name,
               customerEmail: email,
               totalPrice: price,
               amountM: amount!,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
@@ -606,15 +623,23 @@ function AccountLevelingTab() {
         //   )
         // }
         onPay={() =>
-          handlePay(price, () =>
-            submitABIAccountLeveling({
+          handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: ABI_GAME_ID,
+              serviceId: ABI_SERVICE_ID.ACCOUNT_LEVELING,
+              details: { currentLevel, targetLevel: targetLevel! },
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+            });
+            return submitABIAccountLeveling({
               customerName: name,
               customerEmail: email,
               totalPrice: price,
               currentLevel,
               targetLevel: targetLevel!,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
@@ -761,16 +786,28 @@ function RaidBoostTab() {
         //   )
         // }
         onPay={() =>
-          handlePay(price, () =>
-            submitABIRaidBoost({
+          handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: ABI_GAME_ID,
+              serviceId: ABI_SERVICE_ID.RAID_BOOST,
+              details: {
+                map: selectedMap!,
+                difficulty: selectedDiff!,
+                quantity: runsNum,
+              },
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+            });
+            return submitABIRaidBoost({
               customerName: name,
               customerEmail: email,
               totalPrice: price,
               map: selectedMap!,
               difficulty: selectedDiff!,
               runs: runsNum,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
@@ -859,15 +896,23 @@ function TitaniumCaseTab() {
         //   )
         // }
         onPay={() =>
-          handlePay(price, () =>
-            submitABITitaniumCase({
+          handlePay(price, async () => {
+            await orderService.createOrder({
+              gameId: ABI_GAME_ID,
+              serviceId: ABI_SERVICE_ID.TITANIUM_CASE,
+              details: { missionsToComplete: missions },
+              customerName: name,
+              customerEmail: email,
+              totalPrice: price,
+            });
+            return submitABITitaniumCase({
               customerName: name,
               customerEmail: email,
               totalPrice: price,
               missions,
               totalMissions: TITANIUM_TOTAL_MISSIONS,
-            }),
-          )
+            });
+          })
         }
       />
       <TermsLine />
