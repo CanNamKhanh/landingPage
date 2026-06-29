@@ -30,7 +30,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF5FC] text-black">
+    <div className="h-screen bg-[#FAF5FC] text-black flex flex-col overflow-hidden">
       <header className="bg-white border-b flex items-center justify-between border-gray-100 px-6 py-4">
         <h1 className="text-xl font-extrabold text-gray-800">
           Rosie<span className="text-[#B842F0]">Boost</span> Admin
@@ -38,8 +38,8 @@ export default function AdminPage() {
         <UserAvatar onLogout={handleLogout} username={user.username} />
       </header>
 
-      <div className="px-6 pt-5">
-        <div className="flex gap-2 mb-5">
+      <div className="px-6 pt-5 flex flex-col flex-1 min-h-0">
+        <div className="flex gap-2 mb-5 shrink-0">
           {TABS.map((tab) => (
             <button
               key={tab.key}
@@ -55,7 +55,9 @@ export default function AdminPage() {
           ))}
         </div>
 
-        <div className="pb-10">
+        <div
+          className={`flex-1 min-h-0 ${activeTab !== "chat" ? "overflow-y-auto pb-10" : ""}`}
+        >
           {activeTab === "orders" && <AdminOrdersTab />}
           {activeTab === "boosters" && <AdminBoostersTab />}
           {activeTab === "chat" && <AdminChatTab />}

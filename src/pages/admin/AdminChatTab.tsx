@@ -123,7 +123,7 @@ export default function AdminChatTab() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex h-150">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex h-full">
       {/* ── Sidebar: danh sách conversations ──────────────────────────────── */}
       <div className="w-72 border-r border-gray-100 flex flex-col">
         <div className="p-4 border-b border-gray-100 font-bold text-gray-800 text-sm shrink-0">
