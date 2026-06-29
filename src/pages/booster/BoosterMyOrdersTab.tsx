@@ -57,6 +57,26 @@ function ProgressRow({ order }: { order: Order }) {
         </span>
       </div>
 
+      <div className="text-xs space-y-0.5 border-t border-dashed border-gray-100 pt-2 text-gray-700">
+        {Object.entries(order.details || {}).map(([key, value]) => {
+          if (value === undefined || value === null || value === "")
+            return null;
+
+          const friendlyKey = key
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, (str) => str.toUpperCase());
+
+          return (
+            <div key={key} className="flex gap-1">
+              <span className="text-gray-400 font-medium">{friendlyKey}:</span>
+              <span className="text-gray-900 font-semibold">
+                {String(value)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="text-xs text-gray-500 font-medium">
@@ -76,10 +96,10 @@ function ProgressRow({ order }: { order: Order }) {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as OrderStatus)}
-            className="w-full mt-1 border border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-[#B842F0]/50"
+            className="w-full mt-1 border cursor-pointer border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-[#B842F0]/50"
           >
             {NEXT_STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>
+              <option className="cursor-pointer" key={s} value={s}>
                 {s}
               </option>
             ))}
@@ -117,7 +137,6 @@ export default function BoosterMyOrdersTab() {
   );
 
   const load = () => {
-    // console.log("[BoosterMyOrdersTab] load assignedToMe");
     dispatch(fetchOrders({ scope: "assignedToMe", limit: 50 }));
   };
 

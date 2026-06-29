@@ -36,6 +36,8 @@ export default function AdminOrdersTab() {
     );
   };
 
+  console.log(orders);
+
   useEffect(() => {
     loadOrders();
     dispatch(fetchBoosters({ isActive: true }));
@@ -49,9 +51,9 @@ export default function AdminOrdersTab() {
       assignBoosterToOrder({ orderId, boosterId: { boosterId } }),
     );
     if (assignBoosterToOrder.fulfilled.match(result)) {
-      toast.success("Đã gán booster cho kèo");
+      toast.success("Booster assigned to the boost");
     } else {
-      toast.error((result.payload as string) ?? "Gán booster thất bại");
+      toast.error((result.payload as string) ?? "Failed to assign booster");
     }
   };
 
@@ -97,6 +99,7 @@ export default function AdminOrdersTab() {
               <tr className="text-left text-gray-400 border-b border-gray-100">
                 <th className="py-2 pr-4 font-medium">Code</th>
                 <th className="py-2 pr-4 font-medium">Game / Service</th>
+                <th className="py-2 pr-4 font-medium">Details</th>
                 <th className="py-2 pr-4 font-medium">Customer</th>
                 <th className="py-2 pr-4 font-medium">Price</th>
                 <th className="py-2 pr-4 font-medium">Status</th>
@@ -108,7 +111,7 @@ export default function AdminOrdersTab() {
               {orders.map((order) => (
                 <tr
                   key={order.id}
-                  className="border-b border-gray-50 hover:bg-gray-50/60"
+                  className="border-b border-gray-100 hover:bg-gray-50/60"
                 >
                   <td className="py-3 pr-4 font-mono text-xs text-gray-600">
                     {order.code}
@@ -119,6 +122,35 @@ export default function AdminOrdersTab() {
                     </div>
                     <div className="text-xs text-gray-400">
                       {order.service?.name ?? order.serviceId}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="text-xs space-y-1 text-gray-700">
+                      {Object.entries(order.details || {}).map(
+                        ([key, value]) => {
+                          if (
+                            value === undefined ||
+                            value === null ||
+                            value === ""
+                          )
+                            return null;
+
+                          const friendlyKey = key
+                            .replace(/([A-Z])/g, " $1")
+                            .replace(/^./, (str) => str.toUpperCase());
+
+                          return (
+                            <div key={key} className="flex gap-1">
+                              <span className="text-gray-400 font-medium">
+                                {friendlyKey}:
+                              </span>
+                              <span className="text-gray-900 font-semibold">
+                                {String(value)}
+                              </span>
+                            </div>
+                          );
+                        },
+                      )}
                     </div>
                   </td>
                   <td className="py-3 pr-4">
