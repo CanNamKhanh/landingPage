@@ -703,8 +703,8 @@ function ValorantBookingPage() {
 
       setShowSuccess(true);
       toast.success("Order submitted successfully");
-    } catch (err) {
-      console.error("[ValorantBookingPage] handlePay failed", err);
+    } catch {
+      // console.error("[ValorantBookingPage] handlePay failed", err);
       toast.error("Failed to submit order. Please try again.");
     } finally {
       setLoading(false);

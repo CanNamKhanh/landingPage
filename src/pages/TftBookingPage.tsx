@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import * as orderService from "@/services/orderService";
 import {
   submitTFTPlacement,
   submitTFTRankBoost,
@@ -559,31 +560,63 @@ function TftBookingPage() {
     return valid;
   }
 
+  const TFT_GAME_ID = "cmqxlio6000074cvn48mlrhcm";
+  const TFT_SERVICE_ID = {
+    RANK_BOOSTING: "cmqxliq5e00084cvnc2aku62b",
+    PLACEMENT_MATCHES: "cmqxlirz700094cvn4kndc2wi",
+  };
+
   async function handlePay() {
     if (!validate()) return;
 
     const isRankTab = activeTab === "Rank Boosting";
-    const price = isRankTab ? rankBoostPrice : placementPrice;
+    const rawPrice = isRankTab ? rankBoostPrice : placementPrice;
 
-    // Block chỉ khi chưa chọn đủ thông tin (price = 0)
-    if (price === 0) return;
+    if (rawPrice === 0) return;
+
+    const price = typeof rawPrice === "number" ? rawPrice : 0; // 0 = "Contact us"
+    const isContactUs = typeof rawPrice === "string";
 
     setLoading(true);
     try {
       if (isRankTab) {
+        await orderService.createOrder({
+          gameId: TFT_GAME_ID,
+          serviceId: TFT_SERVICE_ID.RANK_BOOSTING,
+          details: {
+            server: curServer,
+            currentRank: currentRank!,
+            desiredRank: desiredRank!,
+          },
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+        });
         await submitTFTRankBoost({
           customerName: name,
           customerEmail: email,
-          totalPrice: price, // string "Contact us..." hoặc number đều được gửi
+          totalPrice: isContactUs ? "Contact us for a custom quote." : price,
           server: curServer,
           currentRank: currentRank!,
           desiredRank: desiredRank!,
         });
       } else {
+        await orderService.createOrder({
+          gameId: TFT_GAME_ID,
+          serviceId: TFT_SERVICE_ID.PLACEMENT_MATCHES,
+          details: {
+            server: curServer,
+            numberOfMatches: placementMatches!,
+            previousSeasonRank: placementRank!,
+          },
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+        });
         await submitTFTPlacement({
           customerName: name,
           customerEmail: email,
-          totalPrice: price as number,
+          totalPrice: isContactUs ? "Contact us for a custom quote." : price,
           server: curServer,
           numberOfMatches: placementMatches!,
           previousSeasonRank: placementRank!,

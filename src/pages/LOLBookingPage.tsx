@@ -11,6 +11,7 @@ import {
   submitLOLRankBoost,
 } from "@/services/bookingService";
 import { games, gameServers } from "@/services/gameService";
+import * as orderService from "@/services/orderService";
 // import axiosInstance from "@/utils/axios";
 import { ArrowLeft, CheckCircle, Loader2, X } from "lucide-react";
 import { useState } from "react";
@@ -592,30 +593,63 @@ function LOLBookingPage() {
   //   }
   // }
 
+  const LOL_GAME_ID = "cmqxliijb00044cvntgl5pltt";
+  const LOL_SERVICE_ID = {
+    RANK_BOOSTING: "cmqxlik8y00054cvnyyqnebvh",
+    PLACEMENT_MATCHES: "cmqxlimce00064cvny8ec9d9s",
+  };
+
   async function handlePay() {
     if (!validate()) return;
 
     const isRankTab = activeTab === "Rank Boosting";
-    const price = isRankTab ? rankBoostPrice : placementPrice;
+    const rawPrice = isRankTab ? rankBoostPrice : placementPrice;
 
-    if (price === 0) return;
+    if (rawPrice === 0) return;
+
+    const price = typeof rawPrice === "number" ? rawPrice : 0; // 0 = "Contact us"
+    const isContactUs = typeof rawPrice === "string";
 
     setLoading(true);
     try {
       if (isRankTab) {
-        await submitLOLRankBoost({
+        await orderService.createOrder({
+          gameId: LOL_GAME_ID,
+          serviceId: LOL_SERVICE_ID.RANK_BOOSTING,
+          details: {
+            server: curServer,
+            currentRank: currentRank!,
+            desiredRank: desiredRank!,
+          },
           customerName: name,
           customerEmail: email,
           totalPrice: price,
+        });
+        await submitLOLRankBoost({
+          customerName: name,
+          customerEmail: email,
+          totalPrice: isContactUs ? "Contact us for a custom quote." : price,
           server: curServer,
           currentRank: currentRank!,
           desiredRank: desiredRank!,
         });
       } else {
+        await orderService.createOrder({
+          gameId: LOL_GAME_ID,
+          serviceId: LOL_SERVICE_ID.PLACEMENT_MATCHES,
+          details: {
+            server: curServer,
+            numberOfMatches: placementMatches!,
+            previousSeasonRank: placementRank!,
+          },
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+        });
         await submitLOLPlacement({
           customerName: name,
           customerEmail: email,
-          totalPrice: price as number,
+          totalPrice: isContactUs ? "Contact us for a custom quote." : price,
           server: curServer,
           numberOfMatches: placementMatches!,
           previousSeasonRank: placementRank!,
