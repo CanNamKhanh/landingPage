@@ -17,12 +17,15 @@ import { useSelector } from "react-redux";
 import { useAppDispatch, type RootState } from "./stores/store";
 import { useEffect } from "react";
 import { fetchMe } from "./middlewares/authMiddleware";
+import { useConversationSocket } from "./hooks/useConversationSocket";
 
 function App() {
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useConversationSocket();
 
   useEffect(() => {
     dispatch(fetchMe());
