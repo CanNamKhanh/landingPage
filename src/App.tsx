@@ -1,7 +1,7 @@
 import { Toaster } from "sonner";
 import MainLayout from "./layouts/MainLayout";
 import MainPage from "./pages/MainPage";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import ServicePolicyPage from "./pages/ServicePolicyPage";
 import ValorantBookingPage from "./pages/ValorantBookingPage";
 import LOLBookingPage from "./pages/LOLBookingPage";
@@ -10,8 +10,36 @@ import DeltaForceBookingPage from "./pages/DeltaForceBookingPage";
 import ArenaBreakoutBookingPage from "./pages/ArenaBreakoutBookingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import RefundPolicyPage from "./pages/RefundPolicyPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminPage from "./pages/AdminPage";
+import BoosterPage from "./pages/BoosterPage";
+import { useSelector } from "react-redux";
+import { useAppDispatch, type RootState } from "./stores/store";
+import { useEffect } from "react";
+import { fetchMe } from "./middlewares/authMiddleware";
 
 function App() {
+  const dispatch = useAppDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(fetchMe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      if (user) {
+        if (user.role === "ADMIN") {
+          navigate("/admin");
+        } else if (user.role === "BOOSTER") {
+          navigate("/booster");
+        }
+      }
+    }
+  }, [user, navigate, location.pathname]);
+
   return (
     <>
       <Toaster
@@ -40,6 +68,26 @@ function App() {
         <Route
           path={"/arena-breakout"}
           element={<ArenaBreakoutBookingPage />}
+        />
+
+        {/* Chỉ role ADMIN vào được */}
+        <Route
+          path={"/admin"}
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Chỉ role BOOSTER vào được */}
+        <Route
+          path={"/booster"}
+          element={
+            <ProtectedRoute allowedRoles={["BOOSTER"]}>
+              <BoosterPage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </>

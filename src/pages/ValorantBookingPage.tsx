@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import * as orderService from "@/services/orderService";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -608,16 +609,44 @@ function ValorantBookingPage() {
   //   }
   // }
 
+  const VALORANT_GAME_ID = "cmqxlibk300004cvnjr3zifcm";
+  const SERVICE_ID = {
+    RANK_BOOSTING: "cmqxlid5800014cvn7xtmk4lg",
+    PLACEMENT_MATCHES: "cmqxlif2h00024cvn1rqd2tii",
+    NET_WINS: "cmqxligna00034cvn68kdk9mi",
+  };
+
   async function handlePay() {
     if (!validate()) return;
 
     let price = 0;
 
+    if (activeTab === "Rank Boosting") {
+      price = rankBoostPrice;
+    } else if (activeTab === "Placement Matches") {
+      price = placementPrice;
+    } else {
+      price = netWinPrice;
+    }
+
+    if (price <= 0) return;
+
     setLoading(true);
     try {
       if (activeTab === "Rank Boosting") {
-        price = rankBoostPrice;
-        if (price <= 0) return;
+        await orderService.createOrder({
+          gameId: VALORANT_GAME_ID,
+          serviceId: SERVICE_ID.RANK_BOOSTING,
+          details: {
+            server: curServer,
+            currentRank: currentRank!,
+            desiredRank: desiredRank!,
+          },
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+        });
+
         await submitValorantRankBoost({
           customerName: name,
           customerEmail: email,
@@ -627,8 +656,19 @@ function ValorantBookingPage() {
           desiredRank: desiredRank!,
         });
       } else if (activeTab === "Placement Matches") {
-        price = placementPrice;
-        if (price <= 0) return;
+        await orderService.createOrder({
+          gameId: VALORANT_GAME_ID,
+          serviceId: SERVICE_ID.PLACEMENT_MATCHES,
+          details: {
+            server: curServer,
+            numberOfMatches: placementMatches!,
+            previousSeasonRank: placementRank!,
+          },
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+        });
+
         await submitValorantPlacement({
           customerName: name,
           customerEmail: email,
@@ -638,8 +678,19 @@ function ValorantBookingPage() {
           previousSeasonRank: placementRank!,
         });
       } else {
-        price = netWinPrice;
-        if (price <= 0) return;
+        await orderService.createOrder({
+          gameId: VALORANT_GAME_ID,
+          serviceId: SERVICE_ID.NET_WINS,
+          details: {
+            server: curServer,
+            numberOfMatches: netWinMatches!,
+            currentRank: netWinRank!,
+          },
+          customerName: name,
+          customerEmail: email,
+          totalPrice: price,
+        });
+
         await submitValorantNetWins({
           customerName: name,
           customerEmail: email,
@@ -653,7 +704,7 @@ function ValorantBookingPage() {
       setShowSuccess(true);
       toast.success("Order submitted successfully");
     } catch (err) {
-      console.error(err);
+      console.error("[ValorantBookingPage] handlePay failed", err);
       toast.error("Failed to submit order. Please try again.");
     } finally {
       setLoading(false);
