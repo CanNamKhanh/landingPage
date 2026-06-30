@@ -79,9 +79,9 @@ async function request<T>(
     const axiosErr = err as AxiosError<{ message?: string }>;
     const message =
       axiosErr.response?.data?.message ?? axiosErr.message ?? "Request failed.";
-    const debugInfo = `${message} | code=${axiosErr.code} | hasResponse=${!!axiosErr.response} | status=${axiosErr.response?.status} | url=${axiosErr.config?.baseURL}${axiosErr.config?.url}`;
+    // const debugInfo = `${message} | code=${axiosErr.code} | hasResponse=${!!axiosErr.response} | status=${axiosErr.response?.status} | url=${axiosErr.config?.baseURL}${axiosErr.config?.url}`;
 
-    alert(debugInfo);
+    // alert(debugInfo);
     return { success: false, error: message };
   }
 }

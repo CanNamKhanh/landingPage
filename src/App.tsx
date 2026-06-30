@@ -46,6 +46,7 @@ function App() {
   return (
     <>
       <Toaster
+        duration={2000}
         position="top-right"
         toastOptions={{
           classNames: {

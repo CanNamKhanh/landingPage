@@ -121,11 +121,14 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.isAuthenticated = true; // ◄ Bắt buộc phải có để giữ phiên khi F5
       })
-      .addCase(fetchMe.rejected, (state, action) => {
-        setError(state, action.payload);
+      .addCase(fetchMe.rejected, (state) => {
+        // setError(state, action.payload);
+
+        state.loading = false;
         state.status = "failed";
-        state.isAuthenticated = false; // ◄ Bắt buộc phải có khi token cook / fake
+        state.isAuthenticated = false; // ◄ vẫn giữ, để biết chưa đăng nhập
         state.user = null;
+        state.error = null;
       });
 
     // Update Profile
