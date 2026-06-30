@@ -79,14 +79,9 @@ async function request<T>(
     const axiosErr = err as AxiosError<{ message?: string }>;
     const message =
       axiosErr.response?.data?.message ?? axiosErr.message ?? "Request failed.";
-    console.error("[AUTH ERROR DEBUG]", {
-      code: axiosErr.code,
-      message: axiosErr.message,
-      hasResponse: !!axiosErr.response,
-      status: axiosErr.response?.status,
-      requestURL: axiosErr.config?.url,
-      baseURL: axiosErr.config?.baseURL,
-    });
+    const debugInfo = `${message} | code=${axiosErr.code} | hasResponse=${!!axiosErr.response} | status=${axiosErr.response?.status} | url=${axiosErr.config?.baseURL}${axiosErr.config?.url}`;
+
+    alert(debugInfo);
     return { success: false, error: message };
   }
 }
