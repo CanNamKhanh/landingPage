@@ -280,7 +280,7 @@ export function AuthDialog({
                 <Input
                   id="reg-pass"
                   type="password"
-                  placeholder="Min. 6 characters"
+                  placeholder="Min. 8 characters"
                   value={regPassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleRegisterSubmit()}
