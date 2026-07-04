@@ -103,12 +103,14 @@ const authSlice = createSlice({
       .addCase(fetchLogout.pending, setPending)
       .addCase(fetchLogout.fulfilled, (state) => {
         state.loading = false;
+        state.status = "succeeded";
         state.user = null;
-        state.isAuthenticated = false; // ◄ Chuẩn
+        state.isAuthenticated = false;
       })
       .addCase(fetchLogout.rejected, (state, action) => {
         setError(state, action.payload);
-        state.isAuthenticated = false; // ◄ Chuẩn
+        state.status = "succeeded";
+        state.isAuthenticated = false;
         state.user = null;
       });
 
