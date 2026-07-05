@@ -59,10 +59,10 @@ function FAQ() {
   return (
     <div
       id="faq"
-      className="w-full mt-20 items-center flex flex-col gap-8 pb-25 reveal "
+      className="ts-faq w-full mt-20 items-center flex flex-col gap-8 pb-25 reveal "
     >
       <span className="flex flex-col items-center text-center">
-        <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-black">
+        <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-white">
           FREQUENTLY ASKED{" "}
           <span className="text-[#B642F0] text-shadow-[0_0_40px_rgba(182,66,240,0.8)]">
             QUESTIONS
@@ -77,18 +77,18 @@ function FAQ() {
         type="single"
         collapsible
         defaultValue="Is boosting safe?"
-        className="max-w-3xl w-[80%] bg-[#FFFFFF] text-black rounded-xl p-5"
+        className="max-w-3xl w-[80%] bg-[#151728] border text-white rounded-xl p-5"
       >
         {AccordionArr.map((item) => (
           <AccordionItem
             key={item.id}
             value={item.trigger}
-            className="border-gray-200!"
+            className="border-gray-800!"
           >
             <AccordionTrigger className="px-5 cursor-pointer text-md hover:no-underline hover:text-[#B842F0] font-medium">
               {item.trigger}
             </AccordionTrigger>
-            <AccordionContent className="px-5 text-sm text-black/60 font-medium">
+            <AccordionContent className="px-5 text-sm text-white/60 font-medium">
               {item.content}
             </AccordionContent>
           </AccordionItem>

@@ -211,7 +211,7 @@ function SelectField<T extends string>({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="text-sm font-medium text-black/80">
+      <div className="text-sm font-medium text-white/80">
         {label} {required && <span className="text-[#B842F0]">*</span>}
       </div>
       <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -233,11 +233,11 @@ function SelectField<T extends string>({
               "focus:border-[#B842F0] focus-visible:border-[#B842F0]",
 
               showGreen
-                ? "bg-[#F9F2FD]/10 border border-[#B842F0] text-black hover:bg-[#F9F2FD]/15"
-                : "bg-[#F9F2FD] border border-[#B842F0] text-black/50 hover:bg-[#F9F2FD]",
+                ? "bg-[#B842F0]/10 border border-[#B842F0] text-white hover:bg-[#B842F0]/15"
+                : "bg-[#1D1D28] border border-[#B842F0] text-white/60 hover:bg-[#1D1D28]",
             ].join(" ")}
           >
-            <span className={value ? "text-black" : "text-black/50"}>
+            <span className={value ? "text-white" : "text-white/60"}>
               {value ?? placeholder}
             </span>
             <svg
@@ -257,7 +257,7 @@ function SelectField<T extends string>({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
-          className="bg-[white] border border-[#B842F0] z-50 max-h-64 overflow-y-auto"
+          className="bg-[#1B1B24] border border-[#B842F0] z-50 max-h-64 overflow-y-auto"
           style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}
         >
           {options.map((opt) => (
@@ -268,7 +268,7 @@ function SelectField<T extends string>({
                 "outline-none focus:outline-none",
                 value === opt
                   ? "text-[#B842F0] bg-[#B842F0]/10 focus:text-[#B842F0] focus:bg-[#B842F0]/10"
-                  : "text-black/80 focus:text-[#B842F0] focus:bg-[#B842F0]/10",
+                  : "text-white/80 focus:text-[#B842F0] focus:bg-[#B842F0]/10",
               ].join(" ")}
               onSelect={() => {
                 onChange(opt);
@@ -294,17 +294,17 @@ function PriceSummary({
   label: string;
 }) {
   return (
-    <div className="rounded-xl bg-[#F9F2FD] border border-[#B842F0]/20 p-4 flex items-start justify-between">
+    <div className="rounded-xl bg-[#1D1D28] border border-[#B842F0]/20 p-4 flex items-start justify-between">
       <div>
-        <p className="text-xs text-black/40 mb-1">Total Price</p>
+        <p className="text-xs text-white/50 mb-1">Total Price</p>
         <p className="text-3xl font-extrabold text-[#B842F0]">
           {typeof price === "number" ? `$${price.toFixed(2)}` : price}
         </p>
-        <p className="text-xs text-black/40 mt-1">{label}</p>
+        <p className="text-xs text-white/50 mt-1">{label}</p>
       </div>
-      <div className="text-right text-xs text-black/40">
+      <div className="text-right text-xs text-white/50">
         <span className="text-base">🎉</span>
-        <p className="font-semibold text-black/60">Grand Opening</p>
+        <p className="font-semibold text-white/70">Grand Opening</p>
         <p>30% OFF — contact us</p>
       </div>
     </div>
@@ -334,7 +334,7 @@ function CustomerFields({
     <div className="grid grid-cols-2 gap-4">
       {/* Name */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-black/80">
+        <label className="text-sm font-medium text-white/80">
           Your Name <span className="text-[#B842F0]">*</span>
         </label>
         <input
@@ -342,15 +342,15 @@ function CustomerFields({
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
           placeholder="Full name"
-          className={`bg-[#F9F2FD] border rounded-md px-3 py-2 text-sm text-black placeholder:text-black/30 transition-colors
-            ${nameError ? "border-red-500 focus:border-red-500" : "border-[#B842F0] focus:border-[#B842F0]/60"}`}
+          className={`bg-[#1D1D28] border rounded-md px-3 py-2 text-sm text-white placeholder:text-white/35 transition-colors
+            ${nameError ? "border-red-500 focus:border-red-500" : "border-white/10 focus:border-[#B842F0]/60"}`}
         />
         {nameError && <p className="text-xs text-red-500">{nameError}</p>}
       </div>
 
       {/* Email */}
       <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-black/80">
+        <label className="text-sm font-medium text-white/80">
           Email <span className="text-[#B842F0]">*</span>
         </label>
         <input
@@ -358,8 +358,8 @@ function CustomerFields({
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           placeholder="you@example.com"
-          className={`bg-[#F9F2FD] border rounded-md px-3 py-2 text-sm text-black placeholder:text-black/30 transition-colors
-            ${emailError ? "border-red-500 focus:border-red-500" : "border-[#B842F0] focus:border-[#B842F0]/60"}`}
+          className={`bg-[#1D1D28] border rounded-md px-3 py-2 text-sm text-white placeholder:text-white/35 transition-colors
+            ${emailError ? "border-red-500 focus:border-red-500" : "border-white/10 focus:border-[#B842F0]/60"}`}
         />
         {emailError && <p className="text-xs text-red-500">{emailError}</p>}
       </div>
@@ -384,13 +384,13 @@ function PayButton({ price, loading, onPay }: PayButtonProps) {
       className={`w-full py-4 rounded-xl font-extrabold text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-2
         ${
           disabled
-            ? "bg-[#B842F0]/30 text-white cursor-not-allowed"
+            ? "bg-[#B842F0]/30 text-white/40 cursor-not-allowed"
             : "bg-[#B842F0] text-white hover:brightness-110 active:scale-[0.98] cursor-pointer"
         }`}
     >
       {loading ? (
         <>
-          <Loader2 size={16} className="animate-spin text-white" />
+          <Loader2 size={16} className="animate-spin text-white/70" />
           <span>Creating invoice...</span>
         </>
       ) : (
@@ -404,7 +404,7 @@ function PayButton({ price, loading, onPay }: PayButtonProps) {
 
 function TermsLine() {
   return (
-    <p className="text-center text-xs text-black/40">
+    <p className="text-center text-xs text-white/50">
       By making a payment, you agree to the{" "}
       <NavLink
         to="/service-policy"
@@ -432,10 +432,10 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="relative bg-[white] border border-black/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
+      <div className="relative bg-[#1B1B24] border border-white/10 rounded-2xl p-8 w-full max-w-sm mx-4 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-black/40 hover:text-black transition-colors"
+          className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"
         >
           <X size={18} />
         </button>
@@ -443,15 +443,15 @@ function ContactModal({ onClose }: { onClose: () => void }) {
           <div className="w-14 h-14 rounded-full border-2 border-[#B842F0] flex items-center justify-center">
             <CheckCircle className="text-[#B842F0]" size={32} />
           </div>
-          <h2 className="text-2xl font-extrabold text-black">
+          <h2 className="text-2xl font-extrabold text-white">
             Order placed successfully!
           </h2>
-          <p className="text-sm text-black/50">
+          <p className="text-sm text-white/60">
             We have receiced your information. Your invoice will be shortly
             created and sent to your email. Please check your inbox (and Spam
             folder) to complete the payment.
           </p>
-          <p className="text-sm text-black/60 font-medium">
+          <p className="text-sm text-white/70 font-medium">
             Contact us to get started right away:
           </p>
           <div className="grid grid-cols-2 gap-2 w-full">
@@ -459,7 +459,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
               <a
                 key={link.label}
                 href={link.href}
-                className="bg-[white] hover:bg-[#969696] border border-black/10 text-black/80 hover:text-black text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
+                className="bg-[#1B1B24] hover:bg-white/10 border border-white/10 text-white/80 hover:text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors text-center"
               >
                 {link.label}
               </a>
@@ -653,20 +653,20 @@ function TftBookingPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#FCFBFE] text-black">
+    <div className="min-h-screen bg-[#0F0F17] text-white">
       {/* HEADER */}
-      <div className="bg-[#FCFBFE] w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md">
-        <div className="flex items-center justify-between h-21 border-y border-black/10 px-6 md:px-20">
+      <div className="bg-[#0F0F17] w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md">
+        <div className="flex items-center justify-between h-21 border-y border-white/10 px-6 md:px-20">
           <NavLink to={"/"} className="flex items-center gap-3 cursor-pointer">
             <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
             <div className="hidden items-center text-xl sm:flex">
-              <span className="font-bold text-black">Rosie</span>
+              <span className="font-bold text-white">Rosie</span>
               <span className="font-bold text-[#B842F0]">Boost</span>
             </div>
           </NavLink>
           <NavLink
             to={"/"}
-            className="flex gap-2 font-medium text-gray-500 hover:text-[#B842F0] cursor-pointer transition-colors"
+            className="flex gap-2 font-medium text-white/50 hover:text-[#B842F0] cursor-pointer transition-colors"
           >
             <ArrowLeft />
             <span>Back To Home</span>
@@ -688,7 +688,7 @@ function TftBookingPage() {
               Select Service
             </h1>
             <h2 className="text-5xl font-extrabold">Teamfight Tactics</h2>
-            <p className="text-black/60 text-sm">Choose a service tab below.</p>
+            <p className="text-white/70 text-sm">Choose a service tab below.</p>
           </div>
         </div>
 
@@ -698,11 +698,11 @@ function TftBookingPage() {
           onValueChange={(v) => setActiveTab(v as typeof activeTab)}
           className="w-full flex flex-col gap-5"
         >
-          <TabsList className="bg-[#F8F7FA] w-full">
+          <TabsList className="bg-[#17171F] w-full">
             {tftGameObj?.services.map((item, index) => (
               <TabsTrigger
                 key={index}
-                className="cursor-pointer flex-1 text-black hover:text-black data-[state=active]:text-black"
+                className="cursor-pointer flex-1 text-white/60 hover:text-white data-[state=active]:text-white data-[state=active]:bg-[#B842F0]/15 data-[state=active]:shadow-none"
                 value={item}
               >
                 {item}
@@ -713,7 +713,7 @@ function TftBookingPage() {
           {/* ── Rank Boosting ── */}
           <TabsContent
             value="Rank Boosting"
-            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 text-black bg-[#F8F7FA]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#17171F]"
           >
             <SelectField<ServerName>
               label="Server"
@@ -749,7 +749,7 @@ function TftBookingPage() {
           {/* ── Placement Matches ── */}
           <TabsContent
             value="Placement Matches"
-            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 text-black bg-[#F8F7FA]"
+            className="border border-[#B842F0]/30 rounded-xl w-full p-5 flex flex-col gap-5 bg-[#17171F]"
           >
             <SelectField<ServerName>
               label="Server"

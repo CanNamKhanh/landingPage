@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
@@ -31,8 +30,8 @@ import { useAppDispatch, type RootState } from "@/stores/store";
 
 // ─── Gradient button style (reuse từ GET STARTED) ────────────────────────────
 const gradientStyle = {
-  background: "linear-gradient(90deg, #e05cd5 0%, #f0608a 50%, #f8855a 100%)",
-  boxShadow: "0 4px 20px rgba(224,92,213,0.3)",
+  background: "linear-gradient(90deg, #d42d82 0%, #ed3f6a 60%, #f55a50 100%)",
+  boxShadow: "0 4px 18px rgba(212,45,130,0.32)",
 };
 
 const gradientHover = {
@@ -135,7 +134,7 @@ export function AuthDialog({
           <DialogHeader className="mb-6 items-center">
             <div className="flex items-center gap-2 mb-1">
               <img src="/favicon.png" alt="" className="w-8 rounded-lg" />
-              <span className="font-bold text-lg text-black">Rosie</span>
+              <span className="font-bold text-lg text-white">Rosie</span>
               <span className="font-bold text-lg text-[#B842F0] -ml-1.5">
                 Boost
               </span>
@@ -353,7 +352,7 @@ export function UserAvatar({
       <DropdownMenuTrigger asChild>
         <button className="cursor-pointer rounded-full p-0 border-2 border-[#B842F0] hover:border-[#e05cd5] transition-colors outline-none">
           <img
-            src="/bg.jpg"
+            src="/bg.png"
             alt="avatar"
             className="w-9 h-9 rounded-full object-cover"
           />
@@ -408,6 +407,14 @@ function Header() {
   const scrollToGames = () => {
     document.querySelector(".ts-games")?.scrollIntoView({ behavior: "smooth" });
   };
+  const scrollToReviews = () => {
+    document
+      .querySelector(".ts-reviews")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToFAQ = () => {
+    document.querySelector(".ts-faq")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleLogin = async (email: string, password: string) => {
     const result = await dispatch(fetchLogin({ email, password }));
@@ -435,7 +442,7 @@ function Header() {
 
   return (
     <>
-      <div className="bg-white/70 select-none w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-xl to-transparent">
+      <div className="bg-[#080917] select-none w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-xl to-transparent">
         {/* Discount bar */}
         <div className="w-full bg-[#B842F0] py-2 flex justify-center text-center items-center text-white">
           <div>
@@ -451,33 +458,46 @@ function Header() {
             <a href="#" className="flex items-center gap-3 cursor-pointer">
               <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
               <div className="hidden items-center text-xl sm:flex">
-                <span className="font-bold text-black">Rosie</span>
+                <span className="font-bold text-white">Rosie</span>
                 <span className="font-bold text-[#B842F0]">Boost</span>
               </div>
             </a>
 
             {/* Desktop nav */}
-            <div className="text-gray-400 hidden items-center gap-15 md:flex">
+            <div className="text-gray-400 hidden items-center gap-8 md:flex">
               <span
                 onClick={scrollToGames}
-                className="cursor-pointer hover:text-[#C243E1]"
+                className="cursor-pointer font-medium hover:text-[#C243E1]"
               >
                 Order
               </span>
               <NavLink
-                to="service-policy"
-                className="cursor-pointer hover:text-[#C243E1]"
+                to="about-us"
+                className="cursor-pointer font-medium hover:text-[#C243E1]"
               >
-                Policy
+                About Us
               </NavLink>
+              <span
+                onClick={scrollToReviews}
+                className="cursor-pointer font-medium hover:text-[#C243E1]"
+              >
+                Reviews
+              </span>
+              <span
+                onClick={scrollToFAQ}
+                className="cursor-pointer font-medium hover:text-[#C243E1]"
+              >
+                FAQ
+              </span>
               <DropdownMenu>
-                <DropdownMenuTrigger className="group flex items-center gap-1 p-0 bg-transparent hover:bg-transparent hover:text-[#C243E1] transition-all duration-200 cursor-pointer outline-none">
-                  <span>Contact Us</span>
-                  <ChevronUp className="transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                <DropdownMenuTrigger className="group flex items-center gap-1 p-0 bg-transparent hover:bg-transparent hover:text-[#C243E1] transition-all duration-200 cursor-pointer outline-none text-gray-400">
+                  <span className="font-medium">Contact Us</span>
+                  <ChevronUp className="transition-transform duration-300 group-data-[state=open]:rotate-180 w-4 h-4" />
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent
                   align="center"
-                  className="w-50 border border-white/10 bg-white text-black rounded-xl p-2"
+                  className="w-48 border border-white/5 bg-[#0b0c1b] text-white rounded-2xl p-1.5 shadow-2xl backdrop-blur-md"
                 >
                   {[
                     {
@@ -497,13 +517,18 @@ function Header() {
                     <DropdownMenuItem
                       key={item.label}
                       asChild
-                      className="rounded-lg cursor-pointer outline-none transition-colors duration-200 data-highlighted:bg-[#F7EAF9] data-highlighted:text-[#B842F0]"
+                      className="
+          rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none 
+          transition-all duration-150
+          focus:bg-[#1f1635] focus:text-[#c243e1]
+          data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]
+        "
                     >
                       <a
                         href={item.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="w-full"
+                        className="w-full block"
                       >
                         {item.label}
                       </a>
@@ -525,23 +550,80 @@ function Header() {
                     variant="ghost"
                     className="rounded-xl hover:bg-transparent cursor-pointer border border-[#C243E1]"
                   >
-                    <Menu className="text-black" />
+                    <Menu className="text-white" />
                   </Button>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent
-                  onCloseAutoFocus={(e) => e.preventDefault()}
-                  className="bg-white text-black"
+                  align="end"
+                  className="w-56 border border-white/5 bg-[#0b0c1b] text-white rounded-2xl p-2 shadow-2xl backdrop-blur-md"
                 >
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem className="focus:bg-[#F8E9F7] data-highlighted:bg-[#F8E9F7] cursor-pointer focus:text-[#B842F0] data-highlighted:text-[#B842F0]">
-                      <span onClick={scrollToGames} className="cursor-pointer">
-                        Order
-                      </span>
+                  <DropdownMenuItem
+                    onClick={scrollToGames}
+                    className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
+                  >
+                    Order
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    asChild
+                    className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
+                  >
+                    <NavLink to="about-us" className="w-full block">
+                      About Us
+                    </NavLink>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    onClick={scrollToReviews}
+                    className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
+                  >
+                    Reviews
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    onClick={scrollToFAQ}
+                    className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
+                  >
+                    FAQ
+                  </DropdownMenuItem>
+
+                  <div className="my-2 h-px bg-white/5 mx-2" />
+
+                  <div className="px-4 py-1.5 text-[11px] font-bold tracking-wider text-gray-500 uppercase select-none">
+                    Contact Us
+                  </div>
+
+                  {[
+                    {
+                      label: "Discord",
+                      href: "https://discord.com/invite/9rWNTFA9y6",
+                    },
+                    { label: "Telegram", href: "https://t.me/rosieboost" },
+                    {
+                      label: "Facebook",
+                      href: "https://www.facebook.com/rosieboostofficial/",
+                    },
+                    {
+                      label: "Instagram",
+                      href: "https://www.instagram.com/rosieboostservice/",
+                    },
+                  ].map((item) => (
+                    <DropdownMenuItem
+                      key={item.label}
+                      asChild
+                      className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
+                    >
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full block"
+                      >
+                        {item.label}
+                      </a>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="focus:bg-[#F8E9F7] data-highlighted:bg-[#F8E9F7] cursor-pointer focus:text-[#B842F0] data-highlighted:text-[#B842F0]">
-                      <NavLink to="service-policy">Policy</NavLink>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
+                  ))}
                 </DropdownMenuContent>
               </DropdownMenu>
 

@@ -90,7 +90,7 @@ function MainPage() {
   };
 
   return (
-    <main className="bg-linear-to-b from-[#F2E5F7] to-[#FAF5FC] relative font-medium! overflow-hidden">
+    <main className="bg-[#0D0F21] relative font-medium! overflow-hidden">
       <HeroSection />
       <StartSection />
       <GameCarousel />

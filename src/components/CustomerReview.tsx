@@ -78,15 +78,15 @@ function CustomerReview() {
   ];
 
   return (
-    <div className="w-full items-center flex flex-col gap-8 pb-25 reveal">
+    <div className="ts-reviews w-full items-center flex flex-col gap-8 pb-25 reveal">
       <span className="flex flex-col items-center text-center">
-        <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-black">
+        <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-white">
           CUSTOMER{" "}
           <span className="text-[#B642F0] text-shadow-[0_0_40px_rgba(182,66,240,0.8)]">
             REVIEWS
           </span>
         </h2>
-        <span className="text-[16px] text-black/50 select-none">
+        <span className="text-[16px] text-white/50 select-none">
           See what our clients say about their experience
         </span>
       </span>
@@ -94,7 +94,7 @@ function CustomerReview() {
         {customerReview.map((item, index) => (
           <div
             key={index}
-            className="h-50 hover:scale-105 border border-white bg-white hover:border-[#B642F0] transform duration-300 cursor-pointer w-full p-7 gap-3 rounded-xl flex flex-col justify-between"
+            className="h-50 hover:scale-105 border bg-[#0F0E20] hover:border-[#B642F0] transform duration-300 cursor-pointer w-full p-7 gap-3 rounded-xl flex flex-col justify-between"
           >
             <div className="flex flex-col justify-start gap-3">
               <div className="flex gap-1">
@@ -105,7 +105,9 @@ function CustomerReview() {
                   />
                 ))}
               </div>
-              <span className="text-black text-[15px]">"{item.content}"</span>
+              <span className="text-white/50 text-[15px]">
+                "{item.content}"
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <div
@@ -114,7 +116,7 @@ function CustomerReview() {
               >
                 <item.icon className="text-white" width={10} height={10} />
               </div>
-              <span className="text-black font-bold">{item.name}</span>
+              <span className="text-white font-bold">{item.name}</span>
             </div>
           </div>
         ))}

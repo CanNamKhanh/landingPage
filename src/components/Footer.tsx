@@ -2,23 +2,23 @@ import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
-    <div className="w-full bg-[#FAF5FC] select-none text-black font-medium">
-      <div className="ts-1st-line grid py-10 grid-cols-4 gap-5 border-y border-[#f4d7ff] px-20">
+    <div className="w-full bg-[#090B1A] select-none text-white font-medium">
+      <div className="ts-1st-line grid py-10 grid-cols-4 gap-5 border-y border-[#222434] px-20">
         <div className="flex flex-col items-start gap-5">
           <a href="#" className="flex items-center gap-3 cursor-pointer">
             <img src="/favicon.png" alt="" className="w-10 rounded-xl" />
             <div className="hidden items-center text-xl sm:flex">
-              <span className="font-bold text-black">Rosie</span>
+              <span className="font-bold text-white">Rosie</span>
               <span className="font-bold text-[#B842F0]">Boost</span>
             </div>
           </a>
-          <div className="text-black/60 md:block hidden text-sm">
+          <div className="text-white/60 md:block hidden text-sm">
             Your trusted partner in game boosting. Fast, safe, and reliable
             service.
           </div>
         </div>
-        <div className="flex flex-col items-start text-sm gap-5 text-black/60">
-          <h2 className="font-bold text-black">COMPANY</h2>
+        <div className="flex flex-col items-start text-sm gap-5 text-white/60">
+          <h2 className="font-bold text-white">COMPANY</h2>
           <div className="flex flex-col items-start gap-3">
             <a href="#about" className="cursor-pointer hover:text-[#B842F0]">
               About RosieBoost
@@ -31,8 +31,8 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col items-start text-sm gap-5 text-black/60">
-          <h2 className="font-bold text-black">LEGAL</h2>
+        <div className="flex flex-col items-start text-sm gap-5 text-white/60">
+          <h2 className="font-bold text-white">LEGAL</h2>
           <div className="flex flex-col items-start gap-3">
             <NavLink
               to={"/privacy-policy"}
@@ -54,8 +54,8 @@ function Footer() {
             </NavLink>
           </div>
         </div>
-        <div className="flex flex-col items-start text-sm gap-5 text-black/60">
-          <h2 className="text-black font-bold">COMMUNITY</h2>
+        <div className="flex flex-col items-start text-sm gap-5 text-white/60">
+          <h2 className="text-white font-bold">COMMUNITY</h2>
           <div className="flex flex-col items-start gap-3">
             <NavLink
               className={"cursor-pointer hover:text-[#B842F0]"}
@@ -91,7 +91,7 @@ function Footer() {
         </div>
       </div>
       {/* End 1St Line */}
-      <div className="ts-2nd-line text-sm text-black/60 text-center flex items-center justify-center h-20">
+      <div className="ts-2nd-line text-sm text-white/60 text-center flex items-center justify-center h-20">
         © 2026 RosieBoost. All rights reserved.
       </div>
       {/* End 2Nd Line */}

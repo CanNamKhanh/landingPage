@@ -46,41 +46,33 @@ export function HeroSection() {
     <section
       className="relative w-full overflow-visible pb-20 pt-60 sm:pt-55 md:pt-44 lg:pt-40"
       style={{
+        // Giữ tone nền tối nhưng mịn màng hơn
         background:
-          "linear-gradient(135deg, #f9eefb 0%, #f4e8f9 30%, #eedff6 60%, #f5ecfa 100%)",
+          "linear-gradient(135deg, #0c081d 0%, #160e29 50%, #100920 100%)",
       }}
     >
-      {/* bg.jpg - dùng cover để không bị méo/lặp ở mọi tỉ lệ màn hình */}
+      {/* bg.jpg - Đã đẩy vị trí ảnh lên trên một chút bằng thuộc tính bg-position-[center_top_-40px] */}
       <div
         className="
-    absolute inset-0 pointer-events-none
-    bg-no-repeat
-    bg-size-cover
-    bg-position-[center_top] sm:bg-position-[center_top]
-    md:bg-position-center lg:bg-position-center
-  "
+          absolute inset-0 pointer-events-none
+          bg-no-repeat
+          bg-size-cover
+          bg-position-[center_top_-20px] sm:bg-position-[center_top_-40px]
+          md:bg-position-[center_top_-60px] lg:bg-position-[center_top_-80px]
+        "
         style={{
-          backgroundImage: "url('/bg.jpg')",
+          backgroundImage: "url('/bg.png')",
         }}
       />
 
-      {/* Overlay làm mờ 2 góc dưới, blend ảnh vào nền section */}
+      {/* Lớp phủ Overlay - Đã hạ thấp độ mờ (giảm alpha từ 0.85 xuống 0.55) giúp ảnh nền sáng rõ hơn rất nhiều */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-      radial-gradient(circle at 0% 100%, rgba(245,236,250,0.9) 0%, rgba(245,236,250,0.45) 22%, transparent 48%),
-      radial-gradient(circle at 100% 100%, rgba(245,236,250,0.9) 0%, rgba(245,236,250,0.45) 22%, transparent 48%)
-    `,
-        }}
-      />
-
-      {/* Fade overlay ngang (giữ nguyên) */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to right, #f4e8f9 28%, rgba(244,232,249,0.6) 50%, transparent 70%)",
+            linear-gradient(to bottom, rgba(12, 8, 29, 0.1) 0%, rgba(16, 14, 35, 0.55) 100%),
+            linear-gradient(to right, rgba(12, 8, 29, 0.75) 20%, rgba(12, 8, 29, 0.3) 60%, transparent 100%)
+          `,
         }}
       />
 
@@ -88,7 +80,7 @@ export function HeroSection() {
         <div className="w-full max-w-160">
           {/* Headline */}
           <h1 className="leading-[1.05] tracking-tight mb-5 select-none -mt-10 font-extrabold text-[50px]">
-            <span className="block text-[#12082a]">ESCAPE STUCK.</span>
+            <span className="block text-white">ESCAPE STUCK.</span>
             <span
               className="block bg-clip-text text-transparent"
               style={{
@@ -100,21 +92,21 @@ export function HeroSection() {
             </span>
           </h1>
 
-          {/* Description */}
-          <p className="mb-10 mt-8 leading-relaxed text-[0.95rem] text-[#5a4a6a] max-w-140">
+          {/* Description - Tăng độ sáng chữ lên một tông để dễ đọc hơn */}
+          <p className="mb-10 mt-8 leading-relaxed text-[0.95rem] text-[#d1c5e3] max-w-140">
             RosieBoost — the most trusted, safe and effective game boosting
             service. We carry your account so you can enjoy the rank you
-            deserve.
+            deserved.
           </p>
 
           {/* Feature cards — 3 in ONE row */}
           <div className="flex gap-3 mb-10 flex-wrap max-w-200">
+            {/* Các thẻ card được tinh chỉnh dùng bg trắng mờ (rgba 255,255,255, 0.06) + backdrop-blur, nhìn sang trọng và sáng sủa hơn */}
             {/* Total Privacy */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0 border border-white/10 backdrop-blur-md shadow-lg"
               style={{
-                background: "rgba(255,255,255,0.88)",
-                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+                background: "rgba(255, 255, 255, 0.06)",
               }}
             >
               <span
@@ -138,10 +130,10 @@ export function HeroSection() {
                 </svg>
               </span>
               <div className="min-w-0">
-                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                <div className="font-bold leading-tight text-[11.5px] text-white">
                   TOTAL PRIVACY
                 </div>
-                <div className="text-[11px] text-[#8a7a9a]">
+                <div className="text-[11px] text-[#cbbbd9]">
                   Your info stays safe
                 </div>
               </div>
@@ -149,10 +141,9 @@ export function HeroSection() {
 
             {/* Trusted Boosters */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0 border border-white/10 backdrop-blur-md shadow-lg"
               style={{
-                background: "rgba(255,255,255,0.88)",
-                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+                background: "rgba(255, 255, 255, 0.06)",
               }}
             >
               <span
@@ -179,10 +170,10 @@ export function HeroSection() {
                 </svg>
               </span>
               <div className="min-w-0">
-                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                <div className="font-bold leading-tight text-[11.5px] text-white">
                   TRUSTED BOOSTERS
                 </div>
-                <div className="text-[11px] text-[#8a7a9a]">
+                <div className="text-[11px] text-[#cbbbd9]">
                   1000+ happy clients
                 </div>
               </div>
@@ -190,10 +181,9 @@ export function HeroSection() {
 
             {/* Fast Delivery */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0 border border-white/10 backdrop-blur-md shadow-lg"
               style={{
-                background: "rgba(255,255,255,0.88)",
-                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+                background: "rgba(255, 255, 255, 0.06)",
               }}
             >
               <span
@@ -218,10 +208,10 @@ export function HeroSection() {
                 </svg>
               </span>
               <div className="min-w-0">
-                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                <div className="font-bold leading-tight text-[11.5px] text-white">
                   FAST DELIVERY
                 </div>
-                <div className="text-[11px] text-[#8a7a9a]">
+                <div className="text-[11px] text-[#cbbbd9]">
                   Right rank, guaranteed
                 </div>
               </div>
@@ -229,10 +219,9 @@ export function HeroSection() {
 
             {/* Vpn Protection */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0 border border-white/10 backdrop-blur-md shadow-lg"
               style={{
-                background: "rgba(255,255,255,0.88)",
-                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+                background: "rgba(255, 255, 255, 0.06)",
               }}
             >
               <span
@@ -257,10 +246,10 @@ export function HeroSection() {
                 </svg>
               </span>
               <div className="min-w-0">
-                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                <div className="font-bold leading-tight text-[11.5px] text-white">
                   VPN Protection
                 </div>
-                <div className="text-[11px] text-[#8a7a9a]">
+                <div className="text-[11px] text-[#cbbbd9]">
                   Available upon request
                 </div>
               </div>
@@ -268,10 +257,9 @@ export function HeroSection() {
 
             {/* 1000+ Order */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0 border border-white/10 backdrop-blur-md shadow-lg"
               style={{
-                background: "rgba(255,255,255,0.88)",
-                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+                background: "rgba(255, 255, 255, 0.06)",
               }}
             >
               <span
@@ -299,10 +287,10 @@ export function HeroSection() {
                 </svg>
               </span>
               <div className="min-w-0">
-                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                <div className="font-bold leading-tight text-[11.5px] text-white">
                   1000+ ORDERS
                 </div>
-                <div className="text-[11px] text-[#8a7a9a]">
+                <div className="text-[11px] text-[#cbbbd9]">
                   Completed worldwide
                 </div>
               </div>
@@ -310,10 +298,9 @@ export function HeroSection() {
 
             {/* 24/7 Discord */}
             <div
-              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0"
+              className="flex items-center gap-2.5 rounded-2xl px-3.5 py-3 w-50 min-w-0 border border-white/10 backdrop-blur-md shadow-lg"
               style={{
-                background: "rgba(255,255,255,0.88)",
-                boxShadow: "0 2px 10px rgba(180,80,180,0.08)",
+                background: "rgba(255, 255, 255, 0.06)",
               }}
             >
               <span
@@ -339,10 +326,10 @@ export function HeroSection() {
                 </svg>
               </span>
               <div className="min-w-0">
-                <div className="font-bold leading-tight text-[11.5px] text-[#12082a]">
+                <div className="font-bold leading-tight text-[11.5px] text-white">
                   24/7 DISCORD
                 </div>
-                <div className="text-[11px] text-[#8a7a9a]">
+                <div className="text-[11px] text-[#cbbbd9]">
                   Always here to help
                 </div>
               </div>
@@ -379,19 +366,23 @@ export function HeroSection() {
             >
               VIEW SERVICES &nbsp;→
             </button>
+
+            {/* Ô tìm kiếm Search Box sử dụng background trắng siêu mờ giúp sáng và đồng bộ với card */}
             <div className="relative" ref={commandRef}>
-              <Command className="rounded-full bg-white border-gray-400 border w-85 text-black hover:border-[#B642F0]">
+              <Command className="rounded-full bg-white/10 backdrop-blur-md border border-white/20 w-85 text-white hover:border-[#B642F0] shadow-md">
                 <CommandInput
                   onFocus={() => {
                     setOpenSearch(true);
                   }}
                   placeholder="Search a game..."
-                  className="outline-red-500"
+                  className="outline-none text-white placeholder:text-gray-300"
                 />
 
                 {openSearch && (
-                  <CommandList className="absolute border border-gray-400 w-full translate-y-15 rounded-2xl! bg-white text-black p-3 flex flex-col">
-                    <CommandEmpty>No game found.</CommandEmpty>
+                  <CommandList className="absolute border border-white/10 w-full translate-y-15 rounded-2xl! bg-[#140e26] text-white p-3 flex flex-col z-50 shadow-2xl">
+                    <CommandEmpty className="text-gray-400 text-sm p-2">
+                      No game found.
+                    </CommandEmpty>
 
                     {games.map((game) => (
                       <CommandItem
@@ -400,14 +391,14 @@ export function HeroSection() {
                           setOpenSearch(false);
                         }}
                         key={game.id}
-                        className="cursor-pointer hover:text-[#FF1493]! data-[selected=true]:text-[#FF1493] data-[selected=true]:bg-[#F2E5F7] hover:bg-[#F2E5F7]!"
+                        className="cursor-pointer text-gray-200 hover:text-[#FF1493]! data-[selected=true]:text-[#FF1493] data-[selected=true]:bg-[#281a45] hover:bg-[#281a45]! rounded-xl p-2 transition-colors duration-150"
                       >
                         <img
                           src={game.imgSrc}
                           alt="img"
-                          className="w-10 h-10 rounded-md"
+                          className="w-10 h-10 rounded-md object-cover"
                         />
-                        <span>{game.name}</span>
+                        <span className="ml-2 font-medium">{game.name}</span>
                       </CommandItem>
                     ))}
                   </CommandList>
@@ -418,10 +409,10 @@ export function HeroSection() {
 
           {/* Promo badge */}
           <div
-            className="inline-flex bg-[#FAE0F1] items-center gap-2 select-none rounded-full px-4.5 py-2 text-[13px] text-[#6a5a7a]"
+            className="inline-flex items-center gap-2 select-none rounded-full px-4.5 py-2 text-[13px] text-[#ded6e9]"
             style={{
-              background: "rgba(255,255,255,0.72)",
-              border: "1.5px solid rgba(212,45,130,0.2)",
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1.5px solid rgba(212,45,130,0.35)",
             }}
           >
             <span>🔥</span>
@@ -438,6 +429,12 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-10"
+        style={{
+          background: "linear-gradient(to bottom, transparent, #0D0F21)",
+        }}
+      />
     </section>
   );
 }

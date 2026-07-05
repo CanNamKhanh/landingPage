@@ -74,29 +74,29 @@ function WhyChoose() {
       id="about"
     >
       <span className="flex flex-col items-center text-center">
-        <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-black">
+        <h2 className="text-5xl md:text-4xl font-bold mb-4 select-none text-white">
           WHY CHOOSE{" "}
           <span className="text-[#B642F0] text-shadow-[0_0_40px_rgba(182,66,240,0.8)]">
             ROSIEBOOST?
           </span>
         </h2>
-        <span className="text-[16px] text-black/50 select-none">
+        <span className="text-[16px] text-white/50 select-none">
           What makes us the trusted choice for thousands of gamers worldwide
         </span>
       </span>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-5 w-[80%] bg-white p-10 rounded-xl">
+      <div className="grid grid-cols-1 border sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-5 w-[80%] bg-[#151728] p-10 rounded-xl">
         {chooseReason.map((item) => {
           const Icon = item.icon;
 
           return (
             <div
               key={item.id}
-              className="text-black w-full min-w-0 h-40 flex flex-col items-start gap-3"
+              className="text-white w-full min-w-0 h-40 flex flex-col items-start gap-3"
             >
               <Icon className="w-7 h-7 shrink-0" />
               <h2 className="font-bold text-base">{item.title}</h2>
-              <span className="text-black/50 text-sm wrap-break-word">
+              <span className="text-white/50 text-sm wrap-break-word">
                 {item.content}
               </span>
             </div>

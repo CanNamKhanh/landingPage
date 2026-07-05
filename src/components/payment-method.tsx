@@ -51,8 +51,8 @@ function AcceptPaymentMethods() {
   ];
 
   return (
-    <div className="mx-auto w-full select-none py-12 flex reveal flex-col items-center border-t border-[#f4d7ff] gap-10">
-      <h2 className="text-black/50 text-[14px]">ACCEPTED PAYMENT METHODS</h2>
+    <div className="mx-auto w-full select-none py-12 flex reveal flex-col items-center border-t gap-10">
+      <h2 className="text-white/50 text-[14px]">ACCEPTED PAYMENT METHODS</h2>
       <div className="flex items-center mx-auto gap-5 flex-wrap justify-center">
         {paymentMethods.map((item, index) => (
           <div
@@ -66,7 +66,7 @@ function AcceptPaymentMethods() {
                 className="h-12 rounded-xl"
               />
             </div>
-            <span className="text-black/50 max-w-full truncate text-[12px]">
+            <span className="text-white/50 max-w-full truncate text-[12px]">
               {item.title}
             </span>
           </div>
