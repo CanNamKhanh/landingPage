@@ -18,6 +18,7 @@ import { useAppDispatch, type RootState } from "./stores/store";
 import { useEffect } from "react";
 import { fetchMe } from "./middlewares/authMiddleware";
 import { useConversationSocket } from "./hooks/useConversationSocket";
+import AboutUsPage from "./pages/AboutUsPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -65,6 +66,7 @@ function App() {
         <Route path={"/service-policy"} element={<ServicePolicyPage />} />
         <Route path={"/privacy-policy"} element={<PrivacyPolicyPage />} />
         <Route path={"/refund-policy"} element={<RefundPolicyPage />} />
+        <Route path={"/about-us"} element={<AboutUsPage />} />
         <Route path={"/valorant"} element={<ValorantBookingPage />} />
         <Route path={"/lol"} element={<LOLBookingPage />} />
         <Route path={"/tft"} element={<TftBookingPage />} />

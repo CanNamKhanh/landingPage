@@ -1,8 +1,8 @@
-import { Headphones, Lock, Star, Trophy } from "lucide-react";
+import { Headphones, Lock, Star, UserCheck } from "lucide-react";
 
 const stats = [
-  { id: 1, icon: Trophy, stat: "1000+", title: "Completed Orders" },
-  { id: 2, icon: Star, stat: "Express", title: "Customer Rating" },
+  { id: 1, icon: UserCheck, stat: "100%", title: "Manual Boosting" },
+  { id: 2, icon: Star, stat: "Express", title: "Fast Delivery" },
   { id: 3, icon: Headphones, stat: "24/7", title: "Support" },
   { id: 4, icon: Lock, stat: "VPN", title: "Protection Available" },
 ];

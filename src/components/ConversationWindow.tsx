@@ -112,7 +112,10 @@ export default function ConversationWindow({
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="w-full h-130 rounded-2xl overflow-hidden bg-white shadow-2xl flex flex-col font-sans text-black border border-gray-100">
+    <div
+      style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+      className="w-full h-130 rounded-2xl overflow-hidden bg-white shadow-2xl flex flex-col font-sans text-black border border-gray-100"
+    >
       {user ? (
         <>
           {/* Header */}
@@ -253,7 +256,7 @@ export default function ConversationWindow({
           <div className="w-16 h-16 rounded-full bg-[#F7EAF9] flex items-center justify-center text-[#B842F0] mb-4">
             <Lock size={28} />
           </div>
-          <h3 className="text-2xl font-extrabold tracking-tight text-black mb-2">
+          <h3 className="text-2xl font-bold tracking-tight text-black mb-2">
             Join the conversation
           </h3>
           <p className="text-xs text-black/50 max-w-60 mb-6 leading-relaxed">

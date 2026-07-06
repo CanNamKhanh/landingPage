@@ -3,47 +3,7 @@ import { ArrowLeft, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-function RefundPolicyPage() {
-  const terms = [
-    {
-      id: 1,
-      title: "Eligible Refund Cases",
-      content: [
-        "Order not started for a long time",
-        "Duplicate payment",
-        "Technical issue preventing delivery",
-      ],
-    },
-    {
-      id: 2,
-      title: "Partial Refund Cases",
-      content: [
-        "Customer requests cancellation after work has begun",
-        "Partial completion of order",
-      ],
-    },
-    {
-      id: 3,
-      title: "Non-Refundable Cases",
-      content: [
-        "Completed orders",
-        "Customer changes mind after completion",
-        "Account restrictions caused by customer actions",
-      ],
-    },
-
-    {
-      id: 4,
-      title: "Contact For Refund Requests",
-      content: [
-        "Discord: https://discord.gg/9rWNTFA9y6",
-        "Telegram: https://t.me/rosieboost",
-        "Facebook: https://www.facebook.com/rosieboostofficial/",
-        "Instagram: https://www.instagram.com/rosieboostservice/",
-      ],
-    },
-  ];
-
+function AboutUsPage() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -63,7 +23,7 @@ function RefundPolicyPage() {
   };
 
   return (
-    <>
+    <div className="h-screen">
       <div className="bg-[#0F0F17]/80 w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md to-transparent via-[#0b0614]/80 from-[#0b0614]">
         <div className="ts-1st-line flex items-center justify-between h-21 border-y border-white/10 px-20">
           <NavLink to={"/"} className="flex items-center gap-3 cursor-pointer">
@@ -86,34 +46,32 @@ function RefundPolicyPage() {
       <main className="px-90 mx-auto flex flex-col gap-10 py-30 bg-[#0F0F17]">
         <header className="flex flex-col gap-5">
           <h1 className="font-bold text-5xl text-white">
-            Refund <span className="text-[#B842F0]">Policy</span>
+            About <span className="text-[#B842F0]">RosieBoost</span>
           </h1>
-          <p className="font-medium text-white/50">
-            Fair, transparent and case-by-case.
-          </p>
         </header>
         <div className="ts-terms flex flex-col gap-10">
-          {terms.map((item) => (
-            <div
-              key={item.id}
-              className="flex flex-col gap-7 border border-white/10 rounded-xl p-8 bg-[#17171F]"
-            >
-              <div className="ts-term-title flex items-center gap-3">
-                <div className="id-wrapper w-8 h-8 rounded-full flex justify-center items-center bg-[#B842F0]/15">
-                  <span className="text-[#B842F0] font-bold">{item.id}</span>
-                </div>
-                <h2 className="text-xl text-white font-bold">{item.title}</h2>
-              </div>
-              <div className="ts-term-content flex flex-col gap-3 font-medium">
-                {item.content.map((item, index) => (
-                  <span key={index} className="flex gap-3">
-                    <span className="text-[#B842F0]">●</span>
-                    <span className="text-white/80">{item}</span>
-                  </span>
-                ))}
-              </div>
+          <div className="flex flex-col gap-7 border rounded-xl p-8 border-white/10 bg-[#17171F]">
+            <div className="ts-term-content text-[#989CB3] text-lg flex flex-col gap-3 font-medium">
+              RosieBoost is a professional gaming services platform dedicated to
+              helping players achieve their competitive goals through reliable,
+              secure, and customer-focused support.
             </div>
-          ))}
+            <div className="ts-term-content text-[#989CB3] text-lg flex flex-col gap-3 font-medium">
+              We provide progression assistance, gaming support services,
+              performance improvement solutions, and personalized guidance
+              across multiple competitive titles.
+            </div>
+            <div className="ts-term-content text-[#989CB3] text-lg flex flex-col gap-3 font-medium">
+              Our platform emphasizes transparency, privacy protection,
+              responsive customer support, and a seamless customer experience
+              from order placement to completion.
+            </div>
+            <div className="ts-term-content text-[#989CB3] text-lg flex flex-col gap-3 font-medium">
+              Whether players are looking to save time, improve performance, or
+              reach specific in-game milestones, RosieBoost aims to deliver
+              high-quality service through a trusted and structured process.
+            </div>
+          </div>
         </div>
         <NavLink
           to={"/"}
@@ -147,7 +105,7 @@ function RefundPolicyPage() {
         <Button
           onClick={scrollToTop}
           className={`
-          bg-[#B842F0] hover:bg-[#B842F0]
+          bg-[#B842F0] hover:bg-[#1c1a1d]
         fixed right-8 bottom-8 z-50 rounded-full w-12 h-12
         transition-all duration-300 text-white cursor-pointer hover:scale-110
         ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
@@ -156,8 +114,8 @@ function RefundPolicyPage() {
           <ArrowUp />
         </Button>
       </main>
-    </>
+    </div>
   );
 }
 
-export default RefundPolicyPage;
+export default AboutUsPage;
