@@ -85,7 +85,7 @@ function WhyChoose() {
         </span>
       </span>
 
-      <div className="grid grid-cols-1 border sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-5 w-[80%] bg-[#151728] p-10 rounded-xl">
+      <div className="grid shadow-[0_4px_20px_rgba(184,66,240,0.15)] grid-cols-1 border sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-5 w-[80%] bg-[#151728] p-10 rounded-xl">
         {chooseReason.map((item) => {
           const Icon = item.icon;
 

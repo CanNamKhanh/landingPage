@@ -77,7 +77,7 @@ function FAQ() {
         type="single"
         collapsible
         defaultValue="Is boosting safe?"
-        className="max-w-3xl w-[80%] bg-[#151728] border text-white rounded-xl p-5"
+        className="max-w-3xl w-[80%] shadow-[0_4px_20px_rgba(184,66,240,0.15)] bg-[#151728] border text-white rounded-xl p-5"
       >
         {AccordionArr.map((item) => (
           <AccordionItem

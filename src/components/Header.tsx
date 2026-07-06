@@ -27,6 +27,7 @@ import {
 } from "@/middlewares/authMiddleware";
 import { useEffect } from "react";
 import { useAppDispatch, type RootState } from "@/stores/store";
+import { jwtDecode } from "jwt-decode";
 
 // ─── Gradient button style (reuse từ GET STARTED) ────────────────────────────
 const gradientStyle = {
@@ -399,7 +400,25 @@ function Header() {
   // Khôi phục session khi reload trang
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    if (token && !user) {
+
+    if (!token) return;
+
+    // Kiểm tra token còn hạn hay không trước khi gọi /auth/me
+    let tokenValid = false;
+    try {
+      const decoded = jwtDecode<{ exp: number }>(token);
+      tokenValid = decoded.exp * 1000 > Date.now();
+    } catch {
+      tokenValid = false;
+    }
+
+    if (!tokenValid) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      return;
+    }
+
+    if (!user) {
       dispatch(fetchMe());
     }
   }, []);
@@ -578,13 +597,6 @@ function Header() {
                     onClick={scrollToReviews}
                     className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
                   >
-                    Reviews
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem
-                    onClick={scrollToFAQ}
-                    className="rounded-xl px-4 py-2.5 text-[14px] font-medium text-[#949ba8] cursor-pointer outline-none transition-all duration-150 focus:bg-[#1f1635] focus:text-[#c243e1] data-highlighted:bg-[#1f1635] data-highlighted:text-[#c243e1]"
-                  >
                     FAQ
                   </DropdownMenuItem>
 
@@ -645,7 +657,7 @@ function Header() {
                   </GradientButton>
                   <button
                     onClick={() => setDialogOpen(true)}
-                    className="cursor-pointer font-semibold px-5 py-2.5 rounded-3xl border-2 border-[#B842F0] text-[#B842F0] bg-transparent hover:bg-[#F7EAF9] transition-all duration-200 text-sm"
+                    className="cursor-pointer font-semibold px-5 py-2.5  hover:bg-[#B842F0] hover:text-white rounded-3xl border-2 border-[#B842F0] text-[#B842F0] bg-transparent transition-all duration-300 text-sm"
                   >
                     Sign In
                   </button>

@@ -25,6 +25,7 @@ import {
   fetchRegister,
   fetchMe,
 } from "@/middlewares/authMiddleware";
+import { BookingForm } from "@/components/booking-form";
 
 function MainPage() {
   const dispatch = useAppDispatch();
@@ -98,6 +99,7 @@ function MainPage() {
       <CustomerReview />
       <AcceptPaymentMethods />
       <FAQ />
+      <BookingForm />
 
       <Popover open={isChatOpen} onOpenChange={setIsChatOpen}>
         <PopoverTrigger asChild>

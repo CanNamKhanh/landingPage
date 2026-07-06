@@ -2,7 +2,6 @@ import { Toaster } from "sonner";
 import MainLayout from "./layouts/MainLayout";
 import MainPage from "./pages/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import ServicePolicyPage from "./pages/ServicePolicyPage";
 import ValorantBookingPage from "./pages/ValorantBookingPage";
 import LOLBookingPage from "./pages/LOLBookingPage";
 import TftBookingPage from "./pages/TftBookingPage";
@@ -19,6 +18,8 @@ import { useEffect } from "react";
 import { fetchMe } from "./middlewares/authMiddleware";
 import { useConversationSocket } from "./hooks/useConversationSocket";
 import AboutUsPage from "./pages/AboutUsPage";
+import ServicePolicyPage from "./pages/ServicePolicyPage";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -29,8 +30,29 @@ function App() {
   useConversationSocket();
 
   useEffect(() => {
-    dispatch(fetchMe());
-  }, [dispatch]);
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) return;
+
+    // Kiểm tra token còn hạn hay không trước khi gọi /auth/me
+    let tokenValid = false;
+    try {
+      const decoded = jwtDecode<{ exp: number }>(token);
+      tokenValid = decoded.exp * 1000 > Date.now();
+    } catch {
+      tokenValid = false;
+    }
+
+    if (!tokenValid) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      return;
+    }
+
+    if (!user) {
+      dispatch(fetchMe());
+    }
+  }, []);
 
   useEffect(() => {
     if (location.pathname === "/") {
