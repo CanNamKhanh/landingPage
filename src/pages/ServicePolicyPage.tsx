@@ -83,9 +83,13 @@ function ServicePolicyPage() {
   return (
     <>
       <div className="bg-[#0F0F17]/80 w-full fixed top-0 left-0 right-0 z-99999 backdrop-blur-md to-transparent via-[#0b0614]/80 from-[#0b0614]">
-        <div className="ts-1st-line flex items-center justify-between h-21 border-y border-white/10 px-20">
+        <div className="ts-1st-line flex items-center justify-between h-16 sm:h-18 md:h-21 border-y border-white/10 px-4 sm:px-8 md:px-20">
           <NavLink to={"/"} className="flex items-center gap-3 cursor-pointer">
-            <img src="/favicon.png" alt="" className="w-13 rounded-xl" />
+            <img
+              src="/favicon.png"
+              alt=""
+              className="w-10 sm:w-13 rounded-xl"
+            />
             <div className="hidden items-center text-xl sm:flex">
               <span className="font-bold text-white">Rosie</span>
               <span className="font-bold text-[#B842F0]">Boost</span>
@@ -93,41 +97,47 @@ function ServicePolicyPage() {
           </NavLink>
           <NavLink
             to={"/"}
-            className="flex gap-2 font-medium text-white/50 hover:text-[#B842F0] cursor-pointer"
+            className="flex gap-2 font-medium text-sm sm:text-base text-white/50 hover:text-[#B842F0] cursor-pointer"
           >
-            <ArrowLeft />
-            <span>Back To Home</span>
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden xs:inline">Back To Home</span>
           </NavLink>
         </div>
       </div>
 
-      <main className="px-90 mx-auto flex flex-col gap-10 py-30 bg-[#0F0F17]">
-        <header className="flex flex-col gap-5">
-          <h1 className="font-bold text-5xl text-white">
+      <main className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-90 mx-auto flex flex-col gap-6 sm:gap-8 md:gap-10 py-20 sm:py-24 md:py-30 bg-[#0F0F17] max-w-[1600px]">
+        <header className="flex flex-col gap-3 sm:gap-5">
+          <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl text-white">
             Terms of <span className="text-[#B842F0]">Service</span>
           </h1>
-          <p className="font-medium text-white/50">
+          <p className="font-medium text-sm sm:text-base text-white/50">
             *Please read carefully before ordering. We are not responsible for
             any problems caused by not following these policies
           </p>
         </header>
-        <div className="ts-terms flex flex-col gap-10">
+        <div className="ts-terms flex flex-col gap-6 sm:gap-8 md:gap-10">
           {terms.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col gap-7 border rounded-xl p-8 border-white/10 bg-[#17171F]"
+              className="flex flex-col gap-4 sm:gap-5 md:gap-7 border rounded-xl p-5 sm:p-6 md:p-8 border-white/10 bg-[#17171F]"
             >
               <div className="ts-term-title flex items-center gap-3">
-                <div className="id-wrapper w-8 h-8 rounded-full flex justify-center items-center bg-[#B842F0]/15">
-                  <span className="text-[#B842F0] font-bold">{item.id}</span>
+                <div className="id-wrapper w-7 h-7 sm:w-8 sm:h-8 shrink-0 rounded-full flex justify-center items-center bg-[#B842F0]/15">
+                  <span className="text-[#B842F0] font-bold text-sm sm:text-base">
+                    {item.id}
+                  </span>
                 </div>
-                <h2 className="text-xl text-white font-bold">{item.title}</h2>
+                <h2 className="text-lg sm:text-xl text-white font-bold">
+                  {item.title}
+                </h2>
               </div>
               <div className="ts-term-content flex flex-col gap-3 font-medium">
                 {item.content.map((item, index) => (
                   <span key={index} className="flex gap-3">
-                    <span className="text-[#B842F0]">●</span>
-                    <span className="text-white/80">{item}</span>
+                    <span className="text-[#B842F0] shrink-0">●</span>
+                    <span className="text-white/80 text-sm sm:text-base break-words">
+                      {item}
+                    </span>
                   </span>
                 ))}
               </div>
@@ -136,7 +146,7 @@ function ServicePolicyPage() {
         </div>
         <NavLink
           to={"/"}
-          className="flex gap-2 items-center font-semibold h-12 mx-auto w-45"
+          className="flex gap-2 items-center font-semibold h-12 mx-auto w-full max-w-45"
         >
           <Button
             className="text-white w-full mx-auto font-bold h-full rounded-3xl transition-all duration-300 cursor-pointer border-none"
@@ -167,12 +177,12 @@ function ServicePolicyPage() {
           onClick={scrollToTop}
           className={`
           bg-[#B842F0] hover:bg-[#1c1a1d]
-        fixed right-8 bottom-8 z-50 rounded-full w-12 h-12
+        fixed right-4 sm:right-8 bottom-4 sm:bottom-8 z-50 rounded-full w-10 h-10 sm:w-12 sm:h-12
         transition-all duration-300 text-white cursor-pointer hover:scale-110
         ${visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"}
       `}
         >
-          <ArrowUp />
+          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
         </Button>
       </main>
     </>

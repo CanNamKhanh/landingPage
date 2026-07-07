@@ -483,7 +483,7 @@ function Header() {
             </a>
 
             {/* Desktop nav */}
-            <div className="text-gray-400 hidden items-center gap-8 md:flex">
+            <div className="text-gray-400 hidden items-center gap-8 lg:flex">
               <span
                 onClick={scrollToGames}
                 className="cursor-pointer font-medium hover:text-[#C243E1]"
@@ -563,7 +563,7 @@ function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   asChild
-                  className="block md:hidden shadow-none outline-none"
+                  className="block lg:hidden shadow-none outline-none"
                 >
                   <Button
                     variant="ghost"
